@@ -67,7 +67,8 @@
 
         <input name="nama_ktp" class="w-full p-2 border rounded uppercase" placeholder="Nama Sesuai KTP" required />
         <input name="ismu_sulthon" class="w-full p-2 border rounded uppercase mt-2" placeholder="Ismu Sulthon" required />
-        
+        <input name="no_wa" required class="w-full p-2 border rounded mt-2" placeholder="Nomor Whatsapp (62xxx)" />
+	<p class="text-xs text-gray-500 mt-1">* Gunakan format <strong>62</strong> (bukan 08), contoh: <code>6281234567890</code></p>
         <select name="jenis_kelamin" id="jenis_kelamin" onchange="toggleGender()" required class="w-full p-2 border rounded mt-2">
           <option value="">Jenis Kelamin</option>
           <option>Laki-laki</option>
@@ -91,8 +92,7 @@
           <option>Lainnya</option>
         </select>
 	      
-        <input name="no_wa" required class="w-full p-2 border rounded mt-2" placeholder="Nomor Whatsapp (62xxx)" />
-	<p class="text-xs text-gray-500 mt-1">* Gunakan format <strong>62</strong> (bukan 08), contoh: <code>6281234567890</code></p>
+        
 	      
         <select name="majlis_wilayah" required class="w-full p-2 border rounded mt-2">
           <option value="">Majlis Wilayah / Kabilah</option>
@@ -122,6 +122,7 @@
         <!-- Pasangan & Anak -->
         <div id="pasangan-fields" class="hidden">
           <input name="nama_pasangan" placeholder="Nama Suami/Istri" class="w-full p-2 border rounded mt-2 uppercase" />
+		<p class="text-xs text-gray-500 mt-1 italic">*Tulis nama sulthon jika sudah ada (opsional).</p>
           <input name="jumlah_anak" type="number" placeholder="Jumlah Anak" min="0" class="w-full p-2 border rounded mt-2" />
           <select name="tinggal_dengan_pasangan" class="w-full p-2 border rounded mt-2">
             <option value="">Tinggal dengan Pasangan?</option>
@@ -232,6 +233,7 @@
         <input name="nama_kontak_darurat" class="w-full p-2 border rounded" placeholder="Nama Kontak Darurat" />
         <input name="hubungan_kontak_darurat" class="w-full p-2 border rounded mt-2" placeholder="Hubungan (Ayah/Ibu/Saudara)" />
         <input name="no_kontak_darurat" class="w-full p-2 border rounded mt-2" placeholder="No. HP Kontak Darurat" />
+	<p class="text-xs text-gray-500 mt-1">* Gunakan format <strong>62</strong> (bukan 08), contoh: <code>6281234567890</code></p>
       </div>
 
       <!-- 5. UNGGAH DOKUMEN -->

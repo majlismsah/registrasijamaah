@@ -304,7 +304,7 @@
       const formData = new FormData(form);
       statusText.innerText = "Mengirim data...";
       try {
-        const res = await fetch("YOUR_SCRIPT_URL", {
+        const res = await fetch("https://script.google.com/macros/s/AKfycbxMJLDP8bqk1teTDlhlWl2odJ_l3K4QZFkPzkU4wASvg9qtdHTu7o3XquwsDiclQj71/exec", {
           method: "POST",
           body: formData
         });

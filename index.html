@@ -300,21 +300,28 @@
     const form = document.getElementById('regForm');
     const statusText = document.getElementById('status');
 
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const formData = new FormData(form);
-      statusText.innerText = "Mengirim data...";
-      try {
-        const res = await fetch("https://script.google.com/macros/s/AKfycbxMJLDP8bqk1teTDlhlWl2odJ_l3K4QZFkPzkU4wASvg9qtdHTu7o3XquwsDiclQj71/exec", {
-          method: "POST",
-          body: formData
-        });
-        const result = await res.text();
-        statusText.innerText = "Registrasi berhasil. Terima kasih!";
-        form.reset();
-        window.scrollTo(0, 0);
-      } catch (err) {
-        statusText.innerText = "Gagal mengirim. Silakan coba lagi.";
-      }
+    <script>
+const form = document.getElementById('regForm');
+const statusText = document.getElementById('status');
+
+form.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const formData = new FormData(form);
+
+  statusText.innerText = "Mengirim data...";
+
+  try {
+    const response = await fetch("https://script.google.com/macros/s/AKfycbxMJLDP8bqk1teTDlhlWl2odJ_l3K4QZFkPzkU4wASvg9qtdHTu7o3XquwsDiclQj71/exec", {
+      method: "POST",
+      body: formData, // Kirim sebagai multipart/form-data
     });
-  </script>
+
+    const result = await response.text();
+    statusText.innerText = "Registrasi berhasil. Terima kasih!";
+    form.reset();
+  } catch (error) {
+    statusText.innerText = "Gagal mengirim. Silakan coba lagi.";
+  }
+});
+</script>
+

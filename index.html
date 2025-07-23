@@ -4,52 +4,58 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Form Registrasi Jamaah MSAH 2025</title>
+
+  <!-- Tailwind CSS -->
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+
+  <!-- Script Dinamis: Gender & Nikah -->
   <script>
     function toggleStatusNikah() {
       const status = document.getElementById('status_nikah').value;
       const gender = document.getElementById('jenis_kelamin').value;
+
       document.getElementById('pasangan-fields').classList.toggle('hidden', status !== 'Menikah');
       document.getElementById('izin_suami_field').classList.toggle('hidden', !(gender === 'Perempuan' && status === 'Menikah'));
       document.getElementById('penghasilan_suami_field').classList.toggle('hidden', !(gender === 'Perempuan' && status === 'Menikah'));
     }
+
     function toggleGender() {
-      toggleStatusNikah();
+      toggleStatusNikah(); // gabungkan logika
     }
   </script>
 </head>
 <body class="bg-gray-100 font-sans text-gray-800">
   <div class="max-w-2xl mx-auto p-6 bg-white shadow-xl rounded-3xl mt-6 mb-10">
-    <img src="https://github.com/majlismsah/registrasijamaah/blob/main/logomajlis.png?raw=true" alt="Logo MSAH" class="mx-auto h-20 w-20 rounded-full shadow-lg ring-2 ring-blue-300" />
-    <h1 class="text-2xl font-bold text-center mb-4">Form Registrasi Ulang Jamaah MSAH 2025</h1>
-    <form id="regForm" enctype="multipart/form-data" class="space-y-6">
+    <!-- Logo Tengah + Efek Glow -->
+    <img src="https://github.com/majlismsah/registrasijamaah/blob/main/logomajlis.png?raw=true"
+         alt="Logo MSAH"
+         class="mx-auto h-20 w-20 rounded-full shadow-lg ring-2 ring-blue-300 mb-4" />
 
+    <!-- Judul -->
+    <h1 class="text-2xl font-bold text-center mb-4">
+      Form Registrasi Ulang Jamaah MSAH 2025
+    </h1>
+
+    <!-- Mulai Form -->
+    <form id="regForm" enctype="multipart/form-data" class="space-y-6">
       <!-- 1. IDENTITAS PRIBADI -->
       <div>
         <h2 class="text-lg font-semibold border-b pb-1 mb-3">👤 Identitas Pribadi</h2>
-        <input name="nama_jasad" placeholder="Nama Jasad" required class="w-full p-2 border rounded" />
-        <input name="ismu_sulthon" placeholder="Ismu Sulthon" required class="w-full p-2 border rounded mt-2" />
-        <select name="jenis_kelamin" id="jenis_kelamin" onchange="toggleGender(); toggleStatusNikah();" required class="w-full p-2 border rounded mt-2">
+
+        <input name="nama_ktp" class="w-full p-2 border rounded uppercase" placeholder="Nama Sesuai KTP" required />
+        <input name="ismu_sulthon" class="w-full p-2 border rounded uppercase mt-2" placeholder="Ismu Sulthon (Panggilan Islami)" required />
+        
+        <select name="jenis_kelamin" id="jenis_kelamin" onchange="toggleGender()" required class="w-full p-2 border rounded mt-2">
           <option value="">Jenis Kelamin</option>
           <option>Laki-laki</option>
           <option>Perempuan</option>
         </select>
-        <select name="majlis_wilayah" required class="w-full p-2 border rounded mt-2">
-          <option value="">Pilih Majlis Wilayah/Kabilah</option>
-          <option>Ar-Rahman</option>
-          <option>Ar-Rohim</option>
-          <option>Al-Qudus</option>
-          <option>Al-Malik</option>
-          <option>Nurul Salikin</option>
-          <option>Nurul Kamilah</option>
-          <option>Nurul Hakim</option>
-          <option>Nurul Hikmah</option>
-          <option>Barakotaul Anbiya</option>
-        </select>
-        <input name="no_wa" placeholder="Nomor WhatsApp" required class="w-full p-2 border rounded mt-2" />
-        <input name="tempat_lahir" placeholder="Tempat Lahir" required class="w-full p-2 border rounded mt-2" />
-        <input name="tanggal_lahir" type="date" required class="w-full p-2 border rounded mt-2" />
+
+        <input name="tempat_lahir" class="w-full p-2 border rounded mt-2" placeholder="Tempat Lahir" required />
+        <input name="tanggal_lahir" type="date" class="w-full p-2 border rounded mt-2" required />
+
         <textarea name="alamat" placeholder="Alamat Lengkap" required rows="3" class="w-full p-2 border rounded mt-2"></textarea>
+
         <select name="status_tinggal" required class="w-full p-2 border rounded mt-2">
           <option value="">Status Tinggal</option>
           <option>Tinggal dengan Orang Tua</option>
@@ -60,11 +66,26 @@
           <option>Kos / Indekos</option>
           <option>Lainnya</option>
         </select>
-      </div>
 
+        <input name="no_wa" class="w-full p-2 border rounded mt-2" placeholder="Nomor Whatsapp (08xxx / 62xxx)" required />
+
+        <select name="majlis_wilayah" required class="w-full p-2 border rounded mt-2">
+          <option value="">Majlis Wilayah / Kabilah</option>
+          <option>Ar-Rahman</option>
+          <option>Ar-Rohim</option>
+          <option>Al-Qudus</option>
+          <option>Al-Malik</option>
+          <option>Nurul Salikin</option>
+          <option>Nurul Kamilah</option>
+          <option>Nurul Hakim</option>
+          <option>Nurul Hikmah</option>
+          <option>Barakotaul Anbiya</option>
+        </select>
+      </div>
       <!-- 2. KONDISI KELUARGA & SOSIAL -->
       <div>
         <h2 class="text-lg font-semibold border-b pb-1 mb-3">👪 Kondisi Keluarga & Sosial</h2>
+
         <select name="status_nikah" id="status_nikah" onchange="toggleStatusNikah()" required class="w-full p-2 border rounded">
           <option value="">Status Pernikahan</option>
           <option>Belum Menikah</option>
@@ -72,38 +93,35 @@
           <option>Cerai Hidup</option>
           <option>Cerai Mati</option>
         </select>
+
+        <!-- Pasangan & Anak -->
         <div id="pasangan-fields" class="hidden">
-          <input name="nama_pasangan" placeholder="Nama Suami/Istri" class="w-full p-2 border rounded mt-2" />
-          <input name="jumlah_anak" type="number" placeholder="Jumlah Anak (isi 0 jika belum punya)" min="0" class="w-full p-2 border rounded mt-2" />
+          <input name="nama_pasangan" placeholder="Nama Suami/Istri" class="w-full p-2 border rounded mt-2 uppercase" />
+          <input name="jumlah_anak" type="number" placeholder="Jumlah Anak" min="0" class="w-full p-2 border rounded mt-2" />
           <select name="tinggal_dengan_pasangan" class="w-full p-2 border rounded mt-2">
             <option value="">Tinggal dengan Pasangan?</option>
             <option>Ya</option>
             <option>Tidak</option>
           </select>
         </div>
+
+        <!-- Izin Suami -->
         <div id="izin_suami_field" class="hidden mt-2">
           <label class="block text-sm">
             <input type="checkbox" name="izin_suami" class="mr-2">
             Saya telah mendapatkan persetujuan dari suami untuk mengikuti kegiatan MSAH.
           </label>
         </div>
-        <div id="penghasilan_suami_field" class="hidden mt-2">
-          <label>Penghasilan Suami per Bulan</label>
-          <select name="penghasilan_suami" class="w-full p-2 border rounded">
-            <option value="">Pilih Penghasilan Suami</option>
-            <option>Dibawah Rp3.000.000</option>
-            <option>Rp3.000.000 - Rp5.000.000</option>
-            <option>Rp5.000.000 - Rp10.000.000</option>
-            <option>Di atas Rp10.000.000</option>
-            <option>Tidak Berpenghasilan</option>
-          </select>
-        </div>
-        <select name="pendidikan" required class="w-full p-2 border rounded mt-2">
+
+        <!-- Pendidikan -->
+        <select name="pendidikan" required class="w-full p-2 border rounded mt-4">
           <option value="">Pendidikan Terakhir</option>
           <option>SD</option><option>SMP</option><option>SMA</option>
           <option>D1</option><option>D2</option><option>D3</option>
           <option>S1</option><option>S2</option><option>S3</option>
         </select>
+
+        <!-- Pekerjaan & Penghasilan Pribadi -->
         <input name="pekerjaan" placeholder="Pekerjaan" required class="w-full p-2 border rounded mt-2" />
         <select name="penghasilan" required class="w-full p-2 border rounded mt-2">
           <option value="">Penghasilan per bulan</option>
@@ -113,14 +131,28 @@
           <option>Di atas Rp10.000.000</option>
           <option>Tidak Berpenghasilan</option>
         </select>
-      </div>
 
+        <!-- Penghasilan Suami -->
+        <div id="penghasilan_suami_field" class="hidden mt-2">
+          <label class="block font-medium text-sm">Penghasilan Suami</label>
+          <select name="penghasilan_suami" class="w-full p-2 border rounded mt-1">
+            <option value="">Pilih Penghasilan Suami</option>
+            <option>Dibawah Rp3.000.000</option>
+            <option>Rp3.000.000 - Rp5.000.000</option>
+            <option>Rp5.000.000 - Rp10.000.000</option>
+            <option>Di atas Rp10.000.000</option>
+            <option>Tidak Berpenghasilan</option>
+          </select>
+        </div>
+      </div>
       <!-- 3. KOMITMEN JAMAAH -->
       <div>
         <h2 class="text-lg font-semibold border-b pb-1 mb-3">🤝 Komitmen Jamaah</h2>
-        <input name="tahun_gabung" type="number" min="2000" placeholder="Tahun Bergabung ke MSAH" required class="w-full p-2 border rounded" />
 
-        <label class="block mt-3">Infaq Wajib MSAH (Pusat)</label>
+        <input name="tahun_gabung" type="number" min="2000" placeholder="Tahun Bergabung di MSAH" required class="w-full p-2 border rounded" />
+
+        <!-- Infaq Pusat -->
+        <label class="block mt-3 font-medium">Infaq Wajib MSAH (Pusat)</label>
         <select name="infaq_msah" required class="w-full p-2 border rounded">
           <option value="">Pilih</option>
           <option>Bersedia</option>
@@ -128,24 +160,37 @@
         </select>
         <p class="text-xs text-gray-500 mt-1">* Infaq wajib bulanan sebesar <strong>Rp100.000</strong> sesuai ketentuan Majlis Pusat MSAH.</p>
 
-        <label class="block mt-3">Infaq Wilayah/Kabilah</label>
+        <!-- Infaq Wilayah -->
+        <label class="block mt-3 font-medium">Infaq Wilayah / Kabilah</label>
         <select name="infaq_wilayah" required class="w-full p-2 border rounded">
           <option value="">Pilih</option>
           <option>Bersedia</option>
           <option>Tidak Bersedia</option>
         </select>
-        <p class="text-xs text-gray-500 mt-1">* Besaran infaq wilayah/kabilah disesuaikan keputusan masing-masing majlis wilayah/kabilah.</p>
+        <p class="text-xs text-gray-500 mt-1">* Besaran infaq wilayah mengikuti keputusan Majlis Wilayah / Kabilah masing-masing.</p>
 
+        <!-- Komitmen Sosial -->
         <div class="mt-4">
-          <label class="block font-medium">Komitmen Sosial dan Partisipasi</label>
-          <label class="block text-sm mt-1"><input type="checkbox" name="komitmen_konsumsi" class="mr-2">Bersedia bantu konsumsi kajian</label>
-          <label class="block text-sm"><input type="checkbox" name="komitmen_qurban" class="mr-2">Bersedia ikut program qurban bersama</label>
-          <label class="block text-sm"><input type="checkbox" name="komitmen_infaq_zakat" class="mr-2">Bersedia ikut program sosial seperti infaq, zakat, wakaf, dll</label>
+          <label class="block font-medium">Partisipasi Sosial</label>
+          <label class="block text-sm mt-1">
+            <input type="checkbox" name="komitmen_konsumsi" class="mr-2">Bersedia membantu konsumsi kajian
+          </label>
+          <label class="block text-sm">
+            <input type="checkbox" name="komitmen_qurban" class="mr-2">Bersedia mengikuti program qurban bersama
+          </label>
+          <label class="block text-sm">
+            <input type="checkbox" name="komitmen_infaq_zakat" class="mr-2">Ikut kegiatan sosial seperti infaq, zakat, wakaf, dll
+          </label>
         </div>
 
+        <!-- ZISWNH -->
         <div class="mt-4">
           <p class="text-sm">
             Kesediaan Menunaikan <strong>ZISWNH</strong> (Zakat, Infak, Shodaqoh, Wakaf, Nafaqoh, Hibah/Hadiah)
+            <br>
+            <span class="text-xs text-gray-500">
+              Jumlah nominal sesuai nishab, kemampuan, atau kesepakatan struktural MSAH.
+            </span>
           </p>
           <label class="block text-sm mt-2">
             <input type="checkbox" name="komitmen_ziswnh" required class="mr-2">
@@ -153,20 +198,21 @@
           </label>
         </div>
 
+        <!-- Ikrar -->
         <label class="inline-flex items-start mt-4">
           <input type="checkbox" name="konfirmasi_ikrar" required class="mt-1" />
           <span class="ml-2 text-sm leading-snug">
-            Dengan ini saya menyatakan bersedia menjadi jamaah dan mengikuti Liqo maupun kegiatan lainnya di MSAH baik pusat maupun Wilayah dan Kabilah. Serta bersedia mengikuti aturan dan kewajiban yang berlaku.
+            Dengan ini saya menyatakan bersedia menjadi jamaah dan mengikuti Liqo maupun kegiatan lainnya di MSAH baik pusat maupun Wilayah dan Kabilah, serta mengikuti aturan dan kewajiban yang berlaku.
           </span>
         </label>
       </div>
-
-      <!-- 4. 📚 RIWAYAT KEILMUAN -->
+      <!-- 4. RIWAYAT KEILMUAN -->
       <div>
         <h2 class="text-lg font-semibold border-b pb-1 mb-3">📚 Riwayat Keilmuan</h2>
-        <textarea name="riwayat_kajian" rows="3" class="w-full p-2 border rounded" placeholder="Pernah ikut kajian/pembinaan di mana saja?"></textarea>
+        <textarea name="riwayat_kajian" rows="3" class="w-full p-2 border rounded" placeholder="Pernah ikut kajian atau pembinaan di mana saja? (Opsional)"></textarea>
+
         <select name="bisa_baca_alquran" class="w-full p-2 border rounded mt-2">
-          <option value="">Kemampuan Membaca Al-Qur'an</option>
+          <option value="">Kemampuan Membaca Al-Qur'an (Opsional)</option>
           <option>Lancar dengan Tajwid</option>
           <option>Lancar tanpa Tajwid</option>
           <option>Masih belajar</option>
@@ -174,44 +220,103 @@
         </select>
       </div>
 
-      <!-- 5. 🛠 KEAHLIAN -->
+      <!-- 5. KEAHLIAN -->
       <div>
         <h2 class="text-lg font-semibold border-b pb-1 mb-3">🛠 Keterampilan / Skill</h2>
-        <textarea name="keahlian" rows="2" class="w-full p-2 border rounded" placeholder="Contoh: Dokumentasi, MC, masak, multimedia, dll"></textarea>
+        <textarea name="keahlian" rows="2" class="w-full p-2 border rounded" placeholder="Contoh: MC, dokumentasi, multimedia, memasak, public speaking, dsb (Opsional)"></textarea>
       </div>
-
-      <!-- 6. ☎️ KONTAK DARURAT -->
+      <!-- 6. KONTAK DARURAT -->
       <div>
-        <h2 class="text-lg font-semibold border-b pb-1 mb-3">☎️ Kontak Darurat (Opsional)</h2>
+        <h2 class="text-lg font-semibold border-b pb-1 mb-3">☎️ Kontak Darurat <span class="text-sm text-gray-500">(Opsional)</span></h2>
         <input name="nama_kontak_darurat" class="w-full p-2 border rounded" placeholder="Nama Kontak Darurat" />
         <input name="hubungan_kontak_darurat" class="w-full p-2 border rounded mt-2" placeholder="Hubungan (Ayah/Ibu/Saudara)" />
         <input name="no_kontak_darurat" class="w-full p-2 border rounded mt-2" placeholder="No. HP Kontak Darurat" />
       </div>
 
-      <!-- 7. 📎 UNGGAH DOKUMEN -->
+      <!-- 7. UNGGAH DOKUMEN -->
       <div>
         <h2 class="text-lg font-semibold border-b pb-1 mb-3">📎 Unggah Dokumen</h2>
-        <label>Upload Foto KTP:</label>
-        <input type="file" name="ktp_file" accept=".jpg,.jpeg,.png,.pdf" required class="w-full border p-2 rounded"/>
+
+        <label class="block">Upload Foto KTP:</label>
+        <input type="file" name="ktp_file" accept=".jpg,.jpeg,.png,.pdf" required class="w-full border p-2 rounded" />
+
         <label class="block mt-2">Upload Foto Profil:</label>
-        <input type="file" name="foto_file" accept=".jpg,.jpeg,.png" required class="w-full border p-2 rounded"/>
-        <p class="text-xs text-gray-500 mt-1">* Gunakan foto yang sopan dan berpakaian muslim.</p>
+        <input type="file" name="foto_file" accept=".jpg,.jpeg,.png" required class="w-full border p-2 rounded" />
+        <p class="text-xs text-gray-500 mt-1">* Gunakan foto yang sopan dan berpakaian muslim (menutup aurat).</p>
       </div>
 
-      <!-- ✅ KONFIRMASI DATA -->
+      <!-- 8. KONFIRMASI FINAL -->
       <div class="mt-4">
+        <label class="block text-sm text-gray-700 font-medium mb-1">✅ Konfirmasi Data</label>
         <label class="inline-flex items-start">
-          <input type="checkbox" name="konfirmasi_data_benar" required class="mt-1">
+          <input type="checkbox" name="final_konfirmasi" required class="mt-1" />
           <span class="ml-2 text-sm leading-snug">
-            Saya telah mengisi seluruh data dengan benar dan siap bertanggung jawab atas kebenarannya.
+            Saya menyatakan bahwa semua data yang saya isi adalah benar dan dapat dipertanggungjawabkan.
           </span>
         </label>
       </div>
 
-      <!-- SUBMIT -->
-      <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 mt-4">Kirim Formulir</button>
+      <!-- BUTTON SUBMIT -->
+      <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 mt-6">Kirim Formulir</button>
       <p id="status" class="text-center text-sm text-green-600 mt-4"></p>
     </form>
   </div>
-</body>
-</html>
+  <script>
+    function toggleStatusNikah() {
+      const status = document.getElementById('status_nikah').value;
+      const pasanganFields = document.getElementById('pasangan-fields');
+      const izinSuami = document.getElementById('izin_suami_field');
+      const penghasilanSuami = document.getElementById('penghasilan_suami_field');
+      const gender = document.getElementById('jenis_kelamin').value;
+
+      if (status === 'Menikah') {
+        pasanganFields.classList.remove('hidden');
+        if (gender === 'Perempuan') {
+          izinSuami.classList.remove('hidden');
+          penghasilanSuami.classList.remove('hidden');
+        } else {
+          izinSuami.classList.add('hidden');
+          penghasilanSuami.classList.add('hidden');
+        }
+      } else {
+        pasanganFields.classList.add('hidden');
+        izinSuami.classList.add('hidden');
+        penghasilanSuami.classList.add('hidden');
+      }
+    }
+
+    function toggleGender() {
+      const gender = document.getElementById('jenis_kelamin').value;
+      const status = document.getElementById('status_nikah').value;
+      const izinSuami = document.getElementById('izin_suami_field');
+      const penghasilanSuami = document.getElementById('penghasilan_suami_field');
+      if (gender === 'Perempuan' && status === 'Menikah') {
+        izinSuami.classList.remove('hidden');
+        penghasilanSuami.classList.remove('hidden');
+      } else {
+        izinSuami.classList.add('hidden');
+        penghasilanSuami.classList.add('hidden');
+      }
+    }
+
+    const form = document.getElementById('regForm');
+    const statusText = document.getElementById('status');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const formData = new FormData(form);
+      statusText.innerText = "Mengirim data...";
+      try {
+        const res = await fetch("YOUR_SCRIPT_URL", {
+          method: "POST",
+          body: formData
+        });
+        const result = await res.text();
+        statusText.innerText = "Registrasi berhasil. Terima kasih!";
+        form.reset();
+        window.scrollTo(0, 0);
+      } catch (err) {
+        statusText.innerText = "Gagal mengirim. Silakan coba lagi.";
+      }
+    });
+  </script>

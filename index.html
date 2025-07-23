@@ -90,7 +90,10 @@
           <option>Kos / Indekos</option>
           <option>Lainnya</option>
         </select>
-        <input name="no_wa" class="..." placeholder="Nomor Whatsapp (62xxx)" required />
+	      
+        <input name="no_wa" required class="w-full p-2 border rounded mt-2" placeholder="Nomor Whatsapp (62xxx)" />
+	<p class="text-xs text-gray-500 mt-1">* Gunakan format <strong>62</strong> (bukan 08), contoh: <code>6281234567890</code></p>
+	      
         <select name="majlis_wilayah" required class="w-full p-2 border rounded mt-2">
           <option value="">Majlis Wilayah / Kabilah</option>
           <option>Ar-Rahman</option>
@@ -275,7 +278,7 @@
     
   </div>
      <!-- Script JavaScript -->
- <script>
+<script>
   function toggleStatusNikah() {
     const status = document.getElementById('status_nikah').value;
     const pasanganFields = document.getElementById('pasangan-fields');
@@ -315,6 +318,30 @@
     const formData = new FormData(form);
     statusText.innerText = "⏳ Mengirim data... Mohon tunggu.";
 
+    // Ambil file
+    const ktpFile = form.querySelector('input[name="ktp_file"]').files[0];
+    const fotoFile = form.querySelector('input[name="foto_file"]').files[0];
+
+    // Fungsi konversi ke base64
+    const toBase64 = file => new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => resolve(reader.result.split(',')[1]);
+      reader.onerror = error => reject(error);
+      reader.readAsDataURL(file);
+    });
+
+    if (ktpFile) {
+      formData.append('ktp_file_name', ktpFile.name);
+      formData.append('ktp_file_type', ktpFile.type);
+      formData.append('ktp_file', await toBase64(ktpFile));
+    }
+
+    if (fotoFile) {
+      formData.append('foto_file_name', fotoFile.name);
+      formData.append('foto_file_type', fotoFile.type);
+      formData.append('foto_file', await toBase64(fotoFile));
+    }
+
     try {
       const response = await fetch("https://script.google.com/macros/s/AKfycbxMJLDP8bqk1teTDlhlWl2odJ_l3K4QZFkPzkU4wASvg9qtdHTu7o3XquwsDiclQj71/exec", {
         method: "POST",
@@ -325,8 +352,8 @@
 
       if (result === "Success") {
         form.reset();
-        statusText.innerText = "";
         document.getElementById("successModal").classList.remove("hidden");
+        statusText.innerText = "";
       } else {
         statusText.innerText = "❌ Terjadi kesalahan. Silakan coba lagi.";
       }

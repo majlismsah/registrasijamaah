@@ -148,7 +148,22 @@
         </select>
 
         <!-- Pekerjaan & Penghasilan Pribadi -->
-        <input name="pekerjaan" placeholder="Pekerjaan" required class="w-full p-2 border rounded mt-2" />
+        <label class="block mt-2 font-medium">Pekerjaan:</label>
+<select name="pekerjaan" id="pekerjaan_select" class="w-full p-2 border rounded" onchange="toggleLainnya()" required>
+  <option value="">Pilih Pekerjaan</option>
+  <option>Pelajar/Mahasiswa</option>
+  <option>Ibu Rumah Tangga</option>
+  <option>Karyawan Swasta</option>
+  <option>ASN / PNS</option>
+  <option>Wiraswasta</option>
+  <option>Guru / Dosen</option>
+  <option>Pekerja Lepas</option>
+  <option>Tidak Bekerja</option>
+  <option value="lainnya">Lainnya...</option>
+</select>
+
+<input type="text" name="pekerjaan_lain" id="pekerjaan_lain" placeholder="Tulis pekerjaan Anda" class="w-full p-2 border rounded mt-2 hidden" />
+
 	<!-- Keahlian -->
 	<input name="keahlian" placeholder="Keahlian / Skill (Opsional)" class="w-full p-2 border rounded mt-2" />
         <select name="penghasilan" required class="w-full p-2 border rounded mt-2">
@@ -288,6 +303,9 @@
     const penghasilanSuami = document.getElementById('penghasilan_suami_field');
     const gender = document.getElementById('jenis_kelamin').value;
 
+
+
+
     if (status === 'Menikah') {
       pasanganFields.classList.remove('hidden');
       if (gender === 'Perempuan') {
@@ -364,6 +382,11 @@
       statusText.innerText = "❌ Gagal mengirim data. Silakan periksa koneksi Anda.";
     }
   });
+	function toggleLainnya() {
+  const select = document.getElementById("pekerjaan_select");
+  const inputLain = document.getElementById("pekerjaan_lain");
+  inputLain.classList.toggle("hidden", select.value !== "lainnya");
+}
 </script>
 
 

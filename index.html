@@ -2,83 +2,65 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8" />
-  <title>TEST FORM REGISTRASI</title>
+  <title>Dummy Upload Test</title>
 </head>
 <body>
-  <h1>Form Test</h1>
+  <h1>Dummy Upload Test</h1>
   <form id="testForm">
-    <label>Nama KTP:
-      <input type="text" name="nama_ktp" value="Tes Nama" />
-    </label><br>
+    <label>Nama KTP:</label><br/>
+    <input name="nama_ktp" required /><br/><br/>
 
-    <label>KTP File:
-      <input type="file" id="ktpFile" accept="image/*" />
-    </label><br>
+    <label>Upload KTP (kecil dulu!):</label><br/>
+    <input type="file" name="ktp_file" accept="image/*,.pdf" required /><br/><br/>
 
-    <label>Foto File:
-      <input type="file" id="fotoFile" accept="image/*" />
-    </label><br>
+    <label>Upload Foto:</label><br/>
+    <input type="file" name="foto_file" accept="image/*" required /><br/><br/>
 
     <button type="submit">Kirim</button>
   </form>
 
+  <pre id="status"></pre>
+
   <script>
-    const form = document.getElementById('testForm');
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-
-      const nama_ktp = form.nama_ktp.value;
-      const ktpFile = document.getElementById('ktpFile').files[0];
-      const fotoFile = document.getElementById('fotoFile').files[0];
-
-      if (!ktpFile || !fotoFile) {
-        alert("File harus diisi!");
-        return;
-      }
-
-      const ktpBase64 = await toBase64(ktpFile);
-      const fotoBase64 = await toBase64(fotoFile);
-
-      const payload = {
-        nama_ktp: nama_ktp,
-        ktp_file: ktpBase64.split(',')[1],
-        ktp_file_type: ktpFile.type,
-        ktp_file_name: ktpFile.name,
-        foto_file: fotoBase64.split(',')[1],
-        foto_file_type: fotoFile.type,
-        foto_file_name: fotoFile.name
-      };
-
-      console.log("Payload:", payload);
-
-      try {
-        const res = await fetch("https://script.google.com/macros/s/AKfycbwbFP-NSjHIKg-RMPkBeJBeFXzAfK1ZioDq9Y7_2DZE5Lupp1hpjFob_3z8YL1gJTis/exec", {
-          method: "POST",
-          mode: "cors",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify(payload)
-        });
-
-        const text = await res.text();
-        console.log("Response:", text);
-        alert(text);
-
-      } catch (err) {
-        console.error(err);
-        alert("Error: " + err);
-      }
-    });
-
-    function toBase64(file) {
+    function fileToBase64(file) {
       return new Promise((resolve, reject) => {
         const reader = new FileReader();
-        reader.readAsDataURL(file);
-        reader.onload = () => resolve(reader.result);
+        reader.onload = () => resolve(reader.result.split(",")[1]);
         reader.onerror = reject;
+        reader.readAsDataURL(file);
       });
     }
+
+    const form = document.getElementById("testForm");
+    const status = document.getElementById("status");
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      status.textContent = "Mengirim...";
+
+      const raw = new FormData(form);
+      const ktpBase64 = await fileToBase64(raw.get("ktp_file"));
+      const fotoBase64 = await fileToBase64(raw.get("foto_file"));
+
+      const payload = {
+        nama_ktp: raw.get("nama_ktp"),
+        ktp_file: ktpBase64,
+        ktp_file_name: raw.get("ktp_file").name,
+        ktp_file_type: raw.get("ktp_file").type,
+        foto_file: fotoBase64,
+        foto_file_name: raw.get("foto_file").name,
+        foto_file_type: raw.get("foto_file").type,
+      };
+
+      fetch("https://script.google.com/macros/s/AKfycbyP4Wf578xVdRTq9mkdI5zXLYiRJxUkiBH--dMZo5RoSnHYyN7gXWh1Xl5j8_AR2_Q/exec", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+      })
+      .then(r => r.text())
+      .then(txt => status.textContent = txt)
+      .catch(err => status.textContent = "Error: " + err.message);
+    });
   </script>
 </body>
 </html>

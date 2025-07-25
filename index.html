@@ -367,55 +367,60 @@
     const statusText = document.getElementById('status');
 
     form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      statusText.innerText = "⏳ Mengirim data... Mohon tunggu.";
+  e.preventDefault();
+  statusText.innerText = "⏳ Mengirim data... Mohon tunggu.";
 
-      try {
-        const formData = new FormData(form);
+  try {
+    const formData = new FormData();
 
-        const ktpFile = formData.get('ktp_file');
-        const fotoFile = formData.get('foto_file');
+    // Baca file
+    const rawForm = new FormData(form);
+    const ktpFile = rawForm.get('ktp_file');
+    const fotoFile = rawForm.get('foto_file');
 
-        const ktpBase64 = await fileToBase64(ktpFile);
-        const fotoBase64 = await fileToBase64(fotoFile);
+    const ktpBase64 = await fileToBase64(ktpFile);
+    const fotoBase64 = await fileToBase64(fotoFile);
 
-        const data = {};
-        for (const [key, value] of formData.entries()) {
-          data[key] = value;
-        }
-        data.ktp_file = ktpBase64;
-        data.ktp_file_name = ktpFile.name;
-        data.ktp_file_type = ktpFile.type;
-        data.foto_file = fotoBase64;
-        data.foto_file_name = fotoFile.name;
-        data.foto_file_type = fotoFile.type;
-
-        const response = await fetch("https://script.google.com/macros/s/AKfycbyVOcf1TZXDYWkPMNsC6WdUVha7gDfUZ4QQe4zPhr0xUYYBq0L3v7V49we-BunS0bI/exec", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(data)
-        });
-
-        const result = await response.text();
-
-        if (result === "Success") {
-          form.reset();
-          statusText.innerText = "";
-          document.getElementById("successModal").classList.remove("hidden");
-          setTimeout(() => {
-            window.location.href = "https://wa.me/62816787977?text=Assalamualaikum%2C%20Kang%20Admin%2C%20saya%20sudah%20mengisi%20form%20registrasi%20jamaah%20MSAH%20periode%201447H.";
-          }, 4000);
-        } else {
-          statusText.innerText = "❌ Terjadi kesalahan. Silakan coba lagi.";
-        }
-
-      } catch (error) {
-        console.error(error);
-        statusText.innerText = "❌ Gagal mengirim data. Silakan periksa koneksi Anda.";
+    // Ambil input lain
+    for (const [key, value] of rawForm.entries()) {
+      if (key !== 'ktp_file' && key !== 'foto_file') {
+        formData.append(key, value);
       }
+    }
+
+    // Tambahkan file base64 + info
+    formData.append('ktp_file', ktpBase64);
+    formData.append('ktp_file_name', ktpFile.name);
+    formData.append('ktp_file_type', ktpFile.type);
+
+    formData.append('foto_file', fotoBase64);
+    formData.append('foto_file_name', fotoFile.name);
+    formData.append('foto_file_type', fotoFile.type);
+
+    // Kirim tanpa headers Content-Type (biar browser auto multipart)
+    const response = await fetch("https://script.google.com/macros/s/AKfycbyVOcf1TZXDYWkPMNsC6WdUVha7gDfUZ4QQe4zPhr0xUYYBq0L3v7V49we-BunS0bI/exec", {
+      method: "POST",
+      body: formData
     });
+
+    const result = await response.text();
+
+    if (result === "Success") {
+      form.reset();
+      statusText.innerText = "";
+      document.getElementById("successModal").classList.remove("hidden");
+      setTimeout(() => {
+        window.location.href = "https://wa.me/62816787977?text=Assalamualaikum%2C%20Kang%20Admin%2C%20saya%20sudah%20mengisi%20form%20registrasi%20jamaah%20MSAH%20periode%201447H.";
+      }, 4000);
+    } else {
+      statusText.innerText = "❌ Terjadi kesalahan. Silakan coba lagi.";
+    }
+
+  } catch (error) {
+    console.error(error);
+    statusText.innerText = "❌ Gagal mengirim data. Silakan periksa koneksi Anda.";
+  }
+});
   </script>
 </body>
 </html>

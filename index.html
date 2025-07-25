@@ -435,9 +435,8 @@ ini full html saya
         foto_file_type: fotoFile.type
       };
 
-      const response = await fetch(
-        "https://script.google.com/macros/s/AKfycbyVOcf1TZXDYWkPMNsC6WdUVha7gDfUZ4QQe4zPhr0xUYYBq0L3v7V49we-BunS0bI/exec",
-        {
+      const response = await fetch(window.location.href, // kirim ke domain yang sama
+                                   
           method: "POST",
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(data)

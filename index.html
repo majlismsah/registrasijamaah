@@ -1,37 +1,36 @@
 <!DOCTYPE html>
-<html lang="id">
+<html>
 <head>
   <meta charset="UTF-8" />
-  <title>TEST DUMMY FORM</title>
+  <title>TEST FORM</title>
 </head>
 <body>
-  <h1>Form Test</h1>
-  <form id="testForm">
-    <input name="nama_ktp" placeholder="Nama KTP" /><br>
-    <input name="no_wa" placeholder="No WA" /><br>
-    <button type="submit">Kirim</button>
+  <h1>TEST FORM</h1>
+  <form id="myForm">
+    <input name="nama" placeholder="Nama" required><br><br>
+    <input name="no_wa" placeholder="No WA" required><br><br>
+    <button type="submit">KIRIM</button>
   </form>
 
   <script>
-    document.getElementById('testForm').addEventListener('submit', async (e) => {
+    const URL = "PASTE_URL_WEBAPP_MU_DISINI";
+
+    document.getElementById('myForm').addEventListener('submit', async (e) => {
       e.preventDefault();
-      const form = new FormData(e.target);
-      const payload = {};
-      for (const [key, value] of form.entries()) {
-        payload[key] = value;
-      }
+      const form = e.target;
+      const data = {
+        nama: form.nama.value,
+        no_wa: form.no_wa.value
+      };
 
-      console.log('Kirim:', payload);
-
-      const res = await fetch('https://script.google.com/macros/s/AKfycbyP4Wf578xVdRTq9mkdI5zXLYiRJxUkiBH--dMZo5RoSnHYyN7gXWh1Xl5j8_AR2_Q/exec', {
+      const res = await fetch(URL, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(data)
       });
 
       const text = await res.text();
-      console.log('Balasan:', text);
-      alert(text);
+      alert('RESPON: ' + text);
     });
   </script>
 </body>

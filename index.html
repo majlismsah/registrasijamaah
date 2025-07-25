@@ -13,7 +13,7 @@
   </form>
 
   <script>
-    const URL = "https://script.google.com/macros/s/AKfycbP4Wf578xVdRTq9mkdI5zXLYiRJxUkiBH--dMZo5RoSnHYyN7gXWh1Xl5j8_AR2_Q/exec";
+    const URL = "https://script.google.com/macros/s/AKfycbyOpBhySUJ5vXyyamWht3rIgwv-weIwCHTJc3UHOzMGm04plA8kSXWuvu60IuDUWHqr/exec";
 
     document.getElementById('myForm').addEventListener('submit', async (e) => {
       e.preventDefault();
@@ -23,14 +23,18 @@
         no_wa: form.no_wa.value
       };
 
-      const res = await fetch(URL, {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify(data)
-      });
+      try {
+        const res = await fetch(URL, {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify(data)
+        });
 
-      const text = await res.text();
-      alert('RESPON: ' + text);
+        const text = await res.text();
+        alert('RESPON: ' + text);
+      } catch (err) {
+        alert('GAGAL: ' + err);
+      }
     });
   </script>
 </body>

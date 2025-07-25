@@ -94,8 +94,17 @@
         <input name="jumlah_keluarga" type="number" min="1" class="w-full p-2 border rounded" />
 
         <label class="mt-2 block">Nomor WhatsApp</label>
-        <input name="no_wa" placeholder="62xxxxxxxxxxx" class="w-full p-2 border rounded" required />
-        <p class="text-xs text-gray-500 mt-1">* Gunakan format <strong>62</strong> (bukan 08), contoh: <code>6281234567890</code></p>
+        <input
+          name="no_wa"
+          required
+          pattern="^62\d{9,15}$"
+          title="Gunakan format 62xxxxxxxxxx tanpa spasi atau simbol"
+          class="w-full p-2 border rounded"
+          placeholder="Contoh: 6281234567890"
+        />
+        <p class="text-xs text-gray-500 mt-1">
+          * Gunakan format <strong>62</strong> (bukan 08), contoh: <code>6281234567890</code>
+        </p>
 
         <label class="mt-2 block">Majlis Wilayah / Kabilah</label>
         <select name="majlis_wilayah" required class="w-full p-2 border rounded">

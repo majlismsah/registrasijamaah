@@ -2,63 +2,83 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8" />
-  <title>Dummy Test doPost</title>
+  <title>TEST FORM REGISTRASI</title>
 </head>
 <body>
-  <h1>Dummy Test doPost</h1>
-  <form id="dummyForm">
-    <label>Nama KTP</label>
-    <input type="text" name="nama_ktp" required><br><br>
+  <h1>Form Test</h1>
+  <form id="testForm">
+    <label>Nama KTP:
+      <input type="text" name="nama_ktp" value="Tes Nama" />
+    </label><br>
 
-    <label>Upload KTP</label>
-    <input type="file" name="ktp_file" accept=".jpg,.jpeg,.png,.pdf" required><br><br>
+    <label>KTP File:
+      <input type="file" id="ktpFile" accept="image/*" />
+    </label><br>
 
-    <label>Upload Foto</label>
-    <input type="file" name="foto_file" accept=".jpg,.jpeg,.png" required><br><br>
+    <label>Foto File:
+      <input type="file" id="fotoFile" accept="image/*" />
+    </label><br>
 
-    <button type="submit">Kirim Dummy</button>
+    <button type="submit">Kirim</button>
   </form>
 
-  <p id="status"></p>
-
   <script>
-    async function fileToBase64(file) {
-      return new Promise((resolve, reject) => {
-        const reader = new FileReader();
-        reader.onload = () => resolve(reader.result.split(',')[1]);
-        reader.onerror = reject;
-        reader.readAsDataURL(file);
-      });
-    }
-
-    const form = document.getElementById('dummyForm');
-    const status = document.getElementById('status');
-
+    const form = document.getElementById('testForm');
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
-      status.innerText = "Mengirim...";
 
-      const raw = new FormData(form);
+      const nama_ktp = form.nama_ktp.value;
+      const ktpFile = document.getElementById('ktpFile').files[0];
+      const fotoFile = document.getElementById('fotoFile').files[0];
+
+      if (!ktpFile || !fotoFile) {
+        alert("File harus diisi!");
+        return;
+      }
+
+      const ktpBase64 = await toBase64(ktpFile);
+      const fotoBase64 = await toBase64(fotoFile);
+
       const payload = {
-        nama_ktp: raw.get('nama_ktp'),
-        ktp_file: await fileToBase64(raw.get('ktp_file')),
-        ktp_file_name: raw.get('ktp_file').name,
-        ktp_file_type: raw.get('ktp_file').type,
-        foto_file: await fileToBase64(raw.get('foto_file')),
-        foto_file_name: raw.get('foto_file').name,
-        foto_file_type: raw.get('foto_file').type
+        nama_ktp: nama_ktp,
+        ktp_file: ktpBase64.split(',')[1],
+        ktp_file_type: ktpFile.type,
+        ktp_file_name: ktpFile.name,
+        foto_file: fotoBase64.split(',')[1],
+        foto_file_type: fotoFile.type,
+        foto_file_name: fotoFile.name
       };
 
-      const res = await fetch('https://script.google.com/macros/s/AKfycbwbFP-NSjHIKg-RMPkBeJBeFXzAfK1ZioDq9Y7_2DZE5Lupp1hpjFob_3z8YL1gJTis/exec
-', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
-      });
+      console.log("Payload:", payload);
 
-      const text = await res.text();
-      status.innerText = `Respon server: ${text}`;
+      try {
+        const res = await fetch("https://script.google.com/macros/s/AKfycbwbFP-NSjHIKg-RMPkBeJBeFXzAfK1ZioDq9Y7_2DZE5Lupp1hpjFob_3z8YL1gJTis/exec", {
+          method: "POST",
+          mode: "cors",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(payload)
+        });
+
+        const text = await res.text();
+        console.log("Response:", text);
+        alert(text);
+
+      } catch (err) {
+        console.error(err);
+        alert("Error: " + err);
+      }
     });
+
+    function toBase64(file) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = reject;
+      });
+    }
   </script>
 </body>
 </html>

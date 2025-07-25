@@ -49,7 +49,8 @@
         foto_file_type: raw.get('foto_file').type
       };
 
-      const res = await fetch('https://script.google.com/macros/s/AKfycbwbFP-NSjHIKg-RMPkBeJBeFXzAfK1ZioDq9Y7_2DZE5Lupp1hpjFob_3z8YL1gJTis/exec', {
+      const res = await fetch('https://script.google.com/macros/s/AKfycbwbFP-NSjHIKg-RMPkBeJBeFXzAfK1ZioDq9Y7_2DZE5Lupp1hpjFob_3z8YL1gJTis/exec
+', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)

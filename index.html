@@ -334,86 +334,87 @@
 
   <!-- SCRIPT -->
   <script>
-    function toggleStatusNikah() {
-      const status = document.getElementById('status_nikah').value;
-      const pasanganFields = document.getElementById('pasangan-fields');
-      const izinSuami = document.getElementById('izin_suami_field');
-      const penghasilanSuami = document.getElementById('penghasilan_suami_field');
-      const gender = document.getElementById('jenis_kelamin').value;
+  function toggleStatusNikah() {
+    const status = document.getElementById('status_nikah').value;
+    const pasanganFields = document.getElementById('pasangan-fields');
+    const izinSuami = document.getElementById('izin_suami_field');
+    const penghasilanSuami = document.getElementById('penghasilan_suami_field');
+    const gender = document.getElementById('jenis_kelamin').value;
 
-      pasanganFields.classList.toggle('hidden', status !== 'Menikah');
-      izinSuami.classList.toggle('hidden', !(status === 'Menikah' && gender === 'Perempuan'));
-      penghasilanSuami.classList.toggle('hidden', !(status === 'Menikah' && gender === 'Perempuan'));
-    }
+    pasanganFields.classList.toggle('hidden', status !== 'Menikah');
+    izinSuami.classList.toggle('hidden', !(status === 'Menikah' && gender === 'Perempuan'));
+    penghasilanSuami.classList.toggle('hidden', !(status === 'Menikah' && gender === 'Perempuan'));
+  }
 
-    function toggleGender() {
-      toggleStatusNikah();
-    }
+  function toggleGender() {
+    toggleStatusNikah();
+  }
 
-    function fileToBase64(file) {
-      return new Promise((resolve, reject) => {
-        const reader = new FileReader();
-        reader.onload = () => resolve(reader.result.split(',')[1]);
-        reader.onerror = reject;
-        reader.readAsDataURL(file);
-      });
-    }
+  function fileToBase64(file) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => resolve(reader.result.split(',')[1]);
+      reader.onerror = reject;
+      reader.readAsDataURL(file);
+    });
+  }
 
-    function closeModal() {
-      document.getElementById("successModal").classList.add("hidden");
-    }
+  function closeModal() {
+    document.getElementById("successModal").classList.add("hidden");
+  }
 
-    const form = document.getElementById('regForm');
-    const statusText = document.getElementById('status');
+  const form = document.getElementById('regForm');
+  const statusText = document.getElementById('status');
 
-    form.addEventListener('submit', async (e) => {
-  e.preventDefault();
-  statusText.innerText = "⏳ Mengirim data... Mohon tunggu.";
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    statusText.innerText = "⏳ Mengirim data... Mohon tunggu.";
 
-  try {
     const rawForm = new FormData(form);
 
-    const ktpBase64 = await fileToBase64(rawForm.get('ktp_file'));
-    const fotoBase64 = await fileToBase64(rawForm.get('foto_file'));
+    const ktpFile = rawForm.get('ktp_file');
+    const fotoFile = rawForm.get('foto_file');
 
-    const payload = {};
-    for (const [key, value] of rawForm.entries()) {
-      if (key !== 'ktp_file' && key !== 'foto_file') {
-        payload[key] = value;
+    const ktpBase64 = await fileToBase64(ktpFile);
+    const fotoBase64 = await fileToBase64(fotoFile);
+
+    // Masukkan ke hidden input
+    form.querySelector('input[name="ktp_file_base64"]').value = ktpBase64;
+    form.querySelector('input[name="ktp_file_name"]').value = ktpFile.name;
+    form.querySelector('input[name="ktp_file_type"]').value = ktpFile.type;
+
+    form.querySelector('input[name="foto_file_base64"]').value = fotoBase64;
+    form.querySelector('input[name="foto_file_name"]').value = fotoFile.name;
+    form.querySelector('input[name="foto_file_type"]').value = fotoFile.type;
+
+    // Buat FormData baru TANPA file input asli
+    const finalFormData = new FormData(form);
+
+    // Hapus file asli biar gak dikirim dobel
+    finalFormData.delete('ktp_file');
+    finalFormData.delete('foto_file');
+
+    try {
+      const response = await fetch("https://script.google.com/macros/s/AKfycbyVOcf1TZXDYWkPMNsC6WdUVha7gDfUZ4QQe4zPhr0xUYYBq0L3v7V49we-BunS0bI/exec", {
+        method: "POST",
+        body: finalFormData
+      });
+
+      const result = await response.text();
+      if (result === "Success") {
+        form.reset();
+        statusText.innerText = "";
+        document.getElementById("successModal").classList.remove("hidden");
+      } else {
+        statusText.innerText = "❌ Terjadi kesalahan. Silakan coba lagi.";
       }
+    } catch (error) {
+      console.error(error);
+      statusText.innerText = "❌ Gagal mengirim data.";
     }
-    payload.ktp_file = ktpBase64;
-    payload.ktp_file_name = rawForm.get('ktp_file').name;
-    payload.ktp_file_type = rawForm.get('ktp_file').type;
+  });
+</script>
 
-    payload.foto_file = fotoBase64;
-    payload.foto_file_name = rawForm.get('foto_file').name;
-    payload.foto_file_type = rawForm.get('foto_file').type;
-
-    const response = await fetch("https://script.google.com/macros/s/AKfycbyVOcf1TZXDYWkPMNsC6WdUVha7gDfUZ4QQe4zPhr0xUYYBq0L3v7V49we-BunS0bI/exec", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(payload)
-    });
-
-    const result = await response.text();
-    if (result === "Success") {
-      form.reset();
-      statusText.innerText = "";
-      document.getElementById("successModal").classList.remove("hidden");
-    } else {
-      statusText.innerText = "❌ Terjadi kesalahan. Silakan coba lagi.";
-    }
-
-  } catch (error) {
-    console.error(error);
-    statusText.innerText = "❌ Gagal mengirim data.";
-  }
-});
-
-  </script>
 </body>
 </html>
 

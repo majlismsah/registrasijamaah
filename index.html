@@ -253,29 +253,39 @@
         <p class="text-xs text-gray-500 mt-1">* Gunakan format <strong>62</strong> (bukan 08)</p>
       </div>
 
-      <!-- 📎 UPLOAD DOKUMEN -->
-      <div class="form-section">
-        <h2 class="text-lg font-semibold mb-3">📎 Unggah Dokumen</h2>
+      <!-- UPLOAD DOKUMEN -->
+<div class="form-section">
+  <h2 class="text-lg font-semibold mb-3">📎 Unggah Dokumen</h2>
 
-        <!-- Upload KTP -->
-        <label class="block mb-1">Upload Foto KTP</label>
-        <img src="https://github.com/majlismsah/registrasijamaah/blob/main/ktp.jpg"
-             alt="Contoh KTP"
-             class="w-full max-w-xs mb-2 border border-blue-400 rounded shadow" />
-        <input type="file" name="ktp_file" accept=".jpg,.jpeg,.png,.pdf" required class="w-full border p-2 rounded" />
-        <p class="text-xs text-gray-500 mt-1">
-          * Pastikan KTP terlihat jelas, lurus, tidak blur, dan posisinya sesuai frame contoh.
-        </p>
+  <!-- Upload KTP -->
+  <label class="block mb-1">Upload Foto KTP</label>
+  <input type="file" name="ktp_file" accept=".jpg,.jpeg,.png,.pdf" required class="w-full border p-2 rounded" />
+  <p class="text-xs text-gray-500 mt-1">* Pastikan KTP terlihat jelas dan tidak blur. Disarankan foto lurus dan sejajar.</p>
 
-        <!-- Upload Foto Profil -->
-        <label class="block mt-4">Upload Foto Profil</label>
-        <img src="https://github.com/majlismsah/registrasijamaah/blob/main/fotoswa.png"
-             alt="Contoh Swafoto"
-             class="w-full max-w-xs mb-2 border border-blue-400 rounded shadow" />
-        <input type="file" name="foto_file" accept=".jpg,.jpeg,.png" required class="w-full border p-2 rounded" />
-        <p class="text-xs text-gray-500 mt-1">* Gunakan foto yang sopan dan berpakaian muslim / menutup aurat.</p>
-      </div>
+  <!-- Contoh Foto KTP -->
+  <details class="mt-2 mb-4">
+    <summary class="cursor-pointer text-blue-600 underline text-sm">🪪 Lihat Contoh Foto KTP</summary>
+    <img src="https://raw.githubusercontent.com/majlismsah/registrasijamaah/main/ktp2.png.jpg"
+         alt="Contoh KTP"
+         class="mt-2 w-64 border border-blue-400 rounded shadow" />
+  </details>
 
+  <!-- Upload Foto Profil -->
+  <label class="block mt-4">Upload Foto Profil</label>
+  <input type="file" name="foto_file" accept=".jpg,.jpeg,.png" required class="w-full border p-2 rounded" />
+  <p class="text-xs text-gray-500 mt-1">* Gunakan foto yang sopan dan berpakaian muslim (menutup aurat).</p>
+
+  <!-- Contoh Foto Profil -->
+  <details class="mt-2">
+    <summary class="cursor-pointer text-blue-600 underline text-sm">📷 Lihat Contoh Foto Profil</summary>
+    <img src="https://raw.githubusercontent.com/majlismsah/registrasijamaah/main/swafoto.png"
+         alt="Contoh Foto Profil"
+         class="mt-2 w-40 border border-blue-400 rounded shadow" />
+  </details>
+</div>
+
+
+        
       <!-- ✅ KONFIRMASI DATA -->
       <div class="form-section mt-6">
         <h2 class="text-lg font-semibold mb-3">✅ Konfirmasi Data</h2>
@@ -369,7 +379,7 @@
           statusText.innerText = "";
           document.getElementById("successModal").classList.remove("hidden");
           setTimeout(() => {
-            window.location.href = "https://wa.me/62816787977?text=Assalamualaikum%2C%20saya%20sudah%20mengisi%20form%20registrasi%20jamaah%20MSAH.";
+            window.location.href = " https://wa.me/62816787977?text=Assalamualaikum%2C%20Kang%20Admin%2C%20saya%20sudah%20mengisi%20form%20registrasi%20jamaah%20MSAH%20periode%201447H.";
           }, 5000);
         } else {
           statusText.innerText = "❌ Terjadi kesalahan. Silakan coba lagi.";

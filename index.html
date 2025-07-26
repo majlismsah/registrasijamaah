@@ -2,11 +2,9 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Form Registrasi Jamaah MSAH 2025</title>
-
-  <!-- Tailwind CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
 
   <style>
     @keyframes bounceInDown {
@@ -38,9 +36,10 @@
     <!-- Judul -->
     <h1 class="text-2xl font-bold text-center mb-4">Form Registrasi Jamaah MSAH 2025 1447H</h1>
 
-    <!-- Form Mulai -->
+    <!-- FORM -->
     <form id="regForm" enctype="multipart/form-data" class="space-y-6">
-      <!-- 👤 IDENTITAS PRIBADI -->
+
+      <!-- === IDENTITAS PRIBADI === -->
       <div class="form-section">
         <h2 class="text-lg font-semibold mb-3">👤 Identitas Pribadi</h2>
 
@@ -67,11 +66,7 @@
         <label class="mt-2 block">Golongan Darah</label>
         <select name="golongan_darah" class="w-full p-2 border rounded">
           <option value="">Pilih</option>
-          <option>A</option>
-          <option>B</option>
-          <option>AB</option>
-          <option>O</option>
-          <option>Tidak Tahu</option>
+          <option>A</option><option>B</option><option>AB</option><option>O</option><option>Tidak Tahu</option>
         </select>
 
         <label class="mt-2 block">Alamat Lengkap</label>
@@ -80,14 +75,10 @@
         <label class="mt-2 block">Status Tinggal</label>
         <select name="status_tinggal" required class="w-full p-2 border rounded">
           <option value="">Pilih</option>
-          <option>Tinggal dengan Orang Tua</option>
-          <option>Tinggal dengan Suami/Istri</option>
-          <option>Tinggal dengan Keluarga Besar</option>
-          <option>Rumah Milik Sendiri</option>
-          <option>Kontrak / Sewa</option>
-          <option>Kos / Indekos</option>
-          <option>Tinggal di Majlis</option>
-          <option>Lainnya</option>
+          <option>Tinggal dengan Orang Tua</option><option>Tinggal dengan Suami/Istri</option>
+          <option>Tinggal dengan Keluarga Besar</option><option>Rumah Milik Sendiri</option>
+          <option>Kontrak / Sewa</option><option>Kos / Indekos</option>
+          <option>Tinggal di Majlis</option><option>Lainnya</option>
         </select>
 
         <label class="mt-2 block">Jumlah Keluarga yang Tinggal Serumah</label>
@@ -95,38 +86,29 @@
 
         <label class="mt-2 block">Nomor WhatsApp</label>
         <input name="no_wa" placeholder="62xxxxxxxxxxx" class="w-full p-2 border rounded" required />
-        <p class="text-xs text-gray-500 mt-1">* Gunakan format <strong>62</strong> (bukan 08), contoh: <code>6281234567890</code></p>
+        <p class="text-xs text-gray-500 mt-1">Gunakan format <strong>62</strong> (bukan 08), contoh: 6281234567890</p>
 
         <label class="mt-2 block">Majlis Wilayah / Kabilah</label>
         <select name="majlis_wilayah" required class="w-full p-2 border rounded">
           <option value="">Pilih</option>
-          <option>Ar-Rahman</option>
-          <option>Ar-Rohim</option>
-          <option>Al-Qudus</option>
-          <option>Al-Malik</option>
-          <option>Nurul Salikin</option>
-          <option>Nurul Kamilah</option>
-          <option>Nurul Hakim</option>
-          <option>Nurul Hikmah</option>
-          <option>Barakotaul Anbiya</option>
+          <option>Ar-Rahman</option><option>Ar-Rohim</option><option>Al-Qudus</option><option>Al-Malik</option>
+          <option>Nurul Salikin</option><option>Nurul Kamilah</option><option>Nurul Hakim</option>
+          <option>Nurul Hikmah</option><option>Barakotaul Anbiya</option>
         </select>
       </div>
-      <!-- 👪 KONDISI KELUARGA & SOSIAL -->
+
+      <!-- === KONDISI KELUARGA & SOSIAL === -->
       <div class="form-section">
         <h2 class="text-lg font-semibold mb-3">👪 Kondisi Keluarga & Sosial</h2>
 
         <label>Status Pernikahan</label>
         <select name="status_nikah" id="status_nikah" onchange="toggleStatusNikah()" required class="w-full p-2 border rounded">
           <option value="">Pilih</option>
-          <option>Belum Menikah</option>
-          <option>Menikah</option>
-          <option>Cerai Hidup</option>
-          <option>Cerai Mati</option>
+          <option>Belum Menikah</option><option>Menikah</option><option>Cerai Hidup</option><option>Cerai Mati</option>
         </select>
 
-        <!-- Kolom Tambahan Jika Menikah -->
         <div id="pasangan-fields" class="hidden mt-2">
-          <label>Nama Suami/Istri <span class="text-sm text-gray-500">(Tulis nama lengkap jika sudah ada)</span></label>
+          <label>Nama Suami/Istri</label>
           <input name="nama_pasangan" class="w-full p-2 border rounded uppercase" />
 
           <label class="mt-2 block">Jumlah Anak</label>
@@ -134,13 +116,10 @@
 
           <label class="mt-2 block">Tinggal dengan Pasangan?</label>
           <select name="tinggal_dengan_pasangan" class="w-full p-2 border rounded">
-            <option value="">Pilih</option>
-            <option>Ya</option>
-            <option>Tidak</option>
+            <option value="">Pilih</option><option>Ya</option><option>Tidak</option>
           </select>
         </div>
 
-        <!-- Izin Suami -->
         <div id="izin_suami_field" class="hidden mt-2">
           <label class="block text-sm">
             <input type="checkbox" name="izin_suami" class="mr-2" />
@@ -148,44 +127,29 @@
           </label>
         </div>
 
-        <!-- Pendidikan -->
         <label class="mt-3 block">Pendidikan Terakhir</label>
         <select name="pendidikan" required class="w-full p-2 border rounded">
-          <option value="">Pilih</option>
-          <option>SD</option><option>SMP</option><option>SMA</option>
-          <option>D1</option><option>D2</option><option>D3</option>
-          <option>S1</option><option>S2</option><option>S3</option>
+          <option value="">Pilih</option><option>SD</option><option>SMP</option><option>SMA</option>
+          <option>D1</option><option>D2</option><option>D3</option><option>S1</option><option>S2</option><option>S3</option>
         </select>
 
-        <!-- Pekerjaan -->
         <label class="mt-3 block">Pekerjaan</label>
         <input name="pekerjaan" required class="w-full p-2 border rounded" placeholder="Contoh: Guru, Pedagang, IRT, dll" />
 
-        <!-- Keahlian -->
         <label class="mt-2 block">Keahlian / Skill (Opsional)</label>
         <input name="keahlian" class="w-full p-2 border rounded" placeholder="Contoh: Driver, Jahit, Ngaji, Masak, Cukur, dll" />
 
-        <!-- Penghasilan -->
         <label class="mt-2 block">Penghasilan Pribadi per Bulan</label>
         <select name="penghasilan" required class="w-full p-2 border rounded">
-          <option value="">Pilih</option>
-          <option>Dibawah Rp3.000.000</option>
-          <option>Rp3.000.000 - Rp5.000.000</option>
-          <option>Rp5.000.000 - Rp10.000.000</option>
-          <option>Di atas Rp10.000.000</option>
-          <option>Tidak Berpenghasilan</option>
+          <option value="">Pilih</option><option>Dibawah Rp3.000.000</option><option>Rp3.000.000 - Rp5.000.000</option>
+          <option>Rp5.000.000 - Rp10.000.000</option><option>Di atas Rp10.000.000</option><option>Tidak Berpenghasilan</option>
         </select>
 
-        <!-- Penghasilan Suami -->
         <div id="penghasilan_suami_field" class="hidden mt-2">
           <label>Penghasilan Suami</label>
           <select name="penghasilan_suami" class="w-full p-2 border rounded">
-            <option value="">Pilih</option>
-            <option>Dibawah Rp3.000.000</option>
-            <option>Rp3.000.000 - Rp5.000.000</option>
-            <option>Rp5.000.000 - Rp10.000.000</option>
-            <option>Di atas Rp10.000.000</option>
-            <option>Tidak Berpenghasilan</option>
+            <option value="">Pilih</option><option>Dibawah Rp3.000.000</option><option>Rp3.000.000 - Rp5.000.000</option>
+            <option>Rp5.000.000 - Rp10.000.000</option><option>Di atas Rp10.000.000</option><option>Tidak Berpenghasilan</option>
           </select>
         </div>
       </div>
@@ -396,3 +360,4 @@
   </script>
 </body>
 </html>
+

@@ -298,6 +298,27 @@
 
   <!-- Script JavaScript -->
   <script>
+    // TAMBAH DI SINI 👇
+function toggleGender() {
+  console.log("Gender dipilih");
+}
+
+function toggleStatusNikah() {
+  const statusNikah = document.getElementById('status_nikah').value;
+  const pasanganFields = document.getElementById('pasangan-fields');
+  const izinSuamiField = document.getElementById('izin_suami_field');
+  const penghasilanSuamiField = document.getElementById('penghasilan_suami_field');
+
+  if (statusNikah === 'Menikah') {
+    pasanganFields.classList.remove('hidden');
+    izinSuamiField.classList.remove('hidden');
+    penghasilanSuamiField.classList.remove('hidden');
+  } else {
+    pasanganFields.classList.add('hidden');
+    izinSuamiField.classList.add('hidden');
+    penghasilanSuamiField.classList.add('hidden');
+  }
+}
 const form = document.getElementById('regForm');
 const statusText = document.getElementById('status');
 

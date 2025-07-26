@@ -37,11 +37,9 @@
     <h1 class="text-2xl font-bold text-center mb-4">Form Registrasi Jamaah MSAH 2025 1447H</h1>
 
     <!-- FORM -->
-    <form 
+   <form 
   id="regForm" 
   enctype="multipart/form-data"
-  method="POST"
-  action="https://script.google.com/macros/s/AKfycbx2s-mS51jXQibAwckH4w-yzPFfdRkHxUgQ_FhF9oY6EVCdTkiNTQ4AmXiGxDdnfrEY/exec"
   class="space-y-6">
       
       <!-- === IDENTITAS PRIBADI === -->
@@ -300,36 +298,46 @@
 
   <!-- Script JavaScript -->
   <script>
-    function toggleStatusNikah() {
-      const status = document.getElementById('status_nikah').value;
-      const pasanganFields = document.getElementById('pasangan-fields');
-      const izinSuami = document.getElementById('izin_suami_field');
-      const penghasilanSuami = document.getElementById('penghasilan_suami_field');
-      const gender = document.getElementById('jenis_kelamin').value;
+  const form = document.getElementById('regForm');
+  const statusText = document.getElementById('status');
 
-      if (status === 'Menikah') {
-        pasanganFields.classList.remove('hidden');
-        if (gender === 'Perempuan') {
-          izinSuami.classList.remove('hidden');
-          penghasilanSuami.classList.remove('hidden');
-        } else {
-          izinSuami.classList.add('hidden');
-          penghasilanSuami.classList.add('hidden');
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const formData = new FormData(form);
+    statusText.innerText = "⏳ Mengirim data... Mohon tunggu.";
+
+    try {
+      const response = await fetch(
+        "https://script.google.com/macros/s/AKfycbx2s-mS51jXQibAwckH4w-yzPFfdRkHxUgQ_FhF9oY6EVCdTkiNTQ4AmXiGxDdnfrEY/exec",
+        {
+          method: "POST",
+          body: formData
         }
-      } else {
-        pasanganFields.classList.add('hidden');
-        izinSuami.classList.add('hidden');
-        penghasilanSuami.classList.add('hidden');
-      }
-    }
+      );
+      const result = await response.text();
 
-    function toggleGender() {
-      toggleStatusNikah();
+      if (result === "Success") {
+        form.reset();
+        statusText.innerText = "";
+        document.getElementById("successModal").classList.remove("hidden");
+        setTimeout(() => {
+          window.location.href = "https://wa.me/62816787977?text=Assalamualaikum%2C%20saya%20sudah%20mengisi%20form%20registrasi%20jamaah%20MSAH.";
+        }, 5000);
+      } else {
+        statusText.innerText = "❌ Terjadi kesalahan. Silakan coba lagi.";
+      }
+
+    } catch (error) {
+      console.error(error);
+      statusText.innerText = "❌ Gagal mengirim data. Silakan periksa koneksi Anda.";
     }
-    function closeModal() {
-      document.getElementById("successModal").classList.add("hidden");
-    }
-  </script>
+  });
+
+  function closeModal() {
+    document.getElementById("successModal").classList.add("hidden");
+  }
+</script>
+
 </body>
 </html>
 

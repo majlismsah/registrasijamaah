@@ -328,7 +328,8 @@
   <script>
     // Konfigurasi yang bisa diubah
     const CONFIG = {
-      GAS_URL: "https://script.google.com/macros/s/AKfycbw8D7c3l72vhiya0N107qL1YL6QBLlLTafkgqfnVgZGPKjFft3ksBps7xQohVE1gFG1/exec",
+      // Menggunakan proxy CORS untuk mengatasi masalah CORS
+      GAS_URL: "https://corsproxy.org/?" + encodeURIComponent("https://script.google.com/macros/s/AKfycbzpSiHSrUJaCkE-9Gtktf1bDWxJN_B9gUxIW8-u1mXrs2vsKIKDPyh_7ZXMIGmuNvnL/exec"),
       DEBUG_MODE: true,
       MAX_FILE_SIZE: 2 * 1024 * 1024 // 2MB
     };
@@ -540,16 +541,21 @@
         lastPayload.foto_file = "base64 data... (" + (fotoBase64 ? fotoBase64.length : 0) + " chars)";
 
         try {
-          // Kirim data ke Google Apps Script
+          // Kirim data ke Google Apps Script melalui proxy CORS
           const response = await fetch(CONFIG.GAS_URL, {
             method: "POST",
             body: JSON.stringify(payload),
             headers: { "Content-Type": "application/json" }
           });
 
+          // Tangani jika response tidak OK
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
+
           const result = await response.text();
 
-          if (result === "Success") {
+          if (result.includes("Success")) {
             const statusDiv = document.getElementById('status');
             if (statusDiv) statusDiv.innerHTML = "";
             

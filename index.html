@@ -2,9 +2,11 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Form Registrasi Jamaah MSAH 2025</title>
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
+
+  <!-- Tailwind CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
 
   <style>
     @keyframes bounceInDown {
@@ -23,40 +25,6 @@
       margin-bottom: 1.5rem;
       background-color: #f9fafb;
     }
-    @media (max-width: 640px) {
-      #successModal > div {
-        width: 90%;
-        margin: 1rem;
-      }
-    }
-    .spinner {
-      display: inline-block;
-      width: 20px;
-      height: 20px;
-      border: 3px solid rgba(255,255,255,.3);
-      border-radius: 50%;
-      border-top-color: #fff;
-      animation: spin 1s ease-in-out infinite;
-      margin-right: 10px;
-      vertical-align: middle;
-    }
-    @keyframes spin {
-      to { transform: rotate(360deg); }
-    }
-    .error-message {
-      background-color: #fee2e2;
-      border-left: 4px solid #ef4444;
-      padding: 1rem;
-      margin-top: 1rem;
-      border-radius: 0.375rem;
-    }
-    .success-message {
-      background-color: #dcfce7;
-      border-left: 4px solid #22c55e;
-      padding: 1rem;
-      margin-top: 1rem;
-      border-radius: 0.375rem;
-    }
   </style>
 </head>
 <body class="bg-gray-100 font-sans text-gray-800">
@@ -69,32 +37,274 @@
 
     <!-- Judul -->
     <h1 class="text-2xl font-bold text-center mb-4">Form Registrasi Jamaah MSAH 2025 1447H</h1>
-    
-    <!-- Notifikasi -->
-    <div id="notification" class="hidden mb-6"></div>
 
-    <!-- FORM -->
+    <!-- Form Mulai -->
     <form id="regForm" enctype="multipart/form-data" class="space-y-6">
-      
-      <!-- Semua bagian form tetap sama seperti sebelumnya -->
-      <!-- ... [Konten form yang sama] ... -->
-      
+      <!-- 👤 IDENTITAS PRIBADI -->
+      <div class="form-section">
+        <h2 class="text-lg font-semibold mb-3">👤 Identitas Pribadi</h2>
+
+        <label>Nama Sesuai KTP</label>
+        <input name="nama_ktp" required class="w-full p-2 border rounded uppercase" placeholder="Contoh: SITI FATIMAH" />
+
+        <label class="mt-2 block">Ismu Sulthon</label>
+        <input name="ismu_sulthon" required class="w-full p-2 border rounded uppercase" placeholder="Contoh: Fatimah Az-Zahra" />
+
+        <label class="mt-2 block">Jenis Kelamin</label>
+        <select name="jenis_kelamin" id="jenis_kelamin" onchange="toggleGender()" required class="w-full p-2 border rounded">
+          <option value="">Pilih</option>
+          <option>Laki-laki</option>
+          <option>Perempuan</option>
+        </select>
+
+        <label class="mt-2 block">Tempat Lahir</label>
+        <input name="tempat_lahir" required class="w-full p-2 border rounded uppercase" placeholder="Contoh: Jakarta" />
+
+        <label class="mt-2 block">Tanggal Lahir</label>
+        <input name="tanggal_lahir" type="date" class="w-full p-2 border rounded" required />
+        <p class="text-xs text-gray-500 mt-1">Untuk mengganti "Tahun" Klik bagian kiri atas</p>
+
+        <label class="mt-2 block">Golongan Darah</label>
+        <select name="golongan_darah" class="w-full p-2 border rounded">
+          <option value="">Pilih</option>
+          <option>A</option>
+          <option>B</option>
+          <option>AB</option>
+          <option>O</option>
+          <option>Tidak Tahu</option>
+        </select>
+
+        <label class="mt-2 block">Alamat Lengkap</label>
+        <textarea name="alamat" required rows="3" class="w-full p-2 border rounded" placeholder="Tulis alamat lengkap sesuai domisili..."></textarea>
+
+        <label class="mt-2 block">Status Tinggal</label>
+        <select name="status_tinggal" required class="w-full p-2 border rounded">
+          <option value="">Pilih</option>
+          <option>Tinggal dengan Orang Tua</option>
+          <option>Tinggal dengan Suami/Istri</option>
+          <option>Tinggal dengan Keluarga Besar</option>
+          <option>Rumah Milik Sendiri</option>
+          <option>Kontrak / Sewa</option>
+          <option>Kos / Indekos</option>
+          <option>Tinggal di Majlis</option>
+          <option>Lainnya</option>
+        </select>
+
+        <label class="mt-2 block">Jumlah Keluarga yang Tinggal Serumah</label>
+        <input name="jumlah_keluarga" type="number" min="1" class="w-full p-2 border rounded" />
+
+        <label class="mt-2 block">Nomor WhatsApp</label>
+        <input name="no_wa" placeholder="62xxxxxxxxxxx" class="w-full p-2 border rounded" required />
+        <p class="text-xs text-gray-500 mt-1">* Gunakan format <strong>62</strong> (bukan 08), contoh: <code>6281234567890</code></p>
+
+        <label class="mt-2 block">Majlis Wilayah / Kabilah</label>
+        <select name="majlis_wilayah" required class="w-full p-2 border rounded">
+          <option value="">Pilih</option>
+          <option>Ar-Rahman</option>
+          <option>Ar-Rohim</option>
+          <option>Al-Qudus</option>
+          <option>Al-Malik</option>
+          <option>Nurul Salikin</option>
+          <option>Nurul Kamilah</option>
+          <option>Nurul Hakim</option>
+          <option>Nurul Hikmah</option>
+          <option>Barakotaul Anbiya</option>
+        </select>
+      </div>
+      <!-- 👪 KONDISI KELUARGA & SOSIAL -->
+      <div class="form-section">
+        <h2 class="text-lg font-semibold mb-3">👪 Kondisi Keluarga & Sosial</h2>
+
+        <label>Status Pernikahan</label>
+        <select name="status_nikah" id="status_nikah" onchange="toggleStatusNikah()" required class="w-full p-2 border rounded">
+          <option value="">Pilih</option>
+          <option>Belum Menikah</option>
+          <option>Menikah</option>
+          <option>Cerai Hidup</option>
+          <option>Cerai Mati</option>
+        </select>
+
+        <!-- Kolom Tambahan Jika Menikah -->
+        <div id="pasangan-fields" class="hidden mt-2">
+          <label>Nama Suami/Istri <span class="text-sm text-gray-500">(Tulis nama lengkap jika sudah ada)</span></label>
+          <input name="nama_pasangan" class="w-full p-2 border rounded uppercase" />
+
+          <label class="mt-2 block">Jumlah Anak</label>
+          <input name="jumlah_anak" type="number" min="0" class="w-full p-2 border rounded" />
+
+          <label class="mt-2 block">Tinggal dengan Pasangan?</label>
+          <select name="tinggal_dengan_pasangan" class="w-full p-2 border rounded">
+            <option value="">Pilih</option>
+            <option>Ya</option>
+            <option>Tidak</option>
+          </select>
+        </div>
+
+        <!-- Izin Suami -->
+        <div id="izin_suami_field" class="hidden mt-2">
+          <label class="block text-sm">
+            <input type="checkbox" name="izin_suami" class="mr-2" />
+            Saya telah mendapatkan persetujuan dari Suami untuk mengikuti kegiatan MSAH
+          </label>
+        </div>
+
+        <!-- Pendidikan -->
+        <label class="mt-3 block">Pendidikan Terakhir</label>
+        <select name="pendidikan" required class="w-full p-2 border rounded">
+          <option value="">Pilih</option>
+          <option>SD</option><option>SMP</option><option>SMA</option>
+          <option>D1</option><option>D2</option><option>D3</option>
+          <option>S1</option><option>S2</option><option>S3</option>
+        </select>
+
+        <!-- Pekerjaan -->
+        <label class="mt-3 block">Pekerjaan</label>
+        <input name="pekerjaan" required class="w-full p-2 border rounded" placeholder="Contoh: Guru, Pedagang, IRT, dll" />
+
+        <!-- Keahlian -->
+        <label class="mt-2 block">Keahlian / Skill (Opsional)</label>
+        <input name="keahlian" class="w-full p-2 border rounded" placeholder="Contoh: Driver, Jahit, Ngaji, Masak, Cukur, dll" />
+
+        <!-- Penghasilan -->
+        <label class="mt-2 block">Penghasilan per Bulan</label>
+        <select name="penghasilan" required class="w-full p-2 border rounded">
+          <option value="">Pilih</option>
+          <option>Dibawah Rp3.000.000</option>
+          <option>Rp3.000.000 - Rp5.000.000</option>
+          <option>Rp5.000.000 - Rp10.000.000</option>
+          <option>Di atas Rp10.000.000</option>
+          <option>Tidak Berpenghasilan</option>
+        </select>
+
+        <!-- Penghasilan Suami -->
+        <div id="penghasilan_suami_field" class="hidden mt-2">
+          <label>Penghasilan Suami</label>
+          <select name="penghasilan_suami" class="w-full p-2 border rounded">
+            <option value="">Pilih</option>
+            <option>Dibawah Rp3.000.000</option>
+            <option>Rp3.000.000 - Rp5.000.000</option>
+            <option>Rp5.000.000 - Rp10.000.000</option>
+            <option>Di atas Rp10.000.000</option>
+            <option>Tidak Berpenghasilan</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- 🤝 KOMITMEN JAMAAH -->
+      <div class="form-section">
+        <h2 class="text-lg font-semibold mb-3">🤝 Komitmen Jamaah</h2>
+
+        <label class="block">Tahun Bergabung di MSAH</label>
+        <input name="tahun_gabung" type="number" min="2000" class="w-full p-2 border rounded" required />
+
+        <label class="block mt-3">Infaq Wajib MSAH (Pusat)</label>
+        <select name="infaq_msah" required class="w-full p-2 border rounded">
+          <option value="">Pilih</option>
+          <option>Bersedia</option>
+          <option>Tidak Bersedia</option>
+        </select>
+        <p class="text-xs text-gray-500 mt-1">
+          • Infaq wajib bulanan sebesar <strong>Rp100.000</strong> sesuai ketentuan Majlis Pusat MSAH.<br />
+          • Disetorkan setiap tanggal <strong>28</strong> setiap bulannya.
+        </p>
+
+        <label class="block mt-3">Infaq Wilayah / Kabilah</label>
+        <select name="infaq_wilayah" required class="w-full p-2 border rounded">
+          <option value="">Pilih</option>
+          <option>Bersedia</option>
+          <option>Tidak Bersedia</option>
+        </select>
+        <p class="text-xs text-gray-500 mt-1">
+          • Besaran infaq wilayah mengikuti keputusan Majlis Wilayah / Kabilah masing-masing.
+        </p>
+
+        <div class="mt-4">
+          <p class="text-sm">
+            Kesediaan Menunaikan <strong>ZISWNH</strong> (Zakat, Infak, Shodaqoh, Wakaf, Nafaqoh, Hibah/Hadiah)<br />
+            <span class="text-xs text-gray-500">
+              Jumlah nominal sesuai nishab, kemampuan, atau kesepakatan struktural MSAH.
+            </span>
+          </p>
+          <label class="block text-sm mt-2">
+            <input type="checkbox" name="komitmen_ziswnh" required class="mr-2" />
+            Saya bersedia menunaikan kewajiban tersebut di MSAH.
+          </label>
+        </div>
+
+        <label class="inline-flex items-start mt-4">
+          <input type="checkbox" name="konfirmasi_ikrar" required class="mt-1" />
+          <span class="ml-2 text-sm leading-snug">
+            Dengan ini saya menyatakan bersedia menjadi jamaah dan mengikuti LIQO maupun kegiatan lainnya di MSAH baik pusat maupun Wilayah dan Kabilah, serta mengikuti aturan dan kewajiban yang berlaku.
+          </span>
+        </label>
+      </div>
+      <!-- ☎️ KONTAK DARURAT -->
+      <div class="form-section">
+        <h2 class="text-lg font-semibold mb-3">☎️ Kontak Darurat <span class="text-sm text-gray-500">(Opsional)</span></h2>
+
+        <label>Nama Kontak Darurat</label>
+        <input name="nama_kontak_darurat" class="w-full p-2 border rounded" placeholder="Nama Kontak Darurat" />
+
+        <label class="mt-2 block">Hubungan</label>
+        <input name="hubungan_kontak_darurat" class="w-full p-2 border rounded" placeholder="Hubungan (Ayah/Ibu/Saudara)" />
+
+        <label class="mt-2 block">No. HP Kontak Darurat</label>
+        <input name="no_kontak_darurat" class="w-full p-2 border rounded" placeholder="Contoh: 6281234567890" />
+        <p class="text-xs text-gray-500 mt-1">* Gunakan format <strong>62</strong> (bukan 08)</p>
+      </div>
+
+      <!-- 📎 UPLOAD DOKUMEN -->
+      <div class="form-section">
+        <h2 class="text-lg font-semibold mb-3">📎 Unggah Dokumen</h2>
+
+        <!-- Upload KTP -->
+        <label class="block mb-1">Upload Foto KTP</label>
+        <img src="https://i.ibb.co/2qYc4m1/contoh-ktp-border.png"
+             alt="Contoh KTP"
+             class="w-full max-w-xs mb-2 border border-blue-400 rounded shadow" />
+        <input type="file" name="ktp_file" accept=".jpg,.jpeg,.png,.pdf" required class="w-full border p-2 rounded" />
+        <p class="text-xs text-gray-500 mt-1">
+          * Pastikan KTP terlihat jelas, lurus, tidak blur, dan posisinya sesuai frame contoh.
+        </p>
+
+        <!-- Upload Foto Profil -->
+        <label class="block mt-4">Upload Foto Profil</label>
+        <input type="file" name="foto_file" accept=".jpg,.jpeg,.png" required class="w-full border p-2 rounded" />
+        <p class="text-xs text-gray-500 mt-1">* Gunakan foto yang sopan dan berpakaian muslim / menutup aurat.</p>
+      </div>
+
+      <!-- ✅ KONFIRMASI DATA -->
+      <div class="form-section mt-6">
+        <h2 class="text-lg font-semibold mb-3">✅ Konfirmasi Data</h2>
+        <label class="block text-sm text-gray-700 font-medium mb-1">
+          Pastikan semua data telah diisi dengan benar
+        </label>
+
+        <label class="inline-flex items-start">
+          <input type="checkbox" name="final_konfirmasi" required class="mt-1" />
+          <span class="ml-2 text-sm leading-snug">
+            Saya menyatakan bahwa semua data yang saya isi adalah benar dan dapat dipertanggungjawabkan.
+          </span>
+        </label>
+      </div>
+
       <!-- BUTTON SUBMIT -->
-      <button type="submit" id="submitButton"
+      <button type="submit"
               class="w-full bg-blue-600 text-white py-3 rounded hover:bg-blue-700 mt-6 transition duration-300">
         Kirim Formulir
       </button>
-      <div id="status" class="mt-4"></div>
+      <p id="status" class="text-center text-sm text-green-600 mt-4"></p>
 
       <!-- MODAL SUKSES -->
-      <div id="successModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+      <div id="successModal"
+           class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
         <div class="bg-white p-6 rounded-2xl shadow-2xl text-center animate-bounce-in-down max-w-sm w-full">
           <div class="text-green-600 text-4xl mb-3">🤲</div>
           <h3 class="text-xl font-bold mb-2 text-green-700">Alhamdulillah, Registrasi Berhasil!</h3>
           <p class="text-sm text-gray-700 mb-4 leading-relaxed">
             Data antum/anti telah kami terima. Semoga Allah mudahkan istiqomah dalam majlis ini. Aamiin..<br />
             <span class="text-xs block mt-2 text-gray-500 italic">
-              "Barang siapa menempuh jalan untuk mencari ilmu, maka Allah akan mudahkan baginya jalan menuju surga." (HR. Muslim)
+              “Barang siapa menempuh jalan untuk mencari ilmu, maka Allah akan mudahkan baginya jalan menuju surga.” (HR. Muslim)
             </span>
           </p>
           <button onclick="closeModal()"
@@ -108,294 +318,68 @@
 
   <!-- Script JavaScript -->
   <script>
-    // Konfigurasi yang bisa diubah
-    const CONFIG = {
-      // Menggunakan Cloudflare Worker sebagai proxy untuk mengatasi CORS
-      GAS_PROXY_URL: "https://msah-proxy.majlismsah.workers.dev",
-      DEBUG_MODE: true,
-      MAX_FILE_SIZE: 2 * 1024 * 1024 // 2MB
-    };
-
-    // Fungsi untuk menampilkan/menyembunyikan field berdasarkan status nikah
     function toggleStatusNikah() {
-      const statusNikah = document.getElementById('status_nikah').value;
+      const status = document.getElementById('status_nikah').value;
       const pasanganFields = document.getElementById('pasangan-fields');
-      const izinSuamiField = document.getElementById('izin_suami_field');
-      const penghasilanSuamiField = document.getElementById('penghasilan_suami_field');
+      const izinSuami = document.getElementById('izin_suami_field');
+      const penghasilanSuami = document.getElementById('penghasilan_suami_field');
+      const gender = document.getElementById('jenis_kelamin').value;
 
-      if (statusNikah === 'Menikah') {
+      if (status === 'Menikah') {
         pasanganFields.classList.remove('hidden');
-        izinSuamiField.classList.remove('hidden');
-        penghasilanSuamiField.classList.remove('hidden');
+        if (gender === 'Perempuan') {
+          izinSuami.classList.remove('hidden');
+          penghasilanSuami.classList.remove('hidden');
+        } else {
+          izinSuami.classList.add('hidden');
+          penghasilanSuami.classList.add('hidden');
+        }
       } else {
         pasanganFields.classList.add('hidden');
-        izinSuamiField.classList.add('hidden');
-        penghasilanSuamiField.classList.add('hidden');
+        izinSuami.classList.add('hidden');
+        penghasilanSuami.classList.add('hidden');
       }
     }
 
-    // Inisialisasi saat halaman dimuat
-    document.addEventListener('DOMContentLoaded', () => {
-      // Auto-format nomor WA
-      const waInput = document.getElementById('no_wa');
-      if (waInput) {
-        waInput.addEventListener('input', function(e) {
-          let value = e.target.value.replace(/\D/g, '');
-          if (value.startsWith('0')) {
-            value = '62' + value.substring(1);
-          }
-          e.target.value = value;
-        });
-      }
+    function toggleGender() {
+      toggleStatusNikah();
+    }
 
-      // Set event listener untuk toggle status nikah
-      const statusNikahSelect = document.getElementById('status_nikah');
-      if (statusNikahSelect) {
-        statusNikahSelect.addEventListener('change', toggleStatusNikah);
-        // Inisialisasi toggle status nikah
-        toggleStatusNikah();
+    const form = document.getElementById('regForm');
+    const statusText = document.getElementById('status');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const formData = new FormData(form);
+      statusText.innerText = "⏳ Mengirim data... Mohon tunggu.";
+
+      try {
+        const response = await fetch("https://script.google.com/macros/s/AKfycbxMJLDP8bqk1teTDlhlWl2odJ_l3K4QZFkPzkU4wASvg9qtdHTu7o3XquwsDiclQj71/exec", {
+          method: "POST",
+          body: formData
+        });
+
+        const result = await response.text();
+
+        if (result === "Success") {
+          form.reset();
+          statusText.innerText = "";
+          document.getElementById("successModal").classList.remove("hidden");
+          setTimeout(() => {
+            window.location.href = "https://wa.me/62816787977?text=Assalamualaikum%2C%20saya%20sudah%20mengisi%20form%20registrasi%20jamaah%20MSAH.";
+          }, 5000);
+        } else {
+          statusText.innerText = "❌ Terjadi kesalahan. Silakan coba lagi.";
+        }
+      } catch (error) {
+        console.error(error);
+        statusText.innerText = "❌ Gagal mengirim data. Silakan periksa koneksi Anda.";
       }
-      
-      // Tampilkan notifikasi jika diperlukan
-      showNotification('Form registrasi siap digunakan. Pastikan data yang diisi benar.', 'info');
     });
 
-    // Helper convert file ke base64
-    function toBase64(file) {
-      return new Promise((resolve, reject) => {
-        const reader = new FileReader();
-        reader.readAsDataURL(file);
-        reader.onload = () => resolve(reader.result.split(',')[1]); // Ambil hanya base64 nya
-        reader.onerror = reject;
-      });
-    }
-
-    // Fungsi untuk menampilkan notifikasi
-    function showNotification(message, type = 'info') {
-      const notificationDiv = document.getElementById('notification');
-      if (!notificationDiv) return;
-      
-      notificationDiv.classList.remove('hidden');
-      
-      let className = 'bg-blue-100 text-blue-800';
-      if (type === 'error') className = 'bg-red-100 text-red-800';
-      if (type === 'success') className = 'bg-green-100 text-green-800';
-      
-      notificationDiv.innerHTML = `
-        <div class="${className} p-4 rounded-lg border-l-4 ${type === 'error' ? 'border-red-500' : type === 'success' ? 'border-green-500' : 'border-blue-500'}">
-          <p>${message}</p>
-        </div>
-      `;
-    }
-
-    // Fungsi untuk menampilkan pesan status
-    function showStatus(message, isError = false) {
-      const statusDiv = document.getElementById('status');
-      if (!statusDiv) return;
-      
-      if (isError) {
-        statusDiv.innerHTML = `
-          <div class="error-message">
-            <p class="text-red-700 font-medium">${message}</p>
-            <button onclick="retrySubmission()" class="mt-3 px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700 transition">
-              Coba Lagi
-            </button>
-            <button onclick="showAlternativeSolution()" class="mt-3 ml-3 px-4 py-2 bg-gray-600 text-white rounded hover:bg-gray-700 transition">
-              Alternatif Pengiriman
-            </button>
-          </div>
-        `;
-      } else {
-        statusDiv.innerHTML = `<div class="success-message"><p class="text-green-700">${message}</p></div>`;
-      }
-    }
-
-    // Fungsi untuk menampilkan solusi alternatif
-    function showAlternativeSolution() {
-      const statusDiv = document.getElementById('status');
-      if (!statusDiv) return;
-      
-      statusDiv.innerHTML = `
-        <div class="bg-yellow-50 p-4 rounded-lg border-l-4 border-yellow-500">
-          <h3 class="font-bold text-yellow-800 mb-2">Alternatif Pengiriman Data</h3>
-          <p class="mb-3">Jika pengiriman data masih gagal, silakan ikuti langkah berikut:</p>
-          <ol class="list-decimal pl-5 space-y-2">
-            <li>Simpan data yang sudah diisi</li>
-            <li>Kirim data melalui WhatsApp ke nomor: <a href="https://wa.me/62816787977" class="text-blue-600 underline">0816-7879-77</a></li>
-            <li>Lampirkan foto KTP dan foto profil Anda</li>
-          </ol>
-          <button onclick="window.location.href='https://wa.me/62816787977?text=Assalamualaikum%20saya%20mengalami%20kendala%20pengiriman%20form%20registrasi%20MSAH'" 
-                  class="mt-4 px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700 transition">
-            Kirim via WhatsApp
-          </button>
-        </div>
-      `;
-    }
-
-    // Fungsi untuk mencoba kembali pengiriman
-    function retrySubmission() {
-      const statusDiv = document.getElementById('status');
-      if (statusDiv) statusDiv.innerHTML = '';
-      
-      const form = document.getElementById('regForm');
-      if (form) {
-        const event = new Event('submit', {
-          bubbles: true,
-          cancelable: true
-        });
-        form.dispatchEvent(event);
-      }
-    }
-
-    // Fungsi untuk menutup modal
     function closeModal() {
-      const modal = document.getElementById("successModal");
-      if (modal) modal.classList.add("hidden");
-    }
-
-    // Tangkap event submit form
-    const form = document.getElementById('regForm');
-    const submitButton = document.getElementById('submitButton');
-
-    if (form && submitButton) {
-      form.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        
-        // Validasi nomor WA
-        const waInput = form.elements['no_wa'];
-        if (!waInput || !/^62\d{9,13}$/.test(waInput.value)) {
-          showStatus('Format WA salah! Gunakan format 62xxxxxxxxxxx', true);
-          if (waInput) waInput.focus();
-          return;
-        }
-        
-        // Validasi ukuran file
-        const ktpFile = form.ktp_file?.files[0];
-        const fotoFile = form.foto_file?.files[0];
-        
-        if (ktpFile && ktpFile.size > CONFIG.MAX_FILE_SIZE) {
-          showStatus('Ukuran file KTP terlalu besar! Maksimal 2MB', true);
-          return;
-        }
-        
-        if (fotoFile && fotoFile.size > CONFIG.MAX_FILE_SIZE) {
-          showStatus('Ukuran foto profil terlalu besar! Maksimal 2MB', true);
-          return;
-        }
-        
-        // Tampilkan loading
-        submitButton.innerHTML = '<span class="spinner"></span> Mengirim...';
-        submitButton.disabled = true;
-        showStatus('⏳ Mengirim data... Mohon tunggu.');
-
-        const formData = new FormData(form);
-
-        // Baca file dan ubah ke Base64
-        let ktpBase64 = "";
-        let fotoBase64 = "";
-        
-        try {
-          if (ktpFile) {
-            ktpBase64 = await toBase64(ktpFile);
-          }
-          
-          if (fotoFile) {
-            fotoBase64 = await toBase64(fotoFile);
-          }
-        } catch (fileError) {
-          showStatus('❌ Gagal memproses file. Silakan coba file lain.', true);
-          submitButton.innerHTML = 'Kirim Formulir';
-          submitButton.disabled = false;
-          return;
-        }
-
-        // Siapkan data JSON untuk dikirim
-        const payload = {
-          nama_ktp: formData.get('nama_ktp') || '',
-          ismu_sulthon: formData.get('ismu_sulthon') || '',
-          jenis_kelamin: formData.get('jenis_kelamin') || '',
-          tempat_lahir: formData.get('tempat_lahir') || '',
-          tanggal_lahir: formData.get('tanggal_lahir') || '',
-          golongan_darah: formData.get('golongan_darah') || '',
-          alamat: formData.get('alamat') || '',
-          status_tinggal: formData.get('status_tinggal') || '',
-          jumlah_keluarga: formData.get('jumlah_keluarga') || '',
-          no_wa: formData.get('no_wa') || '',
-          majlis_wilayah: formData.get('majlis_wilayah') || '',
-          status_nikah: formData.get('status_nikah') || '',
-          nama_pasangan: formData.get('nama_pasangan') || '',
-          jumlah_anak: formData.get('jumlah_anak') || '',
-          tinggal_dengan_pasangan: formData.get('tinggal_dengan_pasangan') || '',
-          izin_suami: formData.get('izin_suami') ? "Ya" : "",
-          pendidikan: formData.get('pendidikan') || '',
-          pekerjaan: formData.get('pekerjaan') || '',
-          keahlian: formData.get('keahlian') || '',
-          penghasilan: formData.get('penghasilan') || '',
-          penghasilan_suami: formData.get('penghasilan_suami') || '',
-          tahun_gabung: formData.get('tahun_gabung') || '',
-          infaq_msah: formData.get('infaq_msah') || '',
-          infaq_wilayah: formData.get('infaq_wilayah') || '',
-          komitmen_ziswnh: formData.get('komitmen_ziswnh') ? "Ya" : "",
-          konfirmasi_ikrar: formData.get('konfirmasi_ikrar') ? "Ya" : "",
-          nama_kontak_darurat: formData.get('nama_kontak_darurat') || '',
-          hubungan_kontak_darurat: formData.get('hubungan_kontak_darurat') || '',
-          no_kontak_darurat: formData.get('no_kontak_darurat') || '',
-          ktp_file: ktpBase64,
-          foto_file: fotoBase64
-        };
-
-        try {
-          // Kirim data ke proxy server untuk menghindari CORS
-          const response = await fetch(CONFIG.GAS_PROXY_URL, {
-            method: "POST",
-            body: JSON.stringify({
-              url: "https://script.google.com/macros/s/AKfycbw8D7c3l72vhiya0N107qL1YL6QBLlLTafkgqfnVgZGPKjFft3ksBps7xQohVE1gFG1/exec",
-              data: payload
-            }),
-            headers: { "Content-Type": "application/json" }
-          });
-
-          // Tangani jika response tidak OK
-          if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-          }
-
-          const result = await response.json();
-
-          if (result.status === "Success") {
-            // Tampilkan modal sukses
-            document.getElementById("successModal").classList.remove("hidden");
-            showStatus('✅ Data berhasil dikirim!', false);
-            
-            // Redirect ke WhatsApp setelah 5 detik
-            const nama = encodeURIComponent(payload.nama_ktp);
-            const majlis = encodeURIComponent(payload.majlis_wilayah);
-            const waLink = `https://wa.me/62816787977?text=Assalamualaikum%20wr%20wb,%20saya%20${nama}%20dari%20${majlis}%20sudah%20mengisi%20form%20registrasi%20jamaah%20MSAH.`;
-            
-            setTimeout(() => {
-              window.location.href = waLink;
-            }, 5000);
-          } else {
-            showStatus(`❌ Gagal mengirim data: ${result.message}`, true);
-          }
-        } catch (error) {
-          console.error("Error:", error);
-          showStatus(`❌ Gagal mengirim data: ${error.message}`, true);
-          
-          // Tampilkan solusi alternatif setelah 3 detik
-          setTimeout(showAlternativeSolution, 3000);
-        } finally {
-          submitButton.innerHTML = 'Kirim Formulir';
-          submitButton.disabled = false;
-        }
-      });
-    } else {
-      console.error("Form or submit button not found!");
+      document.getElementById("successModal").classList.add("hidden");
     }
   </script>
-  
-  <!-- Cloudflare Web Analytics -->
-  <script defer src='https://static.cloudflareinsights.com/beacon.min.js' 
-          data-cf-beacon='{"token": "e05a0974a9f84a7d8a2d5e1e0c9b0d9b"}'></script>
 </body>
 </html>

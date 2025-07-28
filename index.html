@@ -73,9 +73,13 @@
           <option>Laki-laki</option>
           <option>Perempuan</option>
         </select>
-
-        <input name="tempat_lahir" class="w-full p-2 border rounded mt-2" placeholder="Tempat Lahir" required />
-        <input name="tanggal_lahir" type="date" placeholder="DD/MM/YYYY" required class="w-full p-2 border rounded mt-2" />
+	<label class="mt-2 block">Tempat Kelahiran</label>
+        <input name="tempat_lahir" class="w-full p-2 border rounded mt-2" placeholder="Jakarta" required />
+        
+	<label class="mt-2 block">Tanggal Lahir</label>
+        <input name="tanggal_lahir" type="date" class="w-full p-2 border rounded" required />
+        <p class="text-xs text-gray-500 mt-1">Untuk mengganti "Tahun" Klik bagian kiri atas</p>
+	      
         <p class="text-xs text-gray-500 mt-1">Format: DD/MM/YYYY – gunakan tombol pemilih tanggal jika tidak muncul di HP Anda</p>
 
 	<label class="mt-2 block">Golongan Darah</label>
@@ -96,10 +100,7 @@
           <option>Kos / Indekos</option>
           <option>Lainnya</option>
         </select>
-	
-	      
-        <input name="no_wa" class="..." placeholder="Nomor Whatsapp (62xxx)" required />
-	      
+        <input name="no_wa" type="tel" class="w-full p-2 border rounded mt-2" placeholder="Nomor Whatsapp (62xxx)" required />
         <select name="majlis_wilayah" required class="w-full p-2 border rounded mt-2">
           <option value="">Majlis Wilayah / Kabilah</option>
           <option>Ar-Rahman</option>
@@ -369,6 +370,39 @@
     }
   });
 </script>
+<script>
+  const form = document.querySelector("form");
+
+  function normalisasiNomor(nomor) {
+    nomor = nomor.trim().replace(/\s+/g, '');
+    if (nomor.startsWith("08")) {
+      return "62" + nomor.slice(1);
+    }
+    if (nomor.startsWith("+62")) {
+      return "62" + nomor.slice(3);
+    }
+    if (nomor.startsWith("62")) {
+      return nomor; // sudah normal
+    }
+    return nomor; // fallback
+  }
+
+  if (form) {
+    form.addEventListener("submit", function (e) {
+      const noWaJamaah = form.querySelector("[name='no_wa']");
+      const noWaDarurat = form.querySelector("[name='no_kontak_darurat']");
+
+      if (noWaJamaah && noWaJamaah.value) {
+        noWaJamaah.value = normalisasiNomor(noWaJamaah.value);
+      }
+
+      if (noWaDarurat && noWaDarurat.value) {
+        noWaDarurat.value = normalisasiNomor(noWaDarurat.value);
+      }
+    });
+  }
+</script>
+
 
 
 </body>

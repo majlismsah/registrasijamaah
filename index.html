@@ -78,8 +78,13 @@
           <option>Laki-laki</option>
           <option>Perempuan</option>
         </select>
-	     
-	<label class="mt-2 block">Golongan Darah</label>
+        <select name="pendidikan" required class="w-full p-2 border rounded mt-4">
+          <option value="">Pendidikan Terakhir</option>
+          <option>SD</option><option>SMP</option><option>SMA</option>
+          <option>D1</option><option>D2</option><option>D3</option>
+          <option>S1</option><option>S2</option><option>S3</option>
+        </select>
+	      
 	<select name="golongan_darah" required class="w-full p-2 border rounded mt-2">
           <option value="">Golongan Darah</option>
           <option>A</option>
@@ -156,13 +161,7 @@
           </label>
         </div>
 
-        <!-- Pendidikan -->
-        <select name="pendidikan" required class="w-full p-2 border rounded mt-4">
-          <option value="">Pendidikan Terakhir</option>
-          <option>SD</option><option>SMP</option><option>SMA</option>
-          <option>D1</option><option>D2</option><option>D3</option>
-          <option>S1</option><option>S2</option><option>S3</option>
-        </select>
+        
 	<input name="jumlah_keluarga" type="number" min="1" placeholder="Total jumlah keluarga yg tinggal serumah" required class="w-full p-2 border rounded mt-2" />
         <!-- Pekerjaan & Penghasilan Pribadi -->
         <input name="pekerjaan" placeholder="Pekerjaan" required class="w-full p-2 border rounded mt-2" />

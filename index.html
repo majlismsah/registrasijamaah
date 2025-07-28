@@ -143,15 +143,43 @@
         <input name="pekerjaan" placeholder="Pekerjaan" required class="w-full p-2 border rounded mt-2" />
 	<!-- Keahlian -->
 	<input name="keahlian" placeholder="Keahlian / Skill (Opsional)" class="w-full p-2 border rounded mt-2" />
-        <select name="penghasilan" required class="w-full p-2 border rounded mt-2">
-          <option value="">Penghasilan per bulan</option>
-          <option>Dibawah Rp3.000.000</option>
-          <option>Rp3.000.000 - Rp5.000.000</option>
-          <option>Rp5.000.000 - Rp10.000.000</option>
-          <option>Di atas Rp10.000.000</option>
-          <option>Tidak Berpenghasilan</option>
-        </select>
 
+	<label for="penghasilan" class="block font-semibold mt-4">Penghasilan per Bulan</label>
+	<select name="penghasilan" id="penghasilan" required class="w-full p-2 border rounded mt-1">
+	  <option value="">-- Pilih rentang penghasilan --</option>
+	  <option>Kurang dari Rp1.000.000</option>
+	  <option>Rp1.000.000 - Rp3.000.000</option>
+	  <option>Rp3.000.000 - Rp5.000.000</option>
+	  <option>Rp5.000.000 - Rp10.000.000</option>
+	  <option>Rp10.000.000 - Rp20.000.000</option>
+	  <option>Di atas Rp20.000.000</option>
+	  <option value="lainnya">Lainnya / Tulis Manual</option>
+	</select>
+	
+	<div id="penghasilanManual" class="hidden mt-2">
+	  <label for="penghasilan_lain" class="block text-sm mt-1">Tuliskan penghasilan per bulan Anda:</label>
+	  <div class="flex items-center">
+	    <span class="p-2 bg-gray-100 border border-r-0 rounded-l">Rp</span>
+	    <input type="text" name="penghasilan_lain" id="penghasilan_lain"
+	           class="w-full p-2 border rounded-r" placeholder="Contoh: 2.500.000">
+	  </div>
+	</div>
+	
+	<p class="text-xs text-gray-500 mt-1 italic">
+	  Data penghasilan bersifat <strong>rahasia</strong> dan hanya digunakan untuk keperluan internal Majlis.
+	</p>
+
+<script>
+  // Tampilkan input manual jika pilih "Lainnya"
+  document.getElementById("penghasilan").addEventListener("change", function () {
+    const manual = document.getElementById("penghasilanManual");
+    manual.classList.toggle("hidden", this.value !== "lainnya");
+  });
+</script>
+
+	      
+
+	      
         <!-- Penghasilan Suami -->
         <div id="penghasilan_suami_field" class="hidden mt-2">
           <label class="block font-medium text-sm">Penghasilan Suami</label>

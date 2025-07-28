@@ -91,10 +91,10 @@
 	  <option>AB</option>
 	  <option>O</option>
 	  <option>Tidak Tahu</option>
-	<p class="text-xs text-gray-600 italic mt-3">
-	  📌 Data Anda bersifat rahasia dan hanya digunakan untuk keperluan internal Majlis. Tidak akan dibagikan kepada pihak lain tanpa izin.
-	</p>
 	</select>	
+	<p class="text-xs text-gray-600 italic mt-3">
+	📌 Data Anda bersifat rahasia dan hanya digunakan untuk keperluan internal Majlis. Tidak akan dibagikan kepada pihak lain tanpa izin.
+	</p>
         <textarea name="alamat" placeholder="Alamat Lengkap Domisili" required rows="3" class="w-full p-2 border rounded mt-2"></textarea>
         <select name="status_tinggal" required class="w-full p-2 border rounded mt-2">
           <option value="">Status Tinggal</option>
@@ -135,18 +135,17 @@
         <div id="izin_suami_field" class="hidden mt-2">
           <label class="block text-sm">
             <input type="checkbox" name="izin_suami" class="mr-2">
-            Saya telah mendapatkan persetujuan dari Suami untuk mengikuti kegiatan di MSAH.
+            Saya telah mendapatkan persetujuan dari Suami untuk mengikuti kegiatan di bermajlis MSAH.
           </label>
-        </div>
-
-        
+        </div>        
+	<!-- Jumlah Keluarga yang tinggal serumah -->
 	<input name="jumlah_keluarga" type="number" min="1" placeholder="Total jumlah keluarga yg tinggal serumah" required class="w-full p-2 border rounded mt-2" />
         <!-- Pekerjaan & Penghasilan Pribadi -->
         <input name="pekerjaan" placeholder="Pekerjaan" required class="w-full p-2 border rounded mt-2" />
 	<!-- Keahlian -->
 	<input name="keahlian" placeholder="Keahlian / Skill (Opsional)" class="w-full p-2 border rounded mt-2" />
-
-	<label for="penghasilan" class="block font-semibold mt-4">Penghasilan per Bulan</label>
+	<!-- Penghasilan -->
+	<label for="penghasilan" class="block font-semibold mt-4">Penghasilan Pribadi per Bulan</label>
 	<select name="penghasilan" id="penghasilan" required class="w-full p-2 border rounded mt-1">
 	  <option value="">-- Pilih rentang penghasilan --</option>
 	  <option>Kurang dari Rp1.000.000</option>
@@ -183,11 +182,13 @@
         	<div id="penghasilan_suami_field" class="hidden mt-2">
 		  <label for="penghasilan_suami" class="block mb-1 font-medium">Penghasilan Suami</label>
 		  <select name="penghasilan_suami" id="penghasilan_suami" required class="w-full p-2 border rounded">
-		    <option value="">Penghasilan per bulan</option>
-		    <option>Dibawah Rp3.000.000</option>
+		    <option value="">-- Pilih rentang penghasilan --</option>
+		    <option>Kurang dari Rp1.000.000</option>
+		    <option>Rp1.000.000 - Rp3.000.000</option>
 		    <option>Rp3.000.000 - Rp5.000.000</option>
 		    <option>Rp5.000.000 - Rp10.000.000</option>
-		    <option>Di atas Rp10.000.000</option>
+		    <option>Rp10.000.000 - Rp20.000.000</option>
+		    <option>Di atas Rp20.000.000</option>
 		    <option>Tidak Berpenghasilan</option>
 		    <option value="manual">Tulis Manual</option>
 		  </select>

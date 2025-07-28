@@ -78,6 +78,7 @@
         <input name="tanggal_lahir" type="date" placeholder="DD/MM/YYYY" required class="w-full p-2 border rounded mt-2" />
         <p class="text-xs text-gray-500 mt-1">Format: DD/MM/YYYY – gunakan tombol pemilih tanggal jika tidak muncul di HP Anda</p>
 
+	<label class="mt-2 block">Golongan Darah</label>
 	<select name="golongan_darah" class="w-full p-2 border rounded mt-2">
           <option value="">Pilih</option>
           <option>A</option><option>B</option><option>AB</option><option>O</option><option>Tidak Tahu</option>
@@ -95,7 +96,9 @@
           <option>Kos / Indekos</option>
           <option>Lainnya</option>
         </select>
-	  
+	<label class="mt-2 block">Jumlah Keluarga yang Tinggal Serumah</label>
+        <input name="jumlah_keluarga" type="number" min="1" class="w-full p-2 border rounded" />
+	      
         <input name="no_wa" class="..." placeholder="Nomor Whatsapp (62xxx)" required />
 	      
         <select name="majlis_wilayah" required class="w-full p-2 border rounded mt-2">

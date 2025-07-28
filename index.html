@@ -64,29 +64,40 @@
       <!-- 1. IDENTITAS PRIBADI -->
       <div>
         <h2 class="text-lg font-semibold border-b pb-1 mb-3">👤 Identitas Pribadi</h2>
-	<label>Nama Sesuai KTP</label>
+	
         <input name="nama_ktp" class="w-full p-2 border rounded uppercase" placeholder="Nama Sesuai KTP" required />
         <input name="ismu_sulthon" class="w-full p-2 border rounded uppercase mt-2" placeholder="Ismu Sulthon" required />
 	<input name="no_wa" type="tel" class="w-full p-2 border rounded mt-2" placeholder="Nomor Whatsapp (62xxx)" required />
-        
+	<input name="tempat_lahir" class="w-full p-2 border rounded mt-2" placeholder="Tempat Kelahiran" required />
+        <label class="mt-2 block">Tanggal Lahir</label>
+        <input name="tanggal_lahir" type="date" class="w-full p-2 border rounded" required />
+        <p class="text-xs text-gray-500 mt-1">Untuk mengganti "Tahun" Klik bagian kiri atas</p>
+	      
         <select name="jenis_kelamin" id="jenis_kelamin" onchange="toggleGender()" required class="w-full p-2 border rounded mt-2">
           <option value="">Jenis Kelamin</option>
           <option>Laki-laki</option>
           <option>Perempuan</option>
         </select>
-        <input name="tempat_lahir" class="w-full p-2 border rounded mt-2" placeholder="Tempat Kelahiran" required />
-        
-	<label class="mt-2 block">Tanggal Lahir</label>
-        <input name="tanggal_lahir" type="date" class="w-full p-2 border rounded" required />
-        <p class="text-xs text-gray-500 mt-1">Untuk mengganti "Tahun" Klik bagian kiri atas</p>
-	      
-        <p class="text-xs text-gray-500 mt-1">Format: DD/MM/YYYY – gunakan tombol pemilih tanggal jika tidak muncul di HP Anda</p>
-
+	     
 	<label class="mt-2 block">Golongan Darah</label>
-	<select name="golongan_darah" class="w-full p-2 border rounded mt-2">
-          <option value="">Pilih</option>
-          <option>A</option><option>B</option><option>AB</option><option>O</option><option>Tidak Tahu</option>
+	<select name="golongan_darah" required class="w-full p-2 border rounded mt-2">
+          <option value="">Golongan Darah</option>
+          <option>A</option>
+	  <option>B</option>
+	  <option>AB</option>
+	  <option>O</option>
+	  <option>Tidak Tahu</option>
         </select>      
+	 <select name="status_tinggal" required class="w-full p-2 border rounded mt-2">
+          <option value="">Status Tinggal</option>
+          <option>Tinggal dengan Orang Tua</option>
+          <option>Tinggal dengan Suami/Istri</option>
+          <option>Tinggal dengan Keluarga Besar</option>
+          <option>Rumah Milik Sendiri</option>
+          <option>Kontrak / Sewa</option>
+          <option>Kos / Indekos</option>
+          <option>Lainnya</option>
+        </select>
 
         <textarea name="alamat" placeholder="Alamat Lengkap" required rows="3" class="w-full p-2 border rounded mt-2"></textarea>
  	      

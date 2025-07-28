@@ -68,7 +68,7 @@
         <input name="ismu_sulthon" class="w-full p-2 border rounded uppercase mt-2" placeholder="Ismu Sulthon" required />
 	<input name="no_wa" type="tel" class="w-full p-2 border rounded mt-2" placeholder="Nomor Whatsapp (62xxx)" required />
 	      <p class="text-xs text-gray-500 mt-1 italic">
-	  	Data penghasilan bersifat <strong>rahasia</strong> dan hanya digunakan untuk keperluan internal Majlis.
+	  	Data bersifat <strong>rahasia</strong> dan hanya digunakan untuk keperluan internal Majlis.
 		</p>
 	<input name="tempat_lahir" class="w-full p-2 border rounded mt-2" placeholder="Tempat Kelahiran" required />
         <label class="mt-2 block">Tanggal Lahir</label>
@@ -95,7 +95,7 @@
 	  <option>Tidak Tahu</option>
 	</select>	
 		<p class="text-xs text-gray-500 mt-1 italic">
-		  Data penghasilan bersifat <strong>rahasia</strong> dan hanya digunakan untuk keperluan internal Majlis.
+		  Data bersifat <strong>rahasia</strong> dan hanya digunakan untuk keperluan internal Majlis.
 		</p>
         <textarea name="alamat" placeholder="Alamat Lengkap Domisili" required rows="3" class="w-full p-2 border rounded mt-2"></textarea>
         <select name="status_tinggal" required class="w-full p-2 border rounded mt-2">
@@ -353,11 +353,12 @@
     const penghasilanSuami = document.getElementById('penghasilan_suami_field');
     const gender = document.getElementById('jenis_kelamin').value;
 
-    if (status === 'Menikah') {
-      pasanganFields.classList.remove('hidden');
-      if (gender === 'Perempuan') {
-        izinSuami.classList.remove('hidden');
-        penghasilanSuami.classList.remove('hidden');
+    if (["Menikah", "Cerai Hidup", "Cerai Mati"].includes(statusNikah)) {
+	pasanganFields.classList.remove('hidden');
+    if (gender === 'Perempuan') {
+    	izinSuami.classList.remove('hidden');
+    	penghasilanSuami.classList.remove('hidden');
+  	}
       } else {
         izinSuami.classList.add('hidden');
         penghasilanSuami.classList.add('hidden');

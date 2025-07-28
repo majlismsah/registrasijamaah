@@ -209,24 +209,22 @@
 	      	
 
 	      <!-- SCRIPT PENGHASILAN SUAMI-->
-		<script>
-		  document.addEventListener('DOMContentLoaded', () => {
-		    const selectPenghasilanSuami = document.getElementById('penghasilan_suami');
-		    const inputManualWrap = document.getElementById('penghasilan_suami_manual_wrap');
-		    const inputManual = document.getElementById('penghasilan_suami_manual');
+		const selectPenghasilanSuami = document.getElementById('penghasilan_suami');
+		const inputManualWrap = document.getElementById('penghasilan_suami_manual_wrap');
+		const inputManual = document.getElementById('penghasilan_suami_manual');
 		
-		    selectPenghasilanSuami.addEventListener('change', () => {
-		      if (selectPenghasilanSuami.value === 'manual') {
-		        inputManualWrap.classList.remove('hidden');
-		        inputManual.required = true;
-		      } else {
-		        inputManualWrap.classList.add('hidden');
-		        inputManual.value = '';
-		        inputManual.required = false;
-		      }
-		    });
-		  });
-		</script>
+		selectPenghasilanSuami.addEventListener('change', () => {
+		  if (selectPenghasilanSuami.value === 'manual') {
+		    inputManualWrap.classList.remove('hidden');
+		    inputManual.required = true;
+		    selectPenghasilanSuami.required = false;
+		  } else {
+		    inputManualWrap.classList.add('hidden');
+		    inputManual.required = false;
+		    inputManual.value = '';
+		    selectPenghasilanSuami.required = true;
+		  }
+		});
 
       </div>
       <!-- 3. KOMITMEN JAMAAH -->

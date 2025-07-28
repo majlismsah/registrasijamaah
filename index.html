@@ -94,8 +94,7 @@
 	<p class="text-xs text-gray-600 italic mt-3">
 	  📌 Data Anda bersifat rahasia dan hanya digunakan untuk keperluan internal Majlis. Tidak akan dibagikan kepada pihak lain tanpa izin.
 	</p>
-	</select>
-		
+	</select>	
         <textarea name="alamat" placeholder="Alamat Lengkap Domisili" required rows="3" class="w-full p-2 border rounded mt-2"></textarea>
         <select name="status_tinggal" required class="w-full p-2 border rounded mt-2">
           <option value="">Status Tinggal</option>
@@ -173,17 +172,27 @@
 	</p>
   	      
         <!-- Penghasilan Suami -->
-        <div id="penghasilan_suami_field" class="hidden mt-2">
-          <label class="block font-medium text-sm">Penghasilan Suami</label>
-          <select name="penghasilan_suami" class="w-full p-2 border rounded mt-1">
-            <option value="">Pilih Penghasilan Suami</option>
-            <option>Dibawah Rp3.000.000</option>
-            <option>Rp3.000.000 - Rp5.000.000</option>
-            <option>Rp5.000.000 - Rp10.000.000</option>
-            <option>Di atas Rp10.000.000</option>
-            <option>Tidak Berpenghasilan</option>
-          </select>
-        </div>
+        	<div id="penghasilan_suami_field" class="hidden mt-2">
+	          <label class="block font-medium text-sm">Penghasilan Suami</label>
+	          <select name="penghasilan_suami" class="w-full p-2 border rounded mt-1">
+	          <option value="">-- Pilih rentang penghasilan --</option>
+		  <option>Kurang dari Rp1.000.000</option>
+		  <option>Rp1.000.000 - Rp3.000.000</option>
+		  <option>Rp3.000.000 - Rp5.000.000</option>
+		  <option>Rp5.000.000 - Rp10.000.000</option>
+		  <option>Rp10.000.000 - Rp20.000.000</option>
+		  <option>Di atas Rp20.000.000</option>
+		  <option value="lainnya">Lainnya / Tulis Manual</option>
+         	  </select>
+         	</div>
+	 	<div id="penghasilanManual" class="hidden mt-2">
+	  	<label for="penghasilan_lain" class="block text-sm mt-1">Tuliskan penghasilan per bulan Anda:</label>
+		  <div class="flex items-center">
+		    <span class="p-2 bg-gray-100 border border-r-0 rounded-l">Rp</span>
+		    <input type="text" name="penghasilan_lain" id="penghasilan_lain"
+		     class="w-full p-2 border rounded-r" placeholder="Contoh: 2.500.000">
+		  </div>
+	      </div>
       </div>
       <!-- 3. KOMITMEN JAMAAH -->
       <div>

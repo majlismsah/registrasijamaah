@@ -210,21 +210,24 @@
 
 	      <!-- SCRIPT PENGHASILAN SUAMI-->
 		<script>
-		  const selectPenghasilanSuami = document.getElementById('penghasilan_suami');
-		  const inputManualWrap = document.getElementById('penghasilan_suami_manual_wrap');
-		  const inputManual = document.getElementById('penghasilan_suami_manual');
+		  document.addEventListener('DOMContentLoaded', () => {
+		    const selectPenghasilanSuami = document.getElementById('penghasilan_suami');
+		    const inputManualWrap = document.getElementById('penghasilan_suami_manual_wrap');
+		    const inputManual = document.getElementById('penghasilan_suami_manual');
 		
-		  selectPenghasilanSuami.addEventListener('change', () => {
-		    if (selectPenghasilanSuami.value === 'manual') {
-		      inputManualWrap.classList.remove('hidden');
-		      inputManual.required = true;
-		    } else {
-		      inputManualWrap.classList.add('hidden');
-		      inputManual.value = '';
-		      inputManual.required = false;
-		    }
+		    selectPenghasilanSuami.addEventListener('change', () => {
+		      if (selectPenghasilanSuami.value === 'manual') {
+		        inputManualWrap.classList.remove('hidden');
+		        inputManual.required = true;
+		      } else {
+		        inputManualWrap.classList.add('hidden');
+		        inputManual.value = '';
+		        inputManual.required = false;
+		      }
+		    });
 		  });
 		</script>
+
       </div>
       <!-- 3. KOMITMEN JAMAAH -->
       <div>
@@ -353,7 +356,7 @@
     const penghasilanSuami = document.getElementById('penghasilan_suami_field');
     const gender = document.getElementById('jenis_kelamin').value;
 
-    if (["Menikah", "Cerai Hidup", "Cerai Mati"].includes(statusNikah)) {
+    if (['Menikah', 'Cerai Hidup', 'Cerai Mati'].includes(statusNikah)) {
 	pasanganFields.classList.remove('hidden');
     if (gender === 'Perempuan') {
     	izinSuami.classList.remove('hidden');

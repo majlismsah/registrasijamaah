@@ -64,7 +64,6 @@
       <!-- 1. IDENTITAS PRIBADI -->
       <div>
         <h2 class="text-lg font-semibold border-b pb-1 mb-3">👤 Identitas Pribadi</h2>
-	
         <input name="nama_ktp" class="w-full p-2 border rounded uppercase" placeholder="Nama Sesuai KTP" required />
         <input name="ismu_sulthon" class="w-full p-2 border rounded uppercase mt-2" placeholder="Ismu Sulthon" required />
 	<input name="no_wa" type="tel" class="w-full p-2 border rounded mt-2" placeholder="Nomor Whatsapp (62xxx)" required />
@@ -92,6 +91,7 @@
 	  <option>AB</option>
 	  <option>O</option>
 	  <option>Tidak Tahu</option>
+		
         <textarea name="alamat" placeholder="Alamat Lengkap Domisili" required rows="3" class="w-full p-2 border rounded mt-2"></textarea>
         <select name="status_tinggal" required class="w-full p-2 border rounded mt-2">
           <option value="">Status Tinggal</option>
@@ -103,9 +103,8 @@
           <option>Kos / Indekos</option>
           <option>Lainnya</option>
         </select>
-       
-        
       </div>
+	    
       <!-- 2. KONDISI KELUARGA & SOSIAL -->
       <div>
         <h2 class="text-lg font-semibold border-b pb-1 mb-3">👪 Kondisi Keluarga & Sosial</h2>
@@ -168,18 +167,7 @@
 	<p class="text-xs text-gray-500 mt-1 italic">
 	  Data penghasilan bersifat <strong>rahasia</strong> dan hanya digunakan untuk keperluan internal Majlis.
 	</p>
-
-<script>
-  // Tampilkan input manual jika pilih "Lainnya"
-  document.getElementById("penghasilan").addEventListener("change", function () {
-    const manual = document.getElementById("penghasilanManual");
-    manual.classList.toggle("hidden", this.value !== "lainnya");
-  });
-</script>
-
-	      
-
-	      
+  	      
         <!-- Penghasilan Suami -->
         <div id="penghasilan_suami_field" class="hidden mt-2">
           <label class="block font-medium text-sm">Penghasilan Suami</label>
@@ -430,7 +418,13 @@
   }
 </script>
 
-
+<script>
+  // Tampilkan input manual jika pilih "Lainnya"
+  document.getElementById("penghasilan").addEventListener("change", function () {
+    const manual = document.getElementById("penghasilanManual");
+    manual.classList.toggle("hidden", this.value !== "lainnya");
+  });
+</script>
 
 </body>
 </html>

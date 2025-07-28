@@ -67,14 +67,14 @@
 	<label>Nama Sesuai KTP</label>
         <input name="nama_ktp" class="w-full p-2 border rounded uppercase" placeholder="Nama Sesuai KTP" required />
         <input name="ismu_sulthon" class="w-full p-2 border rounded uppercase mt-2" placeholder="Ismu Sulthon" required />
+	<input name="no_wa" type="tel" class="w-full p-2 border rounded mt-2" placeholder="Nomor Whatsapp (62xxx)" required />
         
         <select name="jenis_kelamin" id="jenis_kelamin" onchange="toggleGender()" required class="w-full p-2 border rounded mt-2">
           <option value="">Jenis Kelamin</option>
           <option>Laki-laki</option>
           <option>Perempuan</option>
         </select>
-	<label class="mt-2 block">Tempat Kelahiran</label>
-        <input name="tempat_lahir" class="w-full p-2 border rounded mt-2" placeholder="Jakarta" required />
+        <input name="tempat_lahir" class="w-full p-2 border rounded mt-2" placeholder="Tempat Kelahiran" required />
         
 	<label class="mt-2 block">Tanggal Lahir</label>
         <input name="tanggal_lahir" type="date" class="w-full p-2 border rounded" required />
@@ -100,7 +100,7 @@
           <option>Kos / Indekos</option>
           <option>Lainnya</option>
         </select>
-        <input name="no_wa" type="tel" class="w-full p-2 border rounded mt-2" placeholder="Nomor Whatsapp (62xxx)" required />
+       
         <select name="majlis_wilayah" required class="w-full p-2 border rounded mt-2">
           <option value="">Majlis Wilayah / Kabilah</option>
           <option>Ar-Rahman</option>
@@ -238,7 +238,7 @@
         <h2 class="text-lg font-semibold border-b pb-1 mb-3">☎️ Kontak Darurat <span class="text-sm text-gray-500">(Opsional)</span></h2>
         <input name="nama_kontak_darurat" class="w-full p-2 border rounded" placeholder="Nama Kontak Darurat" />
         <input name="hubungan_kontak_darurat" class="w-full p-2 border rounded mt-2" placeholder="Hubungan (Ayah/Ibu/Saudara)" />
-        <input name="no_kontak_darurat" class="w-full p-2 border rounded mt-2" placeholder="No. HP Kontak Darurat" />
+        <input name="no_kontak_darurat" type="tel class="w-full p-2 border rounded mt-2" placeholder="No. HP Kontak Darurat" />
       </div>
 
       <!-- 5. UNGGAH DOKUMEN -->

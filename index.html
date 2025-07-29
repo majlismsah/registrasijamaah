@@ -136,24 +136,14 @@
           class="w-full p-2 border rounded mt-2 hidden" placeholder="Tulis Pekerjaan Anda" />
       <!--Keahlian-->  
         <input name="keahlian" placeholder="Keahlian / Skill (Opsional)" class="w-full p-2 border rounded mt-2" />
-      <!--Penghasilan Pribadi-->
-        <select name="penghasilan" id="penghasilan" required class="w-full p-2 border rounded mt-2">
-        <option value="">Penghasilan Pribadi per bulan</option>
-        <option>Dibawah Rp1.000.000</option>
-        <option>Rp1.000.000 - Rp3.000.000</option>
-        <option>Rp3.000.000 - Rp5.000.000</option>
-        <option>Rp5.000.000 - Rp10.000.000</option>
-        <option>Di atas Rp10.000.000</option>
-        <option>Tidak Berpenghasilan</option>
-        <option value="lainnya">Lainnya</option>
-      </select>
-      <!-- Input Penghasilan Lainnya -->
-      <div id="penghasilan_lainnya_field" class="hidden mt-2 relative">
-        <span class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-600">Rp</span>
-        <input type="number" min="0" name="penghasilan_lainnya" id="penghasilan_lainnya"
-          placeholder="Jumlah Penghasilan Lainnya"
-          class="w-full p-2 pl-10 border rounded" />
-      </div>
+      <!-- Penghasilan Pribadi -->
+        <label class="block mt-4 font-medium">Penghasilan Pribadi per bulan</label>
+        <div class="relative">
+          <span class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-600">Rp</span>
+          <input type="number" min="0" name="penghasilan" placeholder="Jumlah Penghasilan" class="w-full p-2 pl-10 border rounded" required />
+        </div>
+        <p class="text-xs text-gray-500 mt-1">Mohon diisi jujur sesuai kondisi sebenarnya. Data hanya untuk keperluan internal Majlis dan dijaga kerahasiaannya. Jika tidak berpenghasilan, tulis 0</p>
+
       <!-- Pekerjaan Suami -->
         <div id="pekerjaan_suami_field" class="hidden">
           <!-- Pilihan Kategori -->
@@ -176,28 +166,16 @@
           <!-- Input Manual Jika Lainnya -->
           <input type="text" name="pekerjaan_suami_lainnya" id="pekerjaan_suami_lainnya" placeholder="Sebutkan Pekerjaan Suami" class="w-full p-2 border rounded mt-2 hidden uppercase" />
         </div>
-      <!--Penghasilan Suami-->
-        <div id="penghasilan_suami_field" class="hidden mt-2">
-        <select name="penghasilan_suami" id="penghasilan_suami" class="w-full p-2 border rounded mt-1">
-        <option value="">Pilih Penghasilan Suami</option>
-        <option>Dibawah Rp1.000.000</option>
-        <option>Rp1.000.000 - Rp3.000.000</option>
-        <option>Rp3.000.000 - Rp5.000.000</option>
-        <option>Rp5.000.000 - Rp10.000.000</option>
-        <option>Di atas Rp10.000.000</option>
-        <option>Tidak Berpenghasilan</option>
-        <option value="lainnya">Lainnya</option>
-        </select>
-      <!-- Input Lainnya -->
-        <div id="penghasilan_suami_lainnya_field" class="hidden mt-2">
-        <div class="flex items-center">
-        <span class="inline-block bg-gray-200 border border-gray-300 rounded-l px-3 py-2 text-gray-700">Rp</span>
-        <input type="number" name="penghasilan_suami_lainnya" id="penghasilan_suami_lainnya"
-        class="w-full p-2 border rounded-r" placeholder="Tulis nominal penghasilan suami" min="0" />
+      <<!-- Penghasilan Suami -->
+        <div id="penghasilan_suami_field" class="hidden mt-4">
+          <label class="block font-medium">Penghasilan Suami per bulan</label>
+          <div class="relative">
+            <span class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-600">Rp</span>
+            <input type="number" min="0" name="penghasilan_suami" placeholder="Jumlah Penghasilan Suami" class="w-full p-2 pl-10 border rounded" />
+          </div>
+          <p class="text-xs text-gray-500 mt-1">Mohon diisi jujur sesuai kondisi sebenarnya. Data hanya untuk keperluan internal Majlis dan dijaga kerahasiaannya. Jika tidak berpenghasilan, tulis 0</p>
         </div>
-        </div>
-        </div>
-      </div>
+
 
       <!-- 3. KOMITMEN JAMAAH -->
       <div>

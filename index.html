@@ -117,21 +117,25 @@
       <!--Pekerjaan-->  
         <select name="pekerjaan" id="pekerjaan" class="w-full p-2 border rounded">
           <option value="">Pilih Pekerjaan</option>
-          <option>Pelajar/Mahasiswa</option>
-          <option>Ibu Rumah Tangga</option>
-          <option>Aparatur Sipil Negara (ASN)</option>
-          <option>Karyawan Swasta</option>
-          <option>Guru/Dosen</option>
-          <option>Wiraswasta</option>
-          <option>Petani/Peternak</option>
-          <option>Driver</option>
-          <option>Ojol</option>
-          <option>Tenaga Kesehatan</option>
-          <option>Pekerja Lepas (Freelancer)</option>
-          <option>Buruh/Karyawan Harian</option>
-          <option>Pensiunan</option>
-          <option>Tidak Bekerja</option>
-          <option value="lainnya">Lainnya</option>
+          <option>ASN</option>
+            <option>Pelajar/Mahasiswa</option>
+            <option>ASN</option>
+            <option value="TNI">TNI</option>
+            <option value="POLRI">POLRI</option>
+            <option>Karyawan Swasta</option>
+            <option>Pedagang</option>  
+            <option>Guru</option>
+            <option>Wiraswasta</option>
+            <option>Petani</option>
+            <option>Peternak</option>
+            <option>Driver</option>
+            <option>Ojol</option>
+            <option>Tenaga Kesehatan</option>
+            <option>Freelancer</option>
+            <option>Buruh/Pekerja Harian</option>
+            <option>Pensiunan</option>
+            <option>Tidak Bekerja</option>
+            <option value="lainnya">Lainnya</option>
         </select>
         <!-- Input Lainnya -->
         <input type="text" name="pekerjaan_lainnya" id="pekerjaan_lainnya"
@@ -144,41 +148,43 @@
           <span class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-600">Rp</span>
           <input type="number" min="0" name="penghasilan" placeholder="Jumlah Penghasilan" class="w-full p-2 pl-10 border rounded" required />
         </div>
-        <p class="text-xs text-gray-500 mt-1">Mohon diisi jujur sesuai kondisi sebenarnya. Data hanya untuk keperluan internal Majlis dan dijaga kerahasiaannya. Jika tidak berpenghasilan, tulis 0</p>
+          <p class="text-xs text-gray-500 mt-1">Mohon diisi jujur sesuai kondisi sebenarnya. Data hanya untuk keperluan internal Majlis dan dijaga kerahasiaannya. Jika tidak berpenghasilan, tulis 0</p>
 
       <!-- Pekerjaan Suami -->
         <div id="pekerjaan_suami_field" class="hidden">
           <!-- Pilihan Kategori -->
           <select name="pekerjaan_suami" id="pekerjaan_suami" class="w-full p-2 border rounded mt-2">
-          <option value="">Pilih Pekerjaan Suami</option>
-          <option>Aparatur Sipil Negara (ASN)</option>
-          <option>Karyawan Swasta</option>
-          <option>Guru/Dosen</option>
-          <option>Wiraswasta</option>
-          <option>Petani/Peternak</option>
-          <option>Driver</option>
-          <option>Ojol</option>
-          <option>Tenaga Kesehatan</option>
-          <option>Pekerja Lepas (Freelancer)</option>
-          <option>Buruh/Karyawan Harian</option>
-          <option>Pensiunan</option>
-          <option>Tidak Bekerja</option>
-          <option value="lainnya">Lainnya</option>
-        </select>
+            <option value="">Pilih Pekerjaan Suami</option>
+            <option>ASN</option>
+            <option value="TNI">TNI</option>
+            <option value="POLRI">POLRI</option>
+            <option>Karyawan Swasta</option>
+            <option>Pedagang</option>  
+            <option>Guru</option>
+            <option>Wiraswasta</option>
+            <option>Petani/Peternak</option>
+            <option>Peternak</option>
+            <option>Driver</option>
+            <option>Ojol</option>
+            <option>Tenaga Kesehatan</option>
+            <option>Freelancer</option>
+            <option>Buruh</option>
+            <option>Pensiunan</option>
+            <option>Tidak Bekerja</option>
+            <option value="lainnya">Lainnya</option>
+          </select>
           <!-- Input Manual Jika Lainnya -->
           <input type="text" name="pekerjaan_suami_lainnya" id="pekerjaan_suami_lainnya" placeholder="Sebutkan Pekerjaan Suami" class="w-full p-2 border rounded mt-2 hidden uppercase" />
         </div>
       <<!-- Penghasilan Suami -->
-        <div id="penghasilan_suami_field" class="hidden mt-4">
-          <label class="block font-medium">Penghasilan Suami per bulan</label>
-          <div class="relative">
-            <span class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-600">Rp</span>
-            <input type="number" min="0" name="penghasilan_suami" placeholder="Jumlah Penghasilan Suami" class="w-full p-2 pl-10 border rounded" />
-          </div>
-          <p class="text-xs text-gray-500 mt-1">Mohon diisi jujur sesuai kondisi sebenarnya. Data hanya untuk keperluan internal Majlis dan dijaga kerahasiaannya. Jika tidak berpenghasilan, tulis 0</p>
-        </div>
-
-
+            <div id="penghasilan_suami_field" class="hidden mt-4">
+              <label class="block font-medium">Penghasilan Suami per bulan</label>
+              <div class="relative">
+                <span class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-600">Rp</span>
+                <input type="number" min="0" name="penghasilan_suami" placeholder="Jumlah Penghasilan Suami" class="w-full p-2 pl-10 border rounded" />
+              </div>
+                <p class="text-xs text-gray-500 mt-1">Mohon diisi jujur sesuai kondisi sebenarnya. Data hanya untuk keperluan internal Majlis dan dijaga kerahasiaannya. Jika tidak berpenghasilan, tulis 0</p>
+             </div>
       <!-- 3. KOMITMEN JAMAAH -->
       <div>
         <h2 class="text-lg font-semibold border-b pb-1 mb-3">🤝 Komitmen Jamaah</h2>
@@ -292,5 +298,8 @@
 
   <!-- Script eksternal -->
   <script src="script.js"></script>
+        p class="text-center text-xs text-gray-500 mt-8">
+  © 2025 Majlis Silaturrahim Al-Asmaul Husna | Developed by Munadil.
+</p>
 </body>
 </html>

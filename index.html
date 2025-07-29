@@ -114,32 +114,33 @@
           </label>
         </div>
       
-      <!--Pekerjaan-->  
-        <select name="pekerjaan" id="pekerjaan" class="w-full p-2 border rounded">
+     <!-- Pekerjaan -->
+        <select name="pekerjaan" id="pekerjaan" class="w-full p-2 border rounded" onchange="togglePekerjaanLainnya()">
           <option value="">Pilih Pekerjaan</option>
-          <option>ASN</option>
-            <option>Pelajar/Mahasiswa</option>
-            <option>ASN</option>
-            <option value="TNI">TNI</option>
-            <option value="POLRI">POLRI</option>
-            <option>Karyawan Swasta</option>
-            <option>Pedagang</option>  
-            <option>Guru</option>
-            <option>Wiraswasta</option>
-            <option>Petani</option>
-            <option>Peternak</option>
-            <option>Driver</option>
-            <option>Ojol</option>
-            <option>Tenaga Kesehatan</option>
-            <option>Freelancer</option>
-            <option>Buruh/Pekerja Harian</option>
-            <option>Pensiunan</option>
-            <option>Tidak Bekerja</option>
-            <option value="lainnya">Lainnya</option>
+          <option value="ASN">ASN</option>
+          <option value="Pelajar/Mahasiswa">Pelajar/Mahasiswa</option>
+          <option value="TNI">TNI</option>
+          <option value="POLRI">POLRI</option>
+          <option value="Karyawan Swasta">Karyawan Swasta</option>
+          <option value="Pedagang">Pedagang</option>
+          <option value="Guru">Guru</option>
+          <option value="Wiraswasta">Wiraswasta</option>
+          <option value="Petani">Petani</option>
+          <option value="Peternak">Peternak</option>
+          <option value="Driver">Driver</option>
+          <option value="Ojol">Ojol</option>
+          <option value="Tenaga Kesehatan">Tenaga Kesehatan</option>
+          <option value="Freelancer">Freelancer</option>
+          <option value="Buruh/Pekerja Harian">Buruh/Pekerja Harian</option>
+          <option value="Pensiunan">Pensiunan</option>
+          <option value="Tidak Bekerja">Tidak Bekerja</option>
+          <option value="lainnya">Lainnya</option>
         </select>
+        
         <!-- Input Lainnya -->
         <input type="text" name="pekerjaan_lainnya" id="pekerjaan_lainnya"
           class="w-full p-2 border rounded mt-2 hidden" placeholder="Tulis Pekerjaan Anda" />
+
       <!--Keahlian-->  
         <input name="keahlian" placeholder="Keahlian / Skill (Opsional)" class="w-full p-2 border rounded mt-2" />
       <!-- Penghasilan Pribadi -->
@@ -149,34 +150,32 @@
           <input type="number" min="0" name="penghasilan" placeholder="Jumlah Penghasilan" class="w-full p-2 pl-10 border rounded" required />
         </div>
           <p class="text-xs text-gray-500 mt-1">Mohon diisi jujur sesuai kondisi sebenarnya. Data hanya untuk keperluan internal Majlis dan dijaga kerahasiaannya. Jika tidak berpenghasilan, tulis 0</p>
-
-      <!-- Pekerjaan Suami -->
-        <div id="pekerjaan_suami_field" class="hidden">
-          <!-- Pilihan Kategori -->
-          <select name="pekerjaan_suami" id="pekerjaan_suami" class="w-full p-2 border rounded mt-2">
+         <!-- Pekerjaan Suami -->
+          <select name="pekerjaan_suami" id="pekerjaan_suami" class="w-full p-2 border rounded mt-2" onchange="togglePekerjaanSuamiLainnya()">
             <option value="">Pilih Pekerjaan Suami</option>
-            <option>ASN</option>
+            <option value="ASN">ASN</option>
             <option value="TNI">TNI</option>
             <option value="POLRI">POLRI</option>
-            <option>Karyawan Swasta</option>
-            <option>Pedagang</option>  
-            <option>Guru</option>
-            <option>Wiraswasta</option>
-            <option>Petani/Peternak</option>
-            <option>Peternak</option>
-            <option>Driver</option>
-            <option>Ojol</option>
-            <option>Tenaga Kesehatan</option>
-            <option>Freelancer</option>
-            <option>Buruh</option>
-            <option>Pensiunan</option>
-            <option>Tidak Bekerja</option>
+            <option value="Karyawan Swasta">Karyawan Swasta</option>
+            <option value="Pedagang">Pedagang</option>
+            <option value="Guru">Guru</option>
+            <option value="Wiraswasta">Wiraswasta</option>
+            <option value="Petani">Petani</option>
+            <option value="Peternak">Peternak</option>
+            <option value="Driver">Driver</option>
+            <option value="Ojol">Ojol</option>
+            <option value="Tenaga Kesehatan">Tenaga Kesehatan</option>
+            <option value="Freelancer">Freelancer</option>
+            <option value="Buruh">Buruh</option>
+            <option value="Pensiunan">Pensiunan</option>
+            <option value="Tidak Bekerja">Tidak Bekerja</option>
             <option value="lainnya">Lainnya</option>
-          </select>
-          <!-- Input Manual Jika Lainnya -->
-          <input type="text" name="pekerjaan_suami_lainnya" id="pekerjaan_suami_lainnya" placeholder="Sebutkan Pekerjaan Suami" class="w-full p-2 border rounded mt-2 hidden uppercase" />
-        </div>
-      <<!-- Penghasilan Suami -->
+           </select>
+            
+            <input type="text" name="pekerjaan_suami_lainnya" id="pekerjaan_suami_lainnya"
+              class="w-full p-2 border rounded mt-2 hidden uppercase" placeholder="Sebutkan Pekerjaan Suami" />
+
+        <!-- Penghasilan Suami -->
             <div id="penghasilan_suami_field" class="hidden mt-4">
               <label class="block font-medium">Penghasilan Suami per bulan</label>
               <div class="relative">
@@ -298,8 +297,8 @@
 
   <!-- Script eksternal -->
   <script src="script.js"></script>
-        p class="text-center text-xs text-gray-500 mt-8">
-  © 2025 Majlis Silaturrahim Al-Asmaul Husna | Developed by Munadil.
-</p>
+        <p> class="text-center text-xs text-gray-500 mt-8">
+          © 2025 Majlis Silaturrahim Al-Asmaul Husna | Developed by Munadil.
+        </p>
 </body>
 </html>

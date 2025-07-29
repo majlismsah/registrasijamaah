@@ -249,6 +249,7 @@ const statusText = document.getElementById('status');
 form.addEventListener('submit', async (e) => {
   e.preventDefault();
   const formData = new FormData(form);
+  const namaKTP = form.querySelector('input[name="nama_ktp"]').value.trim().replace(/\s+/g, '_').toUpperCase();
   statusText.innerText = "⏳ Mengirim data... Mohon tunggu.";
 
   // Ambil hasil crop dari hidden input
@@ -258,13 +259,13 @@ form.addEventListener('submit', async (e) => {
   // Kalau pakai Cropper, tidak perlu ambil file mentah lagi
   if (croppedKTP) {
     formData.append('ktp_file', croppedKTP.split(',')[1]); // Hanya base64, tanpa prefix data:
-    formData.append('ktp_file_name', `KTP_Cropped.jpg`);
+    formData.append('ktp_file_name', `${namaKTP}_KTP.jpg`);
     formData.append('ktp_file_type', 'image/jpeg');
   }
 
   if (croppedFoto) {
     formData.append('foto_file', croppedFoto.split(',')[1]);
-    formData.append('foto_file_name', `Foto_Cropped.jpg`);
+    formData.append('foto_file_name', `${namaKTP}_FOTO.jpg`);
     formData.append('foto_file_type', 'image/jpeg');
   }
 

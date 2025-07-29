@@ -92,18 +92,18 @@ document.getElementById('pekerjaan').addEventListener('change', function () {
 });
 
 // === PILIHAN PENGHASILAN PRIBADI ===
-document.getElementById('penghasilan').addEventListener('change', function () {
-  const lainnyaField = document.getElementById('penghasilan_lainnya_field');
-  const inputLainnya = document.getElementById('penghasilan_lainnya');
-  if (this.value === 'lainnya') {
-    lainnyaField.classList.remove('hidden');
-    inputLainnya.required = true;
-  } else {
-    lainnyaField.classList.add('hidden');
-    inputLainnya.required = false;
-    inputLainnya.value = '';
-  }
-});
+//document.getElementById('penghasilan').addEventListener('change', function () {
+  //const lainnyaField = document.getElementById('penghasilan_lainnya_field');
+  //const inputLainnya = document.getElementById('penghasilan_lainnya');
+  //if (this.value === 'lainnya') {
+    //lainnyaField.classList.remove('hidden');
+    //inputLainnya.required = true;
+  //} else {
+    //lainnyaField.classList.add('hidden');
+    //inputLainnya.required = false;
+    //inputLainnya.value = '';
+  //}
+//});
 
 // === PILIHAN PEKERJAAN SUAMI ===
 document.getElementById('pekerjaan_suami').addEventListener('change', function () {

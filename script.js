@@ -34,11 +34,7 @@ function toggleStatusNikah() {
     penghasilanSuami.classList.add('hidden');
     pekerjaanSuami.classList.add('hidden');
   }
-}
-// === KAPITAL====
-function capitalizeWords(str) {
-  return str.replace(/\b\w/g, c => c.toUpperCase());
-}
+
 // === TOGGLE GENDER ===
 function toggleGender() {
   toggleStatusNikah();
@@ -162,7 +158,7 @@ form.addEventListener('submit', async (e) => {
   }
 
   try {
-    const response = await fetch("https://script.google.com/macros/s/AKfycbxsiog_Uy34zbh6HCi_SRC8hgUr1Mpjc1ZPOaLz-FwiMsQ00zDoEwX8Za05l2NTH9Pf/exec", {
+    const response = await fetch("https://script.google.com/macros/s/AKfycbxCXzf-GayHl8TB7jJkA_Ms-TwQ0et2xpaVXhpTeuBq2ZQvmkajljp2axyzAHjfPfO2/exec", {
       method: "POST",
       body: formData
     });

@@ -131,6 +131,14 @@ document.getElementById('penghasilan_suami').addEventListener('change', function
     inputLainnya.value = '';
   }
 });
+// === KONFIR KE ADMIN ===
+function chatAdminWA() {
+  const adminNumber = "62816787977";
+  const waText = encodeURIComponent(
+    "Assalamualaikum, Kang Admin, saya sudah mengisi form registrasi jamaah MSAH periode 1447H."
+  );
+  window.open(`https://wa.me/${adminNumber}?text=${waText}`, "_blank");
+}
 
 // === HANDLE SUBMIT FORM ===
 const form = document.getElementById('regForm');
@@ -175,12 +183,10 @@ form.addEventListener('submit', async (e) => {
       form.reset();
       document.getElementById("successModal").classList.remove("hidden");
       statusText.innerText = "";
-      const adminNumber = "62816787977";
-      const waText = encodeURIComponent("Assalamualaikum, Kang Admin, saya sudah mengisi form registrasi jamaah MSAH periode 1447H.");
-      window.open(`https://wa.me/${adminNumber}?text=${waText}`, "_blank");
     } else {
       statusText.innerText = "❌ Terjadi kesalahan. Silakan coba lagi.";
     }
+
   } catch (error) {
     console.error(error);
     statusText.innerText = "❌ Gagal mengirim data. Silakan periksa koneksi Anda.";

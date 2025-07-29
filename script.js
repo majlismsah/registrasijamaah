@@ -35,7 +35,10 @@ function toggleStatusNikah() {
     pekerjaanSuami.classList.add('hidden');
   }
 }
-
+// === KAPITAL====
+function capitalizeWords(str) {
+  return str.replace(/\b\w/g, c => c.toUpperCase());
+}
 // === TOGGLE GENDER ===
 function toggleGender() {
   toggleStatusNikah();

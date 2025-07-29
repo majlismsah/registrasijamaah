@@ -10,6 +10,8 @@
 
   <!-- CSS Animasi (External) -->
   <link rel="stylesheet" href="style.css" />
+  <!-- Cropper -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.css" rel="stylesheet" />
 </head>
 
 <body class="bg-gray-100 font-sans text-gray-800">
@@ -26,6 +28,7 @@
 
     <!-- FORM -->
     <form id="regForm" enctype="multipart/form-data" class="space-y-6">
+      
       <!-- 1. IDENTITAS PRIBADI -->
       <div>
         <h2 class="text-lg font-semibold border-b pb-1 mb-3">👤 Identitas Pribadi</h2>
@@ -257,13 +260,35 @@
       <!-- 5. UNGGAH DOKUMEN -->
       <div>
         <h2 class="text-lg font-semibold border-b pb-1 mb-3">📎 Unggah Dokumen</h2>
-
+        <!-- === KTP === -->
         <label class="block">Upload Foto KTP:</label>
-        <input type="file" name="ktp_file" accept=".jpg,.jpeg,.png,.pdf" required class="w-full border p-2 rounded" />
-
-        <label class="block mt-2">Upload Foto Profil:</label>
-        <input type="file" name="foto_file" accept=".jpg,.jpeg,.png" required class="w-full border p-2 rounded" />
-        <p class="text-xs text-gray-500 mt-1">* Gunakan foto yang sopan dan berpakaian muslim (menutup aurat).</p>
+        <input type="file" id="uploadKTP" accept="image/*" class="w-full border p-2 rounded" />
+        
+        <div class="mt-4">
+          <img id="previewKTP" class="max-w-full border" style="max-height: 300px;" />
+        </div>
+        
+        <button type="button" id="cropKTPBtn" class="mt-2 bg-green-600 text-white px-4 py-2 rounded">
+          Crop & Gunakan Foto KTP
+        </button>
+        
+        <input type="hidden" name="ktp_file_cropped" id="ktpHidden" />
+        
+        <hr class="my-6 border-gray-300" />
+        
+        <!-- === FOTO PROFIL === -->
+        <label class="block mt-4">Upload Foto Profil:</label>
+        <input type="file" id="uploadFoto" accept="image/*" class="w-full border p-2 rounded" />
+        
+        <div class="mt-4">
+          <img id="previewFoto" class="max-w-full border" style="max-height: 300px;" />
+        </div>
+        
+        <button type="button" id="cropFotoBtn" class="mt-2 bg-blue-600 text-white px-4 py-2 rounded">
+          Crop & Gunakan Foto Profil
+        </button>
+        
+        <input type="hidden" name="foto_file_cropped" id="fotoHidden" />        
       </div>
 
       <!-- 6. KONFIRMASI FINAL -->
@@ -280,6 +305,9 @@
       <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 mt-6">Kirim Formulir</button>
       <p id="status" class="text-center text-sm text-green-600 mt-4"></p>
     </form>
+
+    <!-- Cropper JS di bawah form -->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.js"></script>
 
     <!-- MODAL -->
     <div id="successModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">

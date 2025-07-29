@@ -35,6 +35,7 @@ function toggleStatusNikah() {
     pekerjaanSuami.classList.add('hidden');
   }
 }
+
 // === TOGGLE GENDER ===
 function toggleGender() {
   toggleStatusNikah();
@@ -61,17 +62,19 @@ noWaInput.addEventListener('input', function (e) {
 
 // === VALIDASI NO KONTAK DARURAT ===
 const noDaruratInput = document.getElementById('no_kontak_darurat');
-noDaruratInput.addEventListener('input', function (e) {
-  let value = e.target.value.replace(/\D/g, '');
-  if (value.startsWith('0')) {
-    value = '62' + value.slice(1);
-  } else if (value.startsWith('8')) {
-    value = '62' + value;
-  } else if (!value.startsWith('62')) {
-    value = '62' + value;
-  }
-  e.target.value = value;
-});
+if (noDaruratInput) {
+  noDaruratInput.addEventListener('input', function (e) {
+    let value = e.target.value.replace(/\D/g, '');
+    if (value.startsWith('0')) {
+      value = '62' + value.slice(1);
+    } else if (value.startsWith('8')) {
+      value = '62' + value;
+    } else if (!value.startsWith('62')) {
+      value = '62' + value;
+    }
+    e.target.value = value;
+  });
+}
 
 // === PILIHAN PEKERJAAN PRIBADI ===
 document.getElementById('pekerjaan').addEventListener('change', function () {
@@ -82,6 +85,7 @@ document.getElementById('pekerjaan').addEventListener('change', function () {
   } else {
     lainnya.classList.add('hidden');
     lainnya.required = false;
+    lainnya.value = '';
   }
 });
 
@@ -158,7 +162,7 @@ form.addEventListener('submit', async (e) => {
   }
 
   try {
-    const response = await fetch("https://script.google.com/macros/s/AKfycbz0TnKIPKOhp-cgutt2LH3MlxTKQcnzVWOPP12iLSM4RrbMerqMXhjdcjI_DVdkFNyO/exec", {
+    const response = await fetch("https://script.google.com/macros/s/AKfycbxCXzf-GayHl8TB7jJkA_Ms-TwQ0et2xpaVXhpTeuBq2ZQvmkajljp2axyzAHjfPfO2/exec", {
       method: "POST",
       body: formData
     });
@@ -169,11 +173,9 @@ form.addEventListener('submit', async (e) => {
       form.reset();
       document.getElementById("successModal").classList.remove("hidden");
       statusText.innerText = "";
-      // === DIRECT KE WHATSAPP ADMIN ===
-      const adminNumber = "62816787977"; // Ganti dengan nomor admin kamu
-      const waText = encodeURIComponent("Assalamualaikum, Kang Admin, saya sudah mengisi form registrasi jamaah MSAH perioder 1147H.");
+      const adminNumber = "62816787977";
+      const waText = encodeURIComponent("Assalamualaikum, Kang Admin, saya sudah mengisi form registrasi jamaah MSAH periode 1447H.");
       window.open(`https://wa.me/${adminNumber}?text=${waText}`, "_blank");
-    }
     } else {
       statusText.innerText = "❌ Terjadi kesalahan. Silakan coba lagi.";
     }
@@ -181,4 +183,9 @@ form.addEventListener('submit', async (e) => {
     console.error(error);
     statusText.innerText = "❌ Gagal mengirim data. Silakan periksa koneksi Anda.";
   }
+});
+
+// === JALANKAN toggleStatusNikah DI AWAL ===
+document.addEventListener('DOMContentLoaded', () => {
+  toggleStatusNikah();
 });

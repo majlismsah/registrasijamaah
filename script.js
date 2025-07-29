@@ -161,6 +161,87 @@ function chatAdminWA() {
   window.open(`https://wa.me/${adminNumber}?text=${waText}`, "_blank");
 }
 
+// === KTP ===
+let cropperKTP;
+
+const uploadKTP = document.getElementById('uploadKTP');
+const previewKTP = document.getElementById('previewKTP');
+const cropKTPBtn = document.getElementById('cropKTPBtn');
+const ktpHidden = document.getElementById('ktpHidden');
+
+uploadKTP.addEventListener('change', function (e) {
+  const file = e.target.files[0];
+  if (file) {
+    const reader = new FileReader();
+    reader.onload = function (event) {
+      previewKTP.src = event.target.result;
+
+      if (cropperKTP) {
+        cropperKTP.destroy();
+      }
+
+      cropperKTP = new Cropper(previewKTP, {
+        aspectRatio: 4 / 3,
+        viewMode: 1,
+      });
+    };
+    reader.readAsDataURL(file);
+  }
+});
+
+cropKTPBtn.addEventListener('click', function () {
+  if (cropperKTP) {
+    const canvas = cropperKTP.getCroppedCanvas({
+      width: 800,
+    });
+    const croppedData = canvas.toDataURL('image/jpeg');
+    previewKTP.src = croppedData;
+    ktpHidden.value = croppedData;
+    alert('Foto KTP di-crop & siap dikirim!');
+  }
+});
+
+// === FOTO PROFIL ===
+let cropperFoto;
+
+const uploadFoto = document.getElementById('uploadFoto');
+const previewFoto = document.getElementById('previewFoto');
+const cropFotoBtn = document.getElementById('cropFotoBtn');
+const fotoHidden = document.getElementById('fotoHidden');
+
+uploadFoto.addEventListener('change', function (e) {
+  const file = e.target.files[0];
+  if (file) {
+    const reader = new FileReader();
+    reader.onload = function (event) {
+      previewFoto.src = event.target.result;
+
+      if (cropperFoto) {
+        cropperFoto.destroy();
+      }
+
+      cropperFoto = new Cropper(previewFoto, {
+        aspectRatio: 1, // 1:1 biar bulat atau persegi
+        viewMode: 1,
+      });
+    };
+    reader.readAsDataURL(file);
+  }
+});
+
+cropFotoBtn.addEventListener('click', function () {
+  if (cropperFoto) {
+    const canvas = cropperFoto.getCroppedCanvas({
+      width: 500,
+    });
+    const croppedData = canvas.toDataURL('image/jpeg');
+    previewFoto.src = croppedData;
+    fotoHidden.value = croppedData;
+    alert('Foto Profil di-crop & siap dikirim!');
+  }
+});
+
+
 // === HANDLE SUBMIT FORM ===
 const form = document.getElementById('regForm');
 const statusText = document.getElementById('status');
@@ -170,26 +251,21 @@ form.addEventListener('submit', async (e) => {
   const formData = new FormData(form);
   statusText.innerText = "⏳ Mengirim data... Mohon tunggu.";
 
-  const ktpFile = form.querySelector('input[name="ktp_file"]').files[0];
-  const fotoFile = form.querySelector('input[name="foto_file"]').files[0];
+  // Ambil hasil crop dari hidden input
+  const croppedKTP = document.getElementById('ktpHidden').value;
+  const croppedFoto = document.getElementById('fotoHidden').value;
 
-  const toBase64 = file => new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.onload = () => resolve(reader.result.split(',')[1]);
-    reader.onerror = error => reject(error);
-    reader.readAsDataURL(file);
-  });
-
-  if (ktpFile) {
-    formData.append('ktp_file_name', ktpFile.name);
-    formData.append('ktp_file_type', ktpFile.type);
-    formData.append('ktp_file', await toBase64(ktpFile));
+  // Kalau pakai Cropper, tidak perlu ambil file mentah lagi
+  if (croppedKTP) {
+    formData.append('ktp_file', croppedKTP.split(',')[1]); // Hanya base64, tanpa prefix data:
+    formData.append('ktp_file_name', `KTP_Cropped.jpg`);
+    formData.append('ktp_file_type', 'image/jpeg');
   }
 
-  if (fotoFile) {
-    formData.append('foto_file_name', fotoFile.name);
-    formData.append('foto_file_type', fotoFile.type);
-    formData.append('foto_file', await toBase64(fotoFile));
+  if (croppedFoto) {
+    formData.append('foto_file', croppedFoto.split(',')[1]);
+    formData.append('foto_file_name', `Foto_Cropped.jpg`);
+    formData.append('foto_file_type', 'image/jpeg');
   }
 
   try {

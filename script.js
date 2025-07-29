@@ -34,7 +34,7 @@ function toggleStatusNikah() {
     penghasilanSuami.classList.add('hidden');
     pekerjaanSuami.classList.add('hidden');
   }
-
+}
 // === TOGGLE GENDER ===
 function toggleGender() {
   toggleStatusNikah();

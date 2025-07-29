@@ -131,6 +131,27 @@ document.getElementById('pekerjaan_suami').addEventListener('change', function (
 //    inputLainnya.value = '';
 //  }
 //});
+
+// === MASKING Penghasilan Pribadi ===
+document.getElementById('penghasilan').addEventListener('input', function(e) {
+  let value = e.target.value.replace(/\D/g, '');
+  if (value) {
+    value = parseInt(value, 10).toLocaleString('id-ID');
+  }
+  e.target.value = value;
+});
+
+// === MASKING Penghasilan Suami ===
+document.getElementById('penghasilan_suami').addEventListener('input', function(e) {
+  let value = e.target.value.replace(/\D/g, '');
+  if (value) {
+    value = parseInt(value, 10).toLocaleString('id-ID');
+  }
+  e.target.value = value;
+});
+
+
+
 // === KONFIR KE ADMIN ===
 function chatAdminWA() {
   const adminNumber = "62816787977";

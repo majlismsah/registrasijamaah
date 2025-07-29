@@ -261,34 +261,29 @@
       <div>
         <h2 class="text-lg font-semibold border-b pb-1 mb-3">📎 Unggah Dokumen</h2>
         <!-- === KTP === -->
-        <label class="block">Upload Foto KTP:</label>
-        <input type="file" id="uploadKTP" accept="image/*" class="w-full border p-2 rounded" />
-        
-        <div class="mt-4">
-          <img id="previewKTP" class="max-w-full border" style="max-height: 300px;" />
-        </div>
-        
-        <button type="button" id="cropKTPBtn" class="mt-2 bg-green-600 text-white px-4 py-2 rounded">
-          Crop & Gunakan Foto KTP
-        </button>
-        
-        <input type="hidden" name="ktp_file_cropped" id="ktpHidden" />
-        
-        <hr class="my-6 border-gray-300" />
-        
-        <!-- === FOTO PROFIL === -->
-        <label class="block mt-4">Upload Foto Profil:</label>
-        <input type="file" id="uploadFoto" accept="image/*" class="w-full border p-2 rounded" />
-        
-        <div class="mt-4">
-          <img id="previewFoto" class="max-w-full border" style="max-height: 300px;" />
-        </div>
-        
-        <button type="button" id="cropFotoBtn" class="mt-2 bg-blue-600 text-white px-4 py-2 rounded">
-          Crop & Gunakan Foto Profil
-        </button>
-        
-        <input type="hidden" name="foto_file_cropped" id="fotoHidden" />        
+        <!-- === UPLOAD KTP === -->
+          <label class="block mt-4 font-medium">Upload Foto KTP:</label>
+          <input type="file" id="uploadKTP" accept="image/*" class="w-full border p-2 rounded" />
+          <img id="previewKTP" class="mt-2 border max-w-full" alt="Preview Crop KTP" />
+          <button id="cropKTPBtn" type="button" class="bg-green-600 text-white px-4 py-2 rounded mt-2">
+            Crop & Gunakan Foto KTP
+          </button>
+          <!-- Preview hasil akhir -->
+          <img id="previewKTPHasil" class="mt-4 border shadow max-w-full" alt="Hasil Crop KTP" />
+          
+          <!-- === UPLOAD FOTO PROFIL === -->
+          <label class="block mt-4 font-medium">Upload Foto Profil:</label>
+          <input type="file" id="uploadFoto" accept="image/*" class="w-full border p-2 rounded" />
+          <img id="previewFoto" class="mt-2 border rounded-full max-w-full" alt="Preview Crop Foto Profil" />
+          <button id="cropFotoBtn" type="button" class="bg-green-600 text-white px-4 py-2 rounded mt-2">
+            Crop & Gunakan Foto Profil
+          </button>
+          <!-- Preview hasil akhir -->
+          <img id="previewFotoHasil" class="mt-4 border rounded-full shadow w-32 h-32 object-cover" alt="Hasil Crop Foto Profil" />
+          
+          <!-- === HIDDEN INPUT UNTUK BASE64 === -->
+          <input type="hidden" name="ktp_file_cropped" id="ktpHidden" />
+          <input type="hidden" name="foto_file_cropped" id="fotoHidden" />
       </div>
 
       <!-- 6. KONFIRMASI FINAL -->

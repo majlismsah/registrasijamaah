@@ -60,6 +60,20 @@ noWaInput.addEventListener('input', function (e) {
   e.target.value = value;
 });
 
+// === VALIDASI NO KONTAK DARURAT ===
+const noDaruratInput = document.getElementById('no_kontak_darurat');
+noDaruratInput.addEventListener('input', function (e) {
+  let value = e.target.value.replace(/\D/g, '');
+  if (value.startsWith('0')) {
+    value = '62' + value.slice(1);
+  } else if (value.startsWith('8')) {
+    value = '62' + value;
+  } else if (!value.startsWith('62')) {
+    value = '62' + value;
+  }
+  e.target.value = value;
+});
+
 // === PILIHAN PEKERJAAN PRIBADI ===
 document.getElementById('pekerjaan').addEventListener('change', function () {
   const lainnya = document.getElementById('pekerjaan_lainnya');

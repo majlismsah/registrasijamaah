@@ -156,6 +156,11 @@ form.addEventListener('submit', async (e) => {
       form.reset();
       document.getElementById("successModal").classList.remove("hidden");
       statusText.innerText = "";
+      // === DIRECT KE WHATSAPP ADMIN ===
+      const adminNumber = "62816787977"; // Ganti dengan nomor admin kamu
+      const waText = encodeURIComponent("Assalamualaikum, Kang Admin, saya sudah mengisi form registrasi jamaah MSAH perioder 1147H.");
+      window.open(`https://wa.me/${adminNumber}?text=${waText}`, "_blank");
+    }
     } else {
       statusText.innerText = "❌ Terjadi kesalahan. Silakan coba lagi.";
     }

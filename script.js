@@ -166,6 +166,7 @@ let cropperKTP;
 
 const uploadKTP = document.getElementById('uploadKTP');
 const previewKTP = document.getElementById('previewKTP');
+const previewKTPHasil = document.getElementById('previewKTPHasil'); // ✅ TAMBAH
 const cropKTPBtn = document.getElementById('cropKTPBtn');
 const ktpHidden = document.getElementById('ktpHidden');
 
@@ -195,7 +196,7 @@ cropKTPBtn.addEventListener('click', function () {
       width: 800,
     });
     const croppedData = canvas.toDataURL('image/jpeg');
-    previewKTP.src = croppedData;
+    previewKTPHasil.src = croppedData; // ✅ SET ke img preview fix
     ktpHidden.value = croppedData;
     alert('Foto KTP di-crop & siap dikirim!');
   }
@@ -206,6 +207,7 @@ let cropperFoto;
 
 const uploadFoto = document.getElementById('uploadFoto');
 const previewFoto = document.getElementById('previewFoto');
+const previewFotoHasil = document.getElementById('previewFotoHasil'); // ✅ TAMBAH
 const cropFotoBtn = document.getElementById('cropFotoBtn');
 const fotoHidden = document.getElementById('fotoHidden');
 
@@ -221,7 +223,7 @@ uploadFoto.addEventListener('change', function (e) {
       }
 
       cropperFoto = new Cropper(previewFoto, {
-        aspectRatio: 1, // 1:1 biar bulat atau persegi
+        aspectRatio: 1,
         viewMode: 1,
       });
     };
@@ -235,7 +237,7 @@ cropFotoBtn.addEventListener('click', function () {
       width: 500,
     });
     const croppedData = canvas.toDataURL('image/jpeg');
-    previewFoto.src = croppedData;
+    previewFotoHasil.src = croppedData; // ✅ SET ke img preview fix
     fotoHidden.value = croppedData;
     alert('Foto Profil di-crop & siap dikirim!');
   }

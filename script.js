@@ -119,18 +119,18 @@ document.getElementById('pekerjaan_suami').addEventListener('change', function (
 });
 
 // === PILIHAN PENGHASILAN SUAMI ===
-document.getElementById('penghasilan_suami').addEventListener('change', function () {
-  const lainnyaField = document.getElementById('penghasilan_suami_lainnya_field');
-  const inputLainnya = document.getElementById('penghasilan_suami_lainnya');
-  if (this.value === 'lainnya') {
-    lainnyaField.classList.remove('hidden');
-    inputLainnya.required = true;
-  } else {
-    lainnyaField.classList.add('hidden');
-    inputLainnya.required = false;
-    inputLainnya.value = '';
-  }
-});
+//document.getElementById('penghasilan_suami').addEventListener('change', function () {
+//  const lainnyaField = document.getElementById('penghasilan_suami_lainnya_field');
+//  const inputLainnya = document.getElementById('penghasilan_suami_lainnya');
+//  if (this.value === 'lainnya') {
+//    lainnyaField.classList.remove('hidden');
+//    inputLainnya.required = true;
+//  } else {
+//    lainnyaField.classList.add('hidden');
+//    inputLainnya.required = false;
+//    inputLainnya.value = '';
+//  }
+//});
 // === KONFIR KE ADMIN ===
 function chatAdminWA() {
   const adminNumber = "62816787977";

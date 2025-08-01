@@ -256,7 +256,6 @@
         <input name="hubungan_kontak_darurat" class="w-full p-2 border rounded mt-2" placeholder="Hubungan (Ayah/Ibu/Saudara)" />
         <input name="no_kontak_darurat" id="no_kontak_darurat" class="w-full p-2 border rounded mt-2" placeholder="No. HP Kontak Darurat" />
       </div>
-
       <!-- 5. UNGGAH DOKUMEN -->
       <div>
         <h2 class="text-lg font-semibold border-b pb-1 mb-3">📎 Unggah Dokumen</h2>
@@ -265,7 +264,7 @@
         <div class="mb-8">
           <label class="block mb-2 font-semibold">Upload Foto KTP:</label>
           
-          <!-- Upload Area (Drag & Drop) -->
+          <!-- Upload Area -->
           <div id="uploadKtpSection">
             <label class="flex flex-col items-center px-4 py-6 bg-gray-800 rounded-md border-2 border-dashed border-gray-700 cursor-pointer hover:border-teal-500">
               <svg class="w-12 h-12 text-gray-400 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -275,33 +274,35 @@
                 <span class="font-semibold text-teal-400">Klik untuk upload KTP</span> atau drag & drop
               </p>
               <p class="text-xs text-gray-500 mt-1">JPEG, PNG (Maks. 5MB)</p>
-              <input type="file" id="uploadKTP" name="ktp_file" accept=".jpg,.jpeg,.png" class="hidden" required>
+              <input type="file" id="uploadKTP" accept=".jpg,.jpeg,.png" class="hidden" required>
             </label>
           </div>
           
-          <!-- Cropper Section (Hidden Awal) -->
+          <!-- Crop Area -->
           <div id="ktpCropArea" class="hidden mt-4">
-            <div class="cropper-container mb-4">
-              <img id="previewKTP" class="block max-w-full max-h-72 mx-auto">
+            <div class="border rounded-md overflow-hidden mb-4">
+              <img id="previewKTP" class="block max-w-full max-h-80 mx-auto">
             </div>
-            <div class="flex space-x-2 mb-4">
-              <button type="button" id="rotateLeftKTP" class="px-3 py-1 bg-gray-700 text-white rounded">↺ Rotasi Kiri</button>
-              <button type="button" id="rotateRightKTP" class="px-3 py-1 bg-gray-700 text-white rounded">↻ Rotasi Kanan</button>
-              <button type="button" id="resetCropKTP" class="px-3 py-1 bg-gray-700 text-white rounded">⟲ Reset</button>
+            <div class="flex flex-wrap gap-2 mb-4">
+              <button type="button" id="rotateLeftKTP" class="px-3 py-1 bg-gray-700 text-white rounded hover:bg-gray-600">
+                ↺ Rotasi Kiri
+              </button>
+              <button type="button" id="rotateRightKTP" class="px-3 py-1 bg-gray-700 text-white rounded hover:bg-gray-600">
+                ↻ Rotasi Kanan
+              </button>
+              <button type="button" id="resetCropKTP" class="px-3 py-1 bg-gray-700 text-white rounded hover:bg-gray-600">
+                ⟲ Reset
+              </button>
             </div>
             <div class="flex justify-between">
-              <button type="button" id="cancelCropKTP" class="px-4 py-2 bg-gray-700 text-white rounded-md hover:bg-gray-600">Batal</button>
-              <button type="button" id="saveCropKTP" class="px-4 py-2 bg-teal-500 text-white rounded-md hover:bg-teal-600">Simpan KTP</button>
+              <button type="button" id="cancelCropKTP" class="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700">
+                ✖ Batal
+              </button>
+              <button type="button" id="saveCropKTP" class="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700">
+                💾 Simpan KTP
+              </button>
             </div>
             <input type="hidden" name="ktp_file_cropped" id="ktpHidden">
-          </div>
-          <div class="flex justify-between mt-4">
-            <button id="cancelCropKTP" type="button" class="px-4 py-2 bg-gray-600 text-white rounded-md hover:bg-gray-700 transition">
-              ✖ Batal
-            </button>
-            <button id="saveCropKTP" type="button" class="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition">
-              💾 Simpan KTP
-            </button>
           </div>
         </div>
 
@@ -309,7 +310,7 @@
         <div class="mb-4">
           <label class="block mb-2 font-semibold">Upload Foto Profil:</label>
           
-          <!-- Upload Area (Drag & Drop) -->
+          <!-- Upload Area -->
           <div id="uploadFotoSection">
             <label class="flex flex-col items-center px-4 py-6 bg-gray-800 rounded-md border-2 border-dashed border-gray-700 cursor-pointer hover:border-teal-500">
               <svg class="w-12 h-12 text-gray-400 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -319,36 +320,38 @@
                 <span class="font-semibold text-teal-400">Klik untuk upload Foto</span> atau drag & drop
               </p>
               <p class="text-xs text-gray-500 mt-1">JPEG, PNG (Maks. 5MB)</p>
-              <input type="file" id="uploadFoto" name="foto_file" accept=".jpg,.jpeg,.png" class="hidden" required>
+              <input type="file" id="uploadFoto" accept=".jpg,.jpeg,.png" class="hidden" required>
             </label>
-            </div>
+          </div>
           
-          <!-- Cropper Section (Hidden Awal) -->
+          <!-- Crop Area -->
           <div id="fotoCropArea" class="hidden mt-4">
-            <div class="cropper-container mb-4">
-              <img id="previewFoto" class="block max-w-full max-h-72 mx-auto">
+            <div class="border rounded-md overflow-hidden mb-4">
+              <img id="previewFoto" class="block max-w-full max-h-80 mx-auto">
             </div>
-            <div class="flex space-x-2 mb-4">
-              <button type="button" id="rotateLeftFoto" class="px-3 py-1 bg-gray-700 text-white rounded">↺ Rotasi Kiri</button>
-              <button type="button" id="rotateRightFoto" class="px-3 py-1 bg-gray-700 text-white rounded">↻ Rotasi Kanan</button>
-              <button type="button" id="resetCropFoto" class="px-3 py-1 bg-gray-700 text-white rounded">⟲ Reset</button>
+            <div class="flex flex-wrap gap-2 mb-4">
+              <button type="button" id="rotateLeftFoto" class="px-3 py-1 bg-gray-700 text-white rounded hover:bg-gray-600">
+                ↺ Rotasi Kiri
+              </button>
+              <button type="button" id="rotateRightFoto" class="px-3 py-1 bg-gray-700 text-white rounded hover:bg-gray-600">
+                ↻ Rotasi Kanan
+              </button>
+              <button type="button" id="resetCropFoto" class="px-3 py-1 bg-gray-700 text-white rounded hover:bg-gray-600">
+                ⟲ Reset
+              </button>
             </div>
             <div class="flex justify-between">
-              <button type="button" id="cancelCropFoto" class="px-4 py-2 bg-gray-700 text-white rounded-md hover:bg-gray-600">Batal</button>
-              <button type="button" id="saveCropFoto" class="px-4 py-2 bg-teal-500 text-white rounded-md hover:bg-teal-600">Simpan Foto</button>
+              <button type="button" id="cancelCropFoto" class="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700">
+                ✖ Batal
+              </button>
+              <button type="button" id="saveCropFoto" class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700">
+                💾 Simpan Foto
+              </button>
             </div>
             <input type="hidden" name="foto_file_cropped" id="fotoHidden">
           </div>
-          <p class="text-xs text-gray-500 mt-2">* Gunakan foto yang sopan dan berpakaian muslim (menutup aurat).</p>
+          <p class="text-xs text-gray-500 mt-2">* Gunakan foto yang sopan dan menutup aurat</p>
         </div>
-          <div class="flex justify-between mt-4">
-          <button id="cancelCropFoto" type="button" class="px-4 py-2 bg-gray-600 text-white rounded-md hover:bg-gray-700 transition">
-            ✖ Batal
-          </button>
-          <button id="saveCropFoto" type="button" class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition">
-            💾 Simpan Foto Profil
-          </button>
-          </div>
       </div>
       <!-- 6. KONFIRMASI FINAL -->
       <div class="mt-4">

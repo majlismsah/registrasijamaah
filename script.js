@@ -1,386 +1,312 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Form Registrasi Jamaah MSAH 2025M 1447H</title>
+// === STATUS PERNIKAHAN ===
+function toggleStatusNikah() {
+  const status = document.getElementById('status_nikah').value;
+  const pasanganFields = document.getElementById('pasangan-fields');
+  const namaPasanganField = document.getElementById('nama_pasangan_field');
+  const izinSuami = document.getElementById('izin_suami_field');
+  const penghasilanSuami = document.getElementById('penghasilan_suami_field');
+  const pekerjaanSuami = document.getElementById('pekerjaan_suami_field');
+  const gender = document.getElementById('jenis_kelamin').value;
 
-  <!-- Tailwind CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+  if (status === 'Menikah' || status === 'Cerai Hidup' || status === 'Cerai Mati') {
+    pasanganFields.classList.remove('hidden');
 
-  <!-- CSS Animasi (External) -->
-  <link rel="stylesheet" href="style.css" />
-  <!-- Cropper -->
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.css" rel="stylesheet" />
-</head>
+    if (status === 'Menikah') {
+      namaPasanganField.classList.remove('hidden');
+    } else {
+      namaPasanganField.classList.add('hidden');
+    }
 
-<body class="bg-gray-100 font-sans text-gray-800">
-  <div class="max-w-2xl mx-auto p-6 bg-white shadow-xl rounded-3xl mt-6 mb-10">
-    <!-- Logo -->
-    <img src="https://github.com/majlismsah/registrasijamaah/blob/main/logomajlis.png?raw=true"
-         alt="Logo MSAH"
-         class="mx-auto h-20 w-20 rounded-full shadow-lg ring-2 ring-blue-300 mb-4" />
+    if (status === 'Menikah' && gender === 'Perempuan') {
+      izinSuami.classList.remove('hidden');
+      penghasilanSuami.classList.remove('hidden');
+      pekerjaanSuami.classList.remove('hidden');
+    } else {
+      izinSuami.classList.add('hidden');
+      penghasilanSuami.classList.add('hidden');
+      pekerjaanSuami.classList.add('hidden');
+    }
 
-    <!-- Judul -->
-    <h1 class="text-2xl font-bold text-center mb-4">
-      Form Registrasi Ulang Jamaah MSAH 2025
-    </h1>
+  } else {
+    pasanganFields.classList.add('hidden');
+    namaPasanganField.classList.add('hidden');
+    izinSuami.classList.add('hidden');
+    penghasilanSuami.classList.add('hidden');
+    pekerjaanSuami.classList.add('hidden');
+  }
+}
 
-    <!-- FORM -->
-    <form id="regForm" enctype="multipart/form-data" class="space-y-6">
-      
-      <!-- 1. IDENTITAS PRIBADI -->
-      <div>
-        <h2 class="text-lg font-semibold border-b pb-1 mb-3">👤 Identitas Pribadi</h2>
-      <!--  Nama KTP -->
-        <input name="nama_ktp" class="w-full p-2 border rounded uppercase" placeholder="Nama Sesuai KTP" required />
-      <!--  Nama ISMU SULTHON -->
-        <input name="ismu_sulthon" class="w-full p-2 border rounded uppercase mt-2" placeholder="Ismu Sulthon" required />
-      <!--  Jenis Kelamin -->
-        <select name="jenis_kelamin" id="jenis_kelamin" required class="w-full p-2 border rounded mt-2">
-          <option value="">Jenis Kelamin</option>
-          <option>Laki-laki</option>
-          <option>Perempuan</option>
-        </select>
-      <!--  Golongan Darah -->
-       <select name="golongan_darah" required class="w-full p-2 border rounded">
-        <option value="">Pilih Golongan Darah</option>
-        <option value="A">A</option>
-        <option value="B">B</option>
-        <option value="AB">AB</option>
-        <option value="O">O</option>
-        <option value="Tidak Tahu">Tidak Tahu</option>
-      </select>
-      <!--Tempat Kelahiran-->
-        <input name="tempat_lahir" class="w-full p-2 border rounded mt-2" placeholder="Tempat Lahir" required />
-      <!--Tanggal Lahir-->
-        <label class="mt-2 block">Tanggal Lahir</label>
-        <input name="tanggal_lahir" type="date" placeholder="DD/MM/YYYY" required class="w-full p-2 border rounded mt-2" />
-        <p class="text-xs text-gray-500 mt-1">Format: DD/MM/YYYY – Untuk memilih tahun, arahkan di kiri atas dan klik tahun-nya</p>
-        <select name="pendidikan" required class="w-full p-2 border rounded mt-4">
-      <!--Pendidikan-->
-          <option value="">Pendidikan Terakhir</option>
-          <option>SD</option><option>SMP</option><option>SMA</option>
-          <option>D1</option><option>D2</option><option>D3</option>
-          <option>S1</option><option>S2</option><option>S3</option>
-        </select>
-      <!--Alamat Domisili-->
-        <textarea name="alamat" placeholder="Alamat Lengkap Sesuai Domisili" required rows="3" class="w-full p-2 border rounded mt-2"></textarea>
-      <!--Status Tinggal-->
-        
-      <!--Nomor Whatsapp-->  
-        <input name="no_wa" id="no_wa" class="w-full p-2 border rounded mt-2" placeholder="Nomor Whatsapp (62xxx)" required />
-      </div>
+// === TOGGLE GENDER ===
+function toggleGender() {
+  toggleStatusNikah();
+}
 
-      <!-- 2. KONDISI KELUARGA & SOSIAL -->
-      <div>
-        <h2 class="text-lg font-semibold border-b pb-1 mb-3">👪 Kondisi Keluarga & Sosial</h2>
-     <!-- Status Pernikahan -->
-        <select name="status_nikah" id="status_nikah" onchange="toggleStatusNikah()" required class="w-full p-2 border rounded">
-          <option value="">Status Pernikahan</option>
-          <option>Belum Menikah</option>
-          <option>Menikah</option>
-          <option>Cerai Hidup</option>
-          <option>Cerai Mati</option>
-        </select>
+// === CLOSE MODAL ===
+function closeModal() {
+  document.getElementById("successModal").classList.add("hidden");
+}
 
-        <!-- Status Tinggal -->
-        <select name="status_tinggal" required class="w-full p-2 border rounded mt-2">
-          <option value="">Status Tinggal</option>
-          <option>Tinggal dengan Orang Tua</option>
-          <option>Tinggal dengan Suami/Istri</option>
-          <option>Tinggal dengan Keluarga Besar</option>
-          <option>Rumah Milik Sendiri</option>
-          <option>Rumah Kontrak</option>
-          <option>Indekos</option>
-          <option>Tinggal di Majlis</option>
-          <option>Lainnya</option>
-        </select>
+// === VALIDASI NO WA ===
+const noWaInput = document.getElementById('no_wa');
+noWaInput.addEventListener('input', function (e) {
+  let value = e.target.value.replace(/\D/g, '');
+  if (value.startsWith('0')) {
+    value = '62' + value.slice(1);
+  } else if (value.startsWith('8')) {
+    value = '62' + value;
+  } else if (!value.startsWith('62')) {
+    value = '62' + value;
+  }
+  e.target.value = value;
+});
 
-        <!-- Nama Pasangan -->
-        <div id="nama_pasangan_field" class="hidden">
-          <input name="nama_pasangan" placeholder="Nama Suami/Istri" class="w-full p-2 border rounded mt-2 uppercase" />
-        </div>
+// === VALIDASI NO KONTAK DARURAT ===
+document.addEventListener('DOMContentLoaded', function() {
+  const noDaruratInput = document.getElementById('no_kontak_darurat');
+  if (noDaruratInput) {
+    noDaruratInput.addEventListener('input', function(e) {
+      let value = e.target.value.replace(/\D/g, '');
+      if (value.startsWith('0')) {
+        value = '62' + value.slice(1);
+      } else if (value.startsWith('8')) {
+        value = '62' + value;
+      } else if (!value.startsWith('62')) {
+        value = '62' + value;
+      }
+      e.target.value = value;
+    });
+  }
+});
 
-        <!-- Jumlah Anak, Jumlah Keluarga, Tinggal dengan Pasangan -->
-        <div id="pasangan-fields" class="hidden">
-          <input name="jumlah_anak" type="number" placeholder="Jumlah Anak" min="0" class="w-full p-2 border rounded mt-2" />
-          <input name="jumlah_keluarga" type="number" placeholder="Total Jumlah Keluarga yg Tinggal Serumah" min="1" class="w-full p-2 border rounded mt-2" />
-          <p class="text-xs text-gray-500 mt-1">Contoh: Suami, Istri, 2 orang anak, Ibu = 5 orang</p>
-        </div>
+// === PILIHAN PEKERJAAN PRIBADI ===
+document.getElementById('pekerjaan').addEventListener('change', function () {
+  const lainnya = document.getElementById('pekerjaan_lainnya');
+  if (this.value === 'lainnya') {
+    lainnya.classList.remove('hidden');
+    lainnya.required = true;
+  } else {
+    lainnya.classList.add('hidden');
+    lainnya.required = false;
+    lainnya.value = '';
+  }
+});
 
-      <!--Ijin, Khusus Akhawat-->  
-        <div id="izin_suami_field" class="hidden mt-2">
-          <label class="block text-sm">
-            <input type="checkbox" name="izin_suami" class="mr-2">
-            Saya telah mendapatkan persetujuan dari Suami untuk mengikuti kegiatan di MSAH.
-          </label>
-        </div>
-      
-     <!-- Pekerjaan -->
-        <select name="pekerjaan" id="pekerjaan" class="w-full p-2 border rounded">
-          <option value="">Pilih Pekerjaan</option>
-          <option value="ASN">ASN</option>
-          <option value="Pelajar/Mahasiswa">Pelajar/Mahasiswa</option>
-          <option value="TNI">TNI</option>
-          <option value="POLRI">POLRI</option>
-          <option value="Karyawan Swasta">Karyawan Swasta</option>
-          <option value="Pedagang">Pedagang</option>
-          <option value="Guru">Guru</option>
-          <option value="Wiraswasta">Wiraswasta</option>
-          <option value="Petani">Petani</option>
-          <option value="Peternak">Peternak</option>
-          <option value="Driver">Driver</option>
-          <option value="Ojol">Ojol</option>
-          <option value="Tenaga Kesehatan">Tenaga Kesehatan</option>
-          <option value="Freelancer">Freelancer</option>
-          <option value="Buruh/Pekerja Harian">Buruh/Pekerja Harian</option>
-          <option value="Pensiunan">Pensiunan</option>
-          <option value="Tidak Bekerja">Tidak Bekerja</option>
-          <option value="lainnya">Lainnya</option>
-        </select>
-        
-        <!-- Input Lainnya -->
-        <input type="text" name="pekerjaan_lainnya" id="pekerjaan_lainnya"
-          class="w-full p-2 border rounded mt-2 hidden" placeholder="Tulis Pekerjaan Anda" />
+// === PILIHAN PEKERJAAN SUAMI ===
+document.getElementById('pekerjaan_suami').addEventListener('change', function () {
+  const inputLainnya = document.getElementById('pekerjaan_suami_lainnya');
+  if (this.value === 'lainnya') {
+    inputLainnya.classList.remove('hidden');
+    inputLainnya.required = true;
+  } else {
+    inputLainnya.classList.add('hidden');
+    inputLainnya.required = false;
+    inputLainnya.value = '';
+  }
+});
 
-      <!--Keahlian-->  
-        <input name="keahlian" placeholder="Keahlian / Skill (Opsional)" class="w-full p-2 border rounded mt-2" />
-      <!-- Penghasilan Pribadi -->
-          <label class="block mt-4 font-medium">Penghasilan Pribadi per bulan</label>
-          <div class="relative">
-            <span class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-600">Rp</span>
-            <input type="text" id="penghasilan" name="penghasilan" placeholder="Jumlah Penghasilan" class="w-full p-2 pl-10 border rounded" required />
-          </div>
-          <p class="text-xs text-gray-500 mt-1">Mohon diisi jujur sesuai kondisi sebenarnya. Data hanya untuk keperluan internal Majlis dan dijaga kerahasiaannya. Jika tidak berpenghasilan, tulis 0</p>
-      <!-- Pekerjaan Suami -->
-          <div id="pekerjaan_suami_field" class="hidden">  
-            <select name="pekerjaan_suami" id="pekerjaan_suami" class="w-full p-2 border rounded mt-2">
-            <option value="">Pilih Pekerjaan Suami</option>
-            <option value="ASN">ASN</option>
-            <option value="TNI">TNI</option>
-            <option value="POLRI">POLRI</option>
-            <option value="Karyawan Swasta">Karyawan Swasta</option>
-            <option value="Pedagang">Pedagang</option>
-            <option value="Guru">Guru</option>
-            <option value="Wiraswasta">Wiraswasta</option>
-            <option value="Petani">Petani</option>
-            <option value="Peternak">Peternak</option>
-            <option value="Driver">Driver</option>
-            <option value="Ojol">Ojol</option>
-            <option value="Tenaga Kesehatan">Tenaga Kesehatan</option>
-            <option value="Freelancer">Freelancer</option>
-            <option value="Buruh">Buruh</option>
-            <option value="Pensiunan">Pensiunan</option>
-            <option value="Tidak Bekerja">Tidak Bekerja</option>
-            <option value="lainnya">Lainnya</option>
-           </select>
-          </div> 
-            <!-- Input Lainnya -->
-            <input type="text" name="pekerjaan_suami_lainnya" id="pekerjaan_suami_lainnya"
-          class="w-full p-2 border rounded mt-2 hidden" placeholder="Sebutkan Pekerjaan Suami" />    
-        <!-- Penghasilan Suami -->
-          <!-- Penghasilan Suami -->
-          <div id="penghasilan_suami_field" class="hidden mt-4">
-            <label class="block font-medium">Penghasilan Suami per bulan</label>
-            <div class="relative">
-              <span class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-600">Rp</span>
-              <input type="text" id="penghasilan_suami" name="penghasilan_suami" placeholder="Jumlah Penghasilan Suami per bulan" class="w-full p-2 pl-10 border rounded" />
-            </div>
-            <p class="text-xs text-gray-500 mt-1">Mohon diisi jujur sesuai kondisi sebenarnya. Data hanya untuk keperluan internal Majlis dan dijaga kerahasiaannya. Jika tidak berpenghasilan, tulis 0</p>
-          </div>   
-        
-      <!-- 3. KOMITMEN JAMAAH -->
-      <div>
-        <h2 class="text-lg font-semibold border-b pb-1 mb-3">🤝 Komitmen Jamaah</h2>
-        <select name="majlis_wilayah" required class="w-full p-2 border rounded mt-2">
-          <option value="">Pilih Majlis Wilayah / Kabilah</option>
-          <option>Ar-Rahman</option>
-          <option>Ar-Rohim</option>
-          <option>Al-Qudus</option>
-          <option>Al-Malik</option>
-          <option>Nurul Salikin</option>
-          <option>Nurul Kamilah</option>
-          <option>Nurul Hakim</option>
-          <option>Nurul Hikmah</option>
-          <option>Barakotaul Anbiya</option>
-        </select>
-        <input name="tahun_gabung" type="number" min="2000" placeholder="Tahun Kapan Anda Bergabung di MSAH" required class="w-full p-2 border rounded" />
+// === MASKING Penghasilan Pribadi ===
+document.getElementById('penghasilan').addEventListener('input', function(e) {
+  let value = e.target.value.replace(/\D/g, '');
+  if (value) {
+    value = parseInt(value, 10).toLocaleString('id-ID');
+  }
+  e.target.value = value;
+});
 
-        <label class="block mt-3 font-medium">Infaq Wajib MSAH (Pusat)</label>
-        <select name="infaq_msah" required class="w-full p-2 border rounded">
-          <option value="">Pilih</option>
-          <option>Bersedia</option>
-          <option>Tidak Bersedia</option>
-        </select>
-        <p class="text-xs text-gray-500 mt-1">
-          * Infaq wajib bulanan sebesar <strong>Rp100.000</strong> sesuai ketentuan Majlis Pusat MSAH.
-          <br>* Disetorkan setiap tanggal <strong>28</strong> setiap bulannya.
-        </p>
+// === MASKING Penghasilan Suami ===
+document.getElementById('penghasilan_suami').addEventListener('input', function(e) {
+  let value = e.target.value.replace(/\D/g, '');
+  if (value) {
+    value = parseInt(value, 10).toLocaleString('id-ID');
+  }
+  e.target.value = value;
+});
 
-        <label class="block mt-3 font-medium">Infaq Wilayah / Kabilah</label>
-        <select name="infaq_wilayah" required class="w-full p-2 border rounded">
-          <option value="">Pilih</option>
-          <option>Bersedia</option>
-          <option>Tidak Bersedia</option>
-        </select>
-        <p class="text-xs text-gray-500 mt-1">
-          * Besaran infaq wilayah mengikuti keputusan Majlis Wilayah / Kabilah masing-masing.
-        </p>
+// === KONFIR KE ADMIN ===
+function chatAdminWA() {
+  const adminNumber = "62816787977";
+  const waText = encodeURIComponent(
+    "Assalamualaikum, Kang Admin, saya sudah mengisi form registrasi jamaah MSAH periode 1447H."
+  );
+  window.open(`https://wa.me/${adminNumber}?text=${waText}`, "_blank");
+}
 
-        <div class="mt-4">
-          <p class="text-sm">
-            Kesediaan Menunaikan <strong>ZISWNH</strong> (Zakat, Infak, Shodaqoh, Wakaf, Nafaqoh, Hibah/Hadiah)
-            <br><span class="text-xs text-gray-500">
-              Jumlah nominal sesuai nishab, kemampuan, atau kesepakatan struktural MSAH.
-            </span>
-          </p>
-          <label class="block text-sm mt-2">
-            <input type="checkbox" name="komitmen_ziswnh" required class="mr-2">
-            Saya bersedia menunaikan kewajiban tersebut di MSAH.
-          </label>
-        </div>
+// ==================== KTP UPLOAD & CROP ====================
+let cropperKTP;
+const uploadKTP = document.getElementById('uploadKTP');
+const previewKTP = document.getElementById('previewKTP');
+const ktpCropArea = document.getElementById('ktpCropArea');
+const uploadKtpSection = document.getElementById('uploadKtpSection');
 
-        <label class="inline-flex items-start mt-4">
-          <input type="checkbox" name="konfirmasi_ikrar" required class="mt-1" />
-          <span class="ml-2 text-sm leading-snug">
-            Dengan ini saya menyatakan bersedia menjadi jamaah dan mengikuti LIQO maupun kegiatan lainnya di MSAH baik pusat maupun Wilayah dan Kabilah, serta mengikuti aturan dan kewajiban yang berlaku.
-          </span>
-        </label>
-      </div>
+uploadKTP.addEventListener('change', function(e) {
+  const file = e.target.files[0];
+  if (!file) return;
 
-      <!-- 4. KONTAK DARURAT -->
-      <div>
-        <h2 class="text-lg font-semibold border-b pb-1 mb-3">☎️ Kontak Darurat <span class="text-sm text-gray-500">(Opsional)</span></h2>
-        <input name="nama_kontak_darurat" class="w-full p-2 border rounded" placeholder="Nama Kontak Darurat" />
-        <input name="hubungan_kontak_darurat" class="w-full p-2 border rounded mt-2" placeholder="Hubungan (Ayah/Ibu/Saudara)" />
-        <input name="no_kontak_darurat" id="no_kontak_darurat" class="w-full p-2 border rounded mt-2" placeholder="No. HP Kontak Darurat" />
-      </div>
+  // Validasi file
+  if (file.size > 5 * 1024 * 1024) {
+    alert("Ukuran file maksimal 5MB!");
+    return;
+  }
+  if (!file.type.match('image/jpeg|image/png')) {
+    alert("Hanya format JPEG/PNG yang diizinkan!");
+    return;
+  }
 
-     <!-- 5. UNGGAH DOKUMEN -->
-<div>
-  <h2 class="text-lg font-semibold border-b pb-1 mb-3">📎 Unggah Dokumen</h2>
+  const reader = new FileReader();
+  reader.onload = function(event) {
+    previewKTP.src = event.target.result;
+    ktpCropArea.classList.remove('hidden');
+    uploadKtpSection.classList.add('hidden');
 
-  <!-- ===== UPLOAD KTP ===== -->
-  <div class="mb-8">
-    <label class="block mb-2 font-semibold">Upload Foto KTP:</label>
-    
-    <!-- Upload Area -->
-    <div id="uploadKtpSection">
-      <label class="flex flex-col items-center px-4 py-6 bg-gray-800 rounded-md border-2 border-dashed border-gray-700 cursor-pointer hover:border-teal-500">
-        <svg class="w-12 h-12 text-gray-400 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/>
-        </svg>
-        <p class="text-sm text-gray-400">
-          <span class="font-semibold text-teal-400">Klik untuk upload KTP</span> atau drag & drop
-        </p>
-        <p class="text-xs text-gray-500 mt-1">JPEG, PNG (Maks. 5MB)</p>
-        <input type="file" id="uploadKTP" name="ktp_file" accept=".jpg,.jpeg,.png" class="hidden" required>
-      </label>
+    if (cropperKTP) cropperKTP.destroy();
+    cropperKTP = new Cropper(previewKTP, {
+      aspectRatio: 16 / 9,
+      viewMode: 1,
+      autoCropArea: 0.8
+    });
+  };
+  reader.readAsDataURL(file);
+});
+
+// Tombol di Crop Area KTP
+document.getElementById('rotateLeftKTP').addEventListener('click', () => cropperKTP.rotate(-90));
+document.getElementById('rotateRightKTP').addEventListener('click', () => cropperKTP.rotate(90));
+document.getElementById('resetCropKTP').addEventListener('click', () => cropperKTP.reset());
+document.getElementById('cancelCropKTP').addEventListener('click', () => {
+  ktpCropArea.classList.add('hidden');
+  uploadKtpSection.classList.remove('hidden');
+  uploadKTP.value = '';
+});
+document.getElementById('saveCropKTP').addEventListener('click', () => {
+  const canvas = cropperKTP.getCroppedCanvas({ width: 1000, height: 630 });
+  document.getElementById('ktpHidden').value = canvas.toDataURL('image/jpeg');
+  ktpCropArea.classList.add('hidden');
+  uploadKtpSection.classList.remove('hidden');
+});
+
+// ==================== FOTO PROFIL UPLOAD & CROP ====================
+let cropperFoto;
+const uploadFoto = document.getElementById('uploadFoto');
+const previewFoto = document.getElementById('previewFoto');
+const fotoCropArea = document.getElementById('fotoCropArea');
+const uploadFotoSection = document.getElementById('uploadFotoSection');
+
+uploadFoto.addEventListener('change', function(e) {
+  const file = e.target.files[0];
+  if (!file) return;
+
+  if (file.size > 5 * 1024 * 1024 || !file.type.match('image/jpeg|image/png')) {
+    alert("File tidak valid! Maks 5MB, format JPEG/PNG.");
+    return;
+  }
+
+  const reader = new FileReader();
+  reader.onload = function(event) {
+    previewFoto.src = event.target.result;
+    fotoCropArea.classList.remove('hidden');
+    uploadFotoSection.classList.add('hidden');
+
+    if (cropperFoto) cropperFoto.destroy();
+    cropperFoto = new Cropper(previewFoto, {
+      aspectRatio: 1,
+      viewMode: 1,
+      autoCropArea: 0.8
+    });
+  };
+  reader.readAsDataURL(file);
+});
+
+// Tombol di Crop Area Foto Profil
+document.getElementById('rotateLeftFoto').addEventListener('click', () => cropperFoto.rotate(-90));
+document.getElementById('rotateRightFoto').addEventListener('click', () => cropperFoto.rotate(90));
+document.getElementById('resetCropFoto').addEventListener('click', () => cropperFoto.reset());
+document.getElementById('cancelCropFoto').addEventListener('click', () => {
+  fotoCropArea.classList.add('hidden');
+  uploadFotoSection.classList.remove('hidden');
+  uploadFoto.value = '';
+});
+document.getElementById('saveCropFoto').addEventListener('click', () => {
+  const canvas = cropperFoto.getCroppedCanvas({ width: 500, height: 500 });
+  document.getElementById('fotoHidden').value = canvas.toDataURL('image/jpeg');
+  fotoCropArea.classList.add('hidden');
+  uploadFotoSection.classList.remove('hidden');
+});
+
+// === HANDLE SUBMIT FORM ===
+const form = document.getElementById('regForm');
+const statusText = document.getElementById('status');
+
+form.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  
+  // 1. Prepare Form Data
+  const formData = new FormData(form);
+  const namaKTP = form.querySelector('input[name="nama_ktp"]').value.trim().replace(/\s+/g, '_').toUpperCase();
+  
+  // 2. Show Loading State
+  statusText.innerHTML = `
+    <div class="flex items-center justify-center">
+      <svg class="animate-spin h-5 w-5 mr-2 text-blue-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+      </svg>
+      Mengirim data...
     </div>
-    
-    <!-- Crop Area -->
-    <div id="ktpCropArea" class="hidden mt-4">
-      <div class="cropper-container mb-4">
-        <img id="previewKTP" class="block max-w-full max-h-72 mx-auto">
-      </div>
-      <div class="flex space-x-2 mb-4">
-        <button type="button" id="rotateLeftKTP" class="px-3 py-1 bg-gray-700 text-white rounded hover:bg-gray-600">↺ Rotasi Kiri</button>
-        <button type="button" id="rotateRightKTP" class="px-3 py-1 bg-gray-700 text-white rounded hover:bg-gray-600">↻ Rotasi Kanan</button>
-        <button type="button" id="resetCropKTP" class="px-3 py-1 bg-gray-700 text-white rounded hover:bg-gray-600">⟲ Reset</button>
-      </div>
-      <div class="flex justify-between">
-        <button type="button" id="cancelCropKTP" class="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition">
-          ✖ Batal
-        </button>
-        <button type="button" id="saveCropKTP" class="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition">
-          💾 Simpan KTP
-        </button>
-      </div>
-      <input type="hidden" name="ktp_file_cropped" id="ktpHidden">
-    </div>
-  </div>
+  `;
 
-  <!-- ===== UPLOAD FOTO PROFIL ===== -->
-  <div class="mb-4">
-    <label class="block mb-2 font-semibold">Upload Foto Profil:</label>
-    
-    <!-- Upload Area -->
-    <div id="uploadFotoSection">
-      <label class="flex flex-col items-center px-4 py-6 bg-gray-800 rounded-md border-2 border-dashed border-gray-700 cursor-pointer hover:border-teal-500">
-        <svg class="w-12 h-12 text-gray-400 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/>
-        </svg>
-        <p class="text-sm text-gray-400">
-          <span class="font-semibold text-teal-400">Klik untuk upload Foto</span> atau drag & drop
-        </p>
-        <p class="text-xs text-gray-500 mt-1">JPEG, PNG (Maks. 5MB)</p>
-        <input type="file" id="uploadFoto" name="foto_file" accept=".jpg,.jpeg,.png" class="hidden" required>
-      </label>
-    </div>
-    
-    <!-- Crop Area -->
-    <div id="fotoCropArea" class="hidden mt-4">
-      <div class="cropper-container mb-4">
-        <img id="previewFoto" class="block max-w-full max-h-72 mx-auto">
-      </div>
-      <div class="flex space-x-2 mb-4">
-        <button type="button" id="rotateLeftFoto" class="px-3 py-1 bg-gray-700 text-white rounded hover:bg-gray-600">↺ Rotasi Kiri</button>
-        <button type="button" id="rotateRightFoto" class="px-3 py-1 bg-gray-700 text-white rounded hover:bg-gray-600">↻ Rotasi Kanan</button>
-        <button type="button" id="resetCropFoto" class="px-3 py-1 bg-gray-700 text-white rounded hover:bg-gray-600">⟲ Reset</button>
-      </div>
-      <div class="flex justify-between">
-        <button type="button" id="cancelCropFoto" class="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition">
-          ✖ Batal
-        </button>
-        <button type="button" id="saveCropFoto" class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition">
-          💾 Simpan Foto
-        </button>
-      </div>
-      <input type="hidden" name="foto_file_cropped" id="fotoHidden">
-    </div>
-    <p class="text-xs text-gray-500 mt-2">* Gunakan foto yang sopan dan berpakaian muslim (menutup aurat).</p>
-  </div>
-</div>
-      <!-- 6. KONFIRMASI FINAL -->
-      <div class="mt-4">
-        <label class="block text-sm text-gray-700 font-medium mb-1">✅ Konfirmasi Data</label>
-        <label class="inline-flex items-start">
-          <input type="checkbox" name="final_konfirmasi" required class="mt-1" />
-          <span class="ml-2 text-sm leading-snug">
-            Saya menyatakan bahwa semua data yang saya isi adalah benar dan dapat dipertanggungjawabkan.
-          </span>
-        </label>
-      </div>
+  // 3. Validate Cropped Images
+  const croppedKTP = document.getElementById('ktpHidden').value;
+  const croppedFoto = document.getElementById('fotoHidden').value;
 
-      <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 mt-6">Kirim Formulir</button>
-      <p id="status" class="text-center text-sm text-green-600 mt-4"></p>
-    </form>
+  if (!croppedKTP) {
+    statusText.innerText = "❌ Harap upload dan crop foto KTP terlebih dahulu!";
+    document.getElementById('uploadKtpSection').scrollIntoView({ behavior: 'smooth' });
+    return;
+  }
 
-    <!-- Cropper JS di bawah form -->
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.js"></script>
+  if (!croppedFoto) {
+    statusText.innerText = "❌ Harap upload dan crop foto profil terlebih dahulu!";
+    document.getElementById('uploadFotoSection').scrollIntoView({ behavior: 'smooth' });
+    return;
+  }
 
-    <!-- MODAL -->
-    <div id="successModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-      <div class="bg-white p-6 rounded-2xl shadow-2xl text-center animate-bounce-in-down max-w-sm w-full">
-        <div class="text-green-600 text-4xl mb-3">🤲</div>
-        <h3 class="text-xl font-bold mb-2 text-green-700">Alhamdulillah, Registrasi Berhasil!</h3>
-        <p class="text-sm text-gray-700 mb-4 leading-relaxed">
-          Data antum/anti telah kami terima.<br />
-          Silakan konfirmasi ke Admin Majlis melalui WhatsApp.
-        </p>
-        <button onclick="chatAdminWA()" class="bg-green-600 text-white px-4 py-2 rounded-full hover:bg-green-700 transition mb-2">
-          Klik Disini untuk Konfirmasi ke Admin
-        </button>
-        <button onclick="closeModal()" class="text-sm text-gray-500 hover:underline">Tutup</button>
-      </div>
-    </div>
+  // 4. Append Cropped Images
+  const timestamp = Date.now();
+  formData.append('ktp_file', croppedKTP.split(',')[1]);
+  formData.append('ktp_file_name', `${namaKTP}_KTP_${timestamp}.jpg`);
+  formData.append('ktp_file_type', 'image/jpeg');
 
+  formData.append('foto_file', croppedFoto.split(',')[1]);
+  formData.append('foto_file_name', `${namaKTP}_PROFIL_${timestamp}.jpg`);
+  formData.append('foto_file_type', 'image/jpeg');
 
-  <!-- Script eksternal -->
-  <script src="script.js"></script>
-        <p class="text-center text-xs text-gray-500 mt-8">
-          © 2025 Majlis Silaturrahim Al-Asmaul Husna | Developed by Munadil.
-        </p>
-</body>
-</html>
+  // 5. Submit to Google Apps Script
+  try {
+    const response = await fetch("https://script.google.com/macros/s/AKfycbz0TnKIPKOhp-cgutt2LH3MlxTKQcnzVWOPP12iLSM4RrbMerqMXhjdcjI_DVdkFNyO/exec", {
+      method: "POST",
+      body: formData
+    });
+
+    const result = await response.text();
+
+    // 6. Handle Response
+    if (result === "Success") {
+      form.reset();
+      document.getElementById("successModal").classList.remove("hidden");
+      statusText.innerText = "";
+    } else {
+      statusText.innerText = "❌ Terjadi kesalahan. Silakan coba lagi atau hubungi admin.";
+    }
+  } catch (error) {
+    console.error("Submit Error:", error);
+    statusText.innerHTML = `
+      ❌ Gagal mengirim data. 
+      <span class="text-sm block mt-1">${error.message || 'Periksa koneksi internet Anda'}</span>
+    `;
+  }
+});
+
+// === INITIALIZE ===
+document.addEventListener('DOMContentLoaded', () => {
+  toggleStatusNikah();
+});

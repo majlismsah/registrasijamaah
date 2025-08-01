@@ -1,4 +1,5 @@
-// === STATUS PERNIKAHAN ===
+// === FUNGSI YANG SUDAH ADA (DARI JS LAMA) ===
+// [1] Toggle Status Nikah
 function toggleStatusNikah() {
   const status = document.getElementById('status_nikah').value;
   const pasanganFields = document.getElementById('pasangan-fields');
@@ -10,12 +11,8 @@ function toggleStatusNikah() {
 
   if (status === 'Menikah' || status === 'Cerai Hidup' || status === 'Cerai Mati') {
     pasanganFields.classList.remove('hidden');
-
-    if (status === 'Menikah') {
-      namaPasanganField.classList.remove('hidden');
-    } else {
-      namaPasanganField.classList.add('hidden');
-    }
+    if (status === 'Menikah') namaPasanganField.classList.remove('hidden');
+    else namaPasanganField.classList.add('hidden');
 
     if (status === 'Menikah' && gender === 'Perempuan') {
       izinSuami.classList.remove('hidden');
@@ -26,60 +23,48 @@ function toggleStatusNikah() {
       penghasilanSuami.classList.add('hidden');
       pekerjaanSuami.classList.add('hidden');
     }
-
   } else {
-    pasanganFields.classList.add('hidden');
-    namaPasanganField.classList.add('hidden');
-    izinSuami.classList.add('hidden');
-    penghasilanSuami.classList.add('hidden');
-    pekerjaanSuami.classList.add('hidden');
+    [pasanganFields, namaPasanganField, izinSuami, penghasilanSuami, pekerjaanSuami].forEach(el => {
+      el.classList.add('hidden');
+    });
   }
 }
 
-// === TOGGLE GENDER ===
+// [2] Toggle Gender
 function toggleGender() {
   toggleStatusNikah();
 }
 
-// === CLOSE MODAL ===
+// [3] Close Modal
 function closeModal() {
   document.getElementById("successModal").classList.add("hidden");
 }
 
-// === VALIDASI NO WA ===
-const noWaInput = document.getElementById('no_wa');
-noWaInput.addEventListener('input', function (e) {
+// [4] Validasi Nomor WA
+document.getElementById('no_wa').addEventListener('input', function(e) {
   let value = e.target.value.replace(/\D/g, '');
-  if (value.startsWith('0')) {
-    value = '62' + value.slice(1);
-  } else if (value.startsWith('8')) {
-    value = '62' + value;
-  } else if (!value.startsWith('62')) {
-    value = '62' + value;
-  }
+  if (value.startsWith('0')) value = '62' + value.slice(1);
+  else if (value.startsWith('8')) value = '62' + value;
+  else if (!value.startsWith('62')) value = '62' + value;
   e.target.value = value;
 });
 
-// === VALIDASI NO KONTAK DARURAT ===
+// [5] Validasi Kontak Darurat
 document.addEventListener('DOMContentLoaded', function() {
   const noDaruratInput = document.getElementById('no_kontak_darurat');
   if (noDaruratInput) {
     noDaruratInput.addEventListener('input', function(e) {
       let value = e.target.value.replace(/\D/g, '');
-      if (value.startsWith('0')) {
-        value = '62' + value.slice(1);
-      } else if (value.startsWith('8')) {
-        value = '62' + value;
-      } else if (!value.startsWith('62')) {
-        value = '62' + value;
-      }
+      if (value.startsWith('0')) value = '62' + value.slice(1);
+      else if (value.startsWith('8')) value = '62' + value;
+      else if (!value.startsWith('62')) value = '62' + value;
       e.target.value = value;
     });
   }
 });
 
-// === PILIHAN PEKERJAAN PRIBADI ===
-document.getElementById('pekerjaan').addEventListener('change', function () {
+// [6] Pilihan Pekerjaan
+document.getElementById('pekerjaan').addEventListener('change', function() {
   const lainnya = document.getElementById('pekerjaan_lainnya');
   if (this.value === 'lainnya') {
     lainnya.classList.remove('hidden');
@@ -91,8 +76,8 @@ document.getElementById('pekerjaan').addEventListener('change', function () {
   }
 });
 
-// === PILIHAN PEKERJAAN SUAMI ===
-document.getElementById('pekerjaan_suami').addEventListener('change', function () {
+// [7] Pilihan Pekerjaan Suami
+document.getElementById('pekerjaan_suami').addEventListener('change', function() {
   const inputLainnya = document.getElementById('pekerjaan_suami_lainnya');
   if (this.value === 'lainnya') {
     inputLainnya.classList.remove('hidden');
@@ -104,25 +89,18 @@ document.getElementById('pekerjaan_suami').addEventListener('change', function (
   }
 });
 
-// === MASKING Penghasilan Pribadi ===
+// [8] Masking Penghasilan
 document.getElementById('penghasilan').addEventListener('input', function(e) {
   let value = e.target.value.replace(/\D/g, '');
-  if (value) {
-    value = parseInt(value, 10).toLocaleString('id-ID');
-  }
-  e.target.value = value;
+  if (value) e.target.value = parseInt(value, 10).toLocaleString('id-ID');
 });
 
-// === MASKING Penghasilan Suami ===
 document.getElementById('penghasilan_suami').addEventListener('input', function(e) {
   let value = e.target.value.replace(/\D/g, '');
-  if (value) {
-    value = parseInt(value, 10).toLocaleString('id-ID');
-  }
-  e.target.value = value;
+  if (value) e.target.value = parseInt(value, 10).toLocaleString('id-ID');
 });
 
-// === KONFIR KE ADMIN ===
+// [9] Chat Admin WA
 function chatAdminWA() {
   const adminNumber = "62816787977";
   const waText = encodeURIComponent(
@@ -131,156 +109,120 @@ function chatAdminWA() {
   window.open(`https://wa.me/${adminNumber}?text=${waText}`, "_blank");
 }
 
-// ==================== KTP UPLOAD & CROP ====================
-let cropperKTP;
-const uploadKTP = document.getElementById('uploadKTP');
-const previewKTP = document.getElementById('previewKTP');
-const ktpCropArea = document.getElementById('ktpCropArea');
-const uploadKtpSection = document.getElementById('uploadKtpSection');
+// === FUNGSI BARU (UPLOAD & CROP) ===
+let cropperKTP, cropperFoto;
 
-uploadKTP.addEventListener('change', function(e) {
-  const file = e.target.files[0];
-  if (!file) return;
+// Inisialisasi Uploader
+function initUploader(type, config) {
+  const uploader = document.getElementById(config.uploadId);
+  
+  uploader.addEventListener('change', (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
 
-  // Validasi file
-  if (file.size > 5 * 1024 * 1024) {
-    alert("Ukuran file maksimal 5MB!");
-    return;
-  }
-  if (!file.type.match('image/jpeg|image/png')) {
-    alert("Hanya format JPEG/PNG yang diizinkan!");
-    return;
-  }
+    // Validasi
+    if (file.size > config.maxSizeMB * 1024 * 1024) {
+      alert(`Ukuran file maksimal ${config.maxSizeMB}MB!`);
+      return;
+    }
+    if (!file.type.match('image/jpeg|image/png')) {
+      alert("Hanya format JPEG/PNG yang diizinkan!");
+      return;
+    }
 
-  const reader = new FileReader();
-  reader.onload = function(event) {
-    previewKTP.src = event.target.result;
-    ktpCropArea.classList.remove('hidden');
-    uploadKtpSection.classList.add('hidden');
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      const preview = document.getElementById(config.previewId);
+      preview.src = event.target.result;
 
-    if (cropperKTP) cropperKTP.destroy();
-    cropperKTP = new Cropper(previewKTP, {
-      aspectRatio: 16 / 9,
-      viewMode: 1,
-      autoCropArea: 0.8
+      document.getElementById(config.cropAreaId).classList.remove('hidden');
+      document.getElementById(config.uploadSectionId).classList.add('hidden');
+
+      if (window[`cropper${type}`]) window[`cropper${type}`].destroy();
+      
+      window[`cropper${type}`] = new Cropper(preview, {
+        aspectRatio: config.aspectRatio,
+        viewMode: 1,
+        autoCropArea: 0.8,
+        responsive: true
+      });
+    };
+    reader.readAsDataURL(file);
+  });
+
+  // Setup Tombol
+  document.getElementById(config.saveId).addEventListener('click', () => {
+    if (!window[`cropper${type}`]) {
+      alert("Harap pilih foto terlebih dahulu!");
+      return;
+    }
+
+    const canvas = window[`cropper${type}`].getCroppedCanvas({
+      width: config.width,
+      height: config.height,
+      fillColor: '#fff'
     });
-  };
-  reader.readAsDataURL(file);
-});
+    
+    document.getElementById(config.hiddenId).value = canvas.toDataURL('image/jpeg', 0.9);
+    document.getElementById(config.cropAreaId).classList.add('hidden');
+    document.getElementById(config.uploadSectionId).classList.remove('hidden');
+    
+    showStatus(`✅ ${config.label} berhasil disimpan!`, 'success');
+  });
+}
 
-// Tombol di Crop Area KTP
-document.getElementById('rotateLeftKTP').addEventListener('click', () => cropperKTP.rotate(-90));
-document.getElementById('rotateRightKTP').addEventListener('click', () => cropperKTP.rotate(90));
-document.getElementById('resetCropKTP').addEventListener('click', () => cropperKTP.reset());
-document.getElementById('cancelCropKTP').addEventListener('click', () => {
-  ktpCropArea.classList.add('hidden');
-  uploadKtpSection.classList.remove('hidden');
-  uploadKTP.value = '';
-});
-document.getElementById('saveCropKTP').addEventListener('click', () => {
-  const canvas = cropperKTP.getCroppedCanvas({ width: 1000, height: 630 });
-  document.getElementById('ktpHidden').value = canvas.toDataURL('image/jpeg');
-  ktpCropArea.classList.add('hidden');
-  uploadKtpSection.classList.remove('hidden');
-});
-
-// ==================== FOTO PROFIL UPLOAD & CROP ====================
-let cropperFoto;
-const uploadFoto = document.getElementById('uploadFoto');
-const previewFoto = document.getElementById('previewFoto');
-const fotoCropArea = document.getElementById('fotoCropArea');
-const uploadFotoSection = document.getElementById('uploadFotoSection');
-
-uploadFoto.addEventListener('change', function(e) {
-  const file = e.target.files[0];
-  if (!file) return;
-
-  if (file.size > 5 * 1024 * 1024 || !file.type.match('image/jpeg|image/png')) {
-    alert("File tidak valid! Maks 5MB, format JPEG/PNG.");
-    return;
+// Konfigurasi Uploader
+const uploadConfig = {
+  KTP: {
+    uploadId: 'uploadKTP',
+    previewId: 'previewKTP',
+    cropAreaId: 'ktpCropArea',
+    uploadSectionId: 'uploadKtpSection',
+    hiddenId: 'ktpHidden',
+    saveId: 'saveCropKTP',
+    aspectRatio: 16/9,
+    width: 1000,
+    height: 630,
+    maxSizeMB: 5,
+    label: 'KTP'
+  },
+  Foto: {
+    uploadId: 'uploadFoto',
+    previewId: 'previewFoto',
+    cropAreaId: 'fotoCropArea',
+    uploadSectionId: 'uploadFotoSection',
+    hiddenId: 'fotoHidden',
+    saveId: 'saveCropFoto',
+    aspectRatio: 1,
+    width: 500,
+    height: 500,
+    maxSizeMB: 5,
+    label: 'Foto Profil'
   }
+};
 
-  const reader = new FileReader();
-  reader.onload = function(event) {
-    previewFoto.src = event.target.result;
-    fotoCropArea.classList.remove('hidden');
-    uploadFotoSection.classList.add('hidden');
-
-    if (cropperFoto) cropperFoto.destroy();
-    cropperFoto = new Cropper(previewFoto, {
-      aspectRatio: 1,
-      viewMode: 1,
-      autoCropArea: 0.8
-    });
-  };
-  reader.readAsDataURL(file);
+// Inisialisasi
+Object.keys(uploadConfig).forEach(type => {
+  initUploader(type, uploadConfig[type]);
 });
 
-// Tombol di Crop Area Foto Profil
-document.getElementById('rotateLeftFoto').addEventListener('click', () => cropperFoto.rotate(-90));
-document.getElementById('rotateRightFoto').addEventListener('click', () => cropperFoto.rotate(90));
-document.getElementById('resetCropFoto').addEventListener('click', () => cropperFoto.reset());
-document.getElementById('cancelCropFoto').addEventListener('click', () => {
-  fotoCropArea.classList.add('hidden');
-  uploadFotoSection.classList.remove('hidden');
-  uploadFoto.value = '';
-});
-document.getElementById('saveCropFoto').addEventListener('click', () => {
-  const canvas = cropperFoto.getCroppedCanvas({ width: 500, height: 500 });
-  document.getElementById('fotoHidden').value = canvas.toDataURL('image/jpeg');
-  fotoCropArea.classList.add('hidden');
-  uploadFotoSection.classList.remove('hidden');
-});
-
-// === HANDLE SUBMIT FORM ===
+// === SUBMIT FORM (DARI JS LAMA + OPTIMASI) ===
 const form = document.getElementById('regForm');
-const statusText = document.getElementById('status');
-
 form.addEventListener('submit', async (e) => {
   e.preventDefault();
   
-  // 1. Prepare Form Data
   const formData = new FormData(form);
   const namaKTP = form.querySelector('input[name="nama_ktp"]').value.trim().replace(/\s+/g, '_').toUpperCase();
   
-  // 2. Show Loading State
-  statusText.innerHTML = `
-    <div class="flex items-center justify-center">
-      <svg class="animate-spin h-5 w-5 mr-2 text-blue-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-      </svg>
-      Mengirim data...
-    </div>
-  `;
+  showStatus("⏳ Mengirim data... Mohon tunggu.");
 
-  // 3. Validate Cropped Images
-  const croppedKTP = document.getElementById('ktpHidden').value;
-  const croppedFoto = document.getElementById('fotoHidden').value;
-
-  if (!croppedKTP) {
-    statusText.innerText = "❌ Harap upload dan crop foto KTP terlebih dahulu!";
-    document.getElementById('uploadKtpSection').scrollIntoView({ behavior: 'smooth' });
+  // Validasi
+  if (!document.getElementById('ktpHidden').value || !document.getElementById('fotoHidden').value) {
+    showStatus("❌ Harap upload dan crop kedua foto terlebih dahulu!", 'error');
     return;
   }
 
-  if (!croppedFoto) {
-    statusText.innerText = "❌ Harap upload dan crop foto profil terlebih dahulu!";
-    document.getElementById('uploadFotoSection').scrollIntoView({ behavior: 'smooth' });
-    return;
-  }
-
-  // 4. Append Cropped Images
-  const timestamp = Date.now();
-  formData.append('ktp_file', croppedKTP.split(',')[1]);
-  formData.append('ktp_file_name', `${namaKTP}_KTP_${timestamp}.jpg`);
-  formData.append('ktp_file_type', 'image/jpeg');
-
-  formData.append('foto_file', croppedFoto.split(',')[1]);
-  formData.append('foto_file_name', `${namaKTP}_PROFIL_${timestamp}.jpg`);
-  formData.append('foto_file_type', 'image/jpeg');
-
-  // 5. Submit to Google Apps Script
+  // Kirim data
   try {
     const response = await fetch("https://script.google.com/macros/s/AKfycbz0TnKIPKOhp-cgutt2LH3MlxTKQcnzVWOPP12iLSM4RrbMerqMXhjdcjI_DVdkFNyO/exec", {
       method: "POST",
@@ -288,25 +230,29 @@ form.addEventListener('submit', async (e) => {
     });
 
     const result = await response.text();
-
-    // 6. Handle Response
     if (result === "Success") {
       form.reset();
       document.getElementById("successModal").classList.remove("hidden");
-      statusText.innerText = "";
+      showStatus("");
     } else {
-      statusText.innerText = "❌ Terjadi kesalahan. Silakan coba lagi atau hubungi admin.";
+      showStatus("❌ Terjadi kesalahan. Silakan coba lagi.", 'error');
     }
   } catch (error) {
+    showStatus(`❌ Gagal mengirim: ${error.message || 'Periksa koneksi'}`, 'error');
     console.error("Submit Error:", error);
-    statusText.innerHTML = `
-      ❌ Gagal mengirim data. 
-      <span class="text-sm block mt-1">${error.message || 'Periksa koneksi internet Anda'}</span>
-    `;
   }
 });
 
-// === INITIALIZE ===
+// Fungsi Bantu
+function showStatus(message, type = 'info') {
+  const statusEl = document.getElementById('status');
+  statusEl.innerHTML = type === 'error' 
+    ? `<span class="text-red-600">${message}</span>`
+    : `<span class="text-blue-600">${message}</span>`;
+  if (message) setTimeout(() => statusEl.innerHTML = '', 5000);
+}
+
+// Inisialisasi Awal
 document.addEventListener('DOMContentLoaded', () => {
   toggleStatusNikah();
 });

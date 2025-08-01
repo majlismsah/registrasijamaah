@@ -150,10 +150,10 @@ function initUploader(type, config) {
     reader.readAsDataURL(file);
   });
 
-  // Setup Tombol
+  // Setup Tombol Save (YANG DIUPDATE)
   document.getElementById(config.saveId).addEventListener('click', () => {
     if (!window[`cropper${type}`]) {
-      alert("Harap pilih foto terlebih dahulu!");
+      showStatus(`❌ Harap pilih ${config.label} terlebih dahulu!`, 'error');
       return;
     }
 
@@ -163,8 +163,23 @@ function initUploader(type, config) {
       fillColor: '#fff'
     });
     
-    document.getElementById(config.hiddenId).value = canvas.toDataURL('image/jpeg', 0.9);
+    const croppedData = canvas.toDataURL('image/jpeg', 0.9);
+    
+    // 1. Simpan ke hidden input
+    document.getElementById(config.hiddenId).value = croppedData;
+    
+    // 2. Tampilkan preview hasil (UPDATE INI)
+    const previewHasilId = `${config.previewId}Hasil`;
+    const previewHasil = document.getElementById(previewHasilId);
+    if (previewHasil) {
+      previewHasil.src = croppedData;
+      previewHasil.classList.remove('hidden');
+    }
+    
+    // 3. Sembunyikan area crop
     document.getElementById(config.cropAreaId).classList.add('hidden');
+    
+    // 4. Tampilkan kembali upload section (TANPA MENYEMBUNYIKAN PREVIEW)
     document.getElementById(config.uploadSectionId).classList.remove('hidden');
     
     showStatus(`✅ ${config.label} berhasil disimpan!`, 'success');
@@ -206,7 +221,7 @@ Object.keys(uploadConfig).forEach(type => {
   initUploader(type, uploadConfig[type]);
 });
 
-// === SUBMIT FORM (DARI JS LAMA + OPTIMASI) ===
+// === SUBMIT FORM ===
 const form = document.getElementById('regForm');
 form.addEventListener('submit', async (e) => {
   e.preventDefault();

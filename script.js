@@ -161,23 +161,66 @@ function initializeCropper(fileInputId, uploadSectionId, cropSectionId, imagePre
 // --- SUBMIT FORM & KIRIM DATA ---
 const form = document.getElementById('regForm');
 const statusText = document.getElementById('status');
-function closeModal() {
-  document.getElementById("successModal").classList.add("hidden");
+
+// Fungsi untuk menampilkan loading spinner
+function showLoadingSpinner() {
+  // Tambahkan div untuk overlay dan spinner
+  const spinnerHTML = `
+    <div id="loadingOverlay" class="fixed inset-0 z-50 flex items-center justify-center bg-gray-900 bg-opacity-50">
+      <div class="animate-spin rounded-full h-32 w-32 border-t-4 border-b-4 border-blue-500"></div>
+    </div>
+  `;
+  document.body.insertAdjacentHTML('beforeend', spinnerHTML);
 }
-function chatAdminWA() {
+
+// Fungsi untuk menyembunyikan loading spinner
+function hideLoadingSpinner() {
+  const overlay = document.getElementById('loadingOverlay');
+  if (overlay) {
+    overlay.remove();
+  }
+}
+
+// Fungsi untuk menampilkan popup sukses
+function showSuccessModal(namaJamaah) {
   const adminNumber = "62816787977";
   const waText = encodeURIComponent(
-    "Assalamualaikum, Kang Admin, saya sudah mengisi form registrasi jamaah MSAH periode 1447H."
+    `Assalamualaikum, Kang Admin, saya ${namaJamaah} sudah mengisi form registrasi jamaah MSAH periode 1447H.`
   );
-  window.open(`https://wa.me/${adminNumber}?text=${waText}`, "_blank");
+  
+  const modalHTML = `
+    <div id="successModal" class="fixed inset-0 z-50 flex items-center justify-center bg-gray-900 bg-opacity-50">
+      <div class="bg-white p-8 rounded-lg shadow-xl max-w-sm text-center">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 mx-auto text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+        <h3 class="text-2xl font-bold mt-4">Terima Kasih!</h3>
+        <p class="mt-2 text-gray-600">Data Anda sudah kami proses. Harap segera konfirmasi ke Admin.</p>
+        <a href="https://wa.me/${adminNumber}?text=${waText}" target="_blank" class="mt-6 inline-block bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-full transition duration-300">
+          Konfirmasi ke Admin
+        </a>
+        <button onclick="closeModal()" class="mt-4 block w-full text-gray-500 hover:text-gray-700">Tutup</button>
+      </div>
+    </div>
+  `;
+  document.body.insertAdjacentHTML('beforeend', modalHTML);
+}
+
+// Fungsi untuk menutup modal
+function closeModal() {
+  const modal = document.getElementById('successModal');
+  if (modal) {
+    modal.remove();
+  }
 }
 
 form.addEventListener('submit', async (e) => {
   e.preventDefault();
   
+  showLoadingSpinner();
+  
+  const namaKTP = form.querySelector('input[name="nama_ktp"]').value.trim();
   const formData = new FormData();
-  const namaKTP = form.querySelector('input[name="nama_ktp"]').value.trim().replace(/\s+/g, '_').toUpperCase();
-  statusText.innerText = "⏳ Mengirim data... Mohon tunggu.";
   
   // Ambil data form selain file
   const formElements = form.querySelectorAll('input:not([type="file"]), select, textarea');
@@ -211,16 +254,22 @@ form.addEventListener('submit', async (e) => {
 
     const result = await response.text();
 
+    hideLoadingSpinner(); // Sembunyikan spinner setelah respons
+    
     if (result === "Success") {
       form.reset();
-      document.getElementById("successModal").classList.remove("hidden");
-      statusText.innerText = "";
+      showSuccessModal(namaKTP);
     } else {
+      statusText.classList.remove('text-green-600');
+      statusText.classList.add('text-red-600');
       statusText.innerText = "❌ Terjadi kesalahan. Silakan coba lagi.";
     }
 
   } catch (error) {
     console.error(error);
+    hideLoadingSpinner(); // Sembunyikan spinner jika terjadi error
+    statusText.classList.remove('text-green-600');
+    statusText.classList.add('text-red-600');
     statusText.innerText = "❌ Gagal mengirim data. Silakan periksa koneksi Anda.";
   }
 });

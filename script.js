@@ -161,10 +161,10 @@ function initializeCropper(fileInputId, uploadSectionId, cropSectionId, imagePre
 // --- SUBMIT FORM & KIRIM DATA ---
 const form = document.getElementById('regForm');
 const statusText = document.getElementById('status');
+const successModal = document.getElementById('successModal');
 
 // Fungsi untuk menampilkan loading spinner
 function showLoadingSpinner() {
-  // Tambahkan div untuk overlay dan spinner
   const spinnerHTML = `
     <div id="loadingOverlay" class="fixed inset-0 z-50 flex items-center justify-center bg-gray-900 bg-opacity-50">
       <div class="animate-spin rounded-full h-32 w-32 border-t-4 border-b-4 border-blue-500"></div>
@@ -182,36 +182,24 @@ function hideLoadingSpinner() {
 }
 
 // Fungsi untuk menampilkan popup sukses
-function showSuccessModal(namaJamaah) {
+function showSuccessModal() {
+  successModal.classList.remove('hidden');
+}
+
+// Fungsi untuk menutup modal (terhubung ke tombol di HTML)
+function closeModal() {
+  successModal.classList.add('hidden');
+}
+
+// Fungsi untuk tombol konfirmasi ke WhatsApp (terhubung ke tombol di HTML)
+function chatAdminWA() {
+  const namaJamaah = form.querySelector('input[name="nama_ktp"]').value.trim();
   const adminNumber = "62816787977";
   const waText = encodeURIComponent(
     `Assalamualaikum, Kang Admin, saya ${namaJamaah} sudah mengisi form registrasi jamaah MSAH periode 1447H.`
   );
-  
-  const modalHTML = `
-    <div id="successModal" class="fixed inset-0 z-50 flex items-center justify-center bg-gray-900 bg-opacity-50">
-      <div class="bg-white p-8 rounded-lg shadow-xl max-w-sm text-center">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 mx-auto text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-        </svg>
-        <h3 class="text-2xl font-bold mt-4">Terima Kasih!</h3>
-        <p class="mt-2 text-gray-600">Data Anda sudah kami proses. Harap segera konfirmasi ke Admin.</p>
-        <a href="https://wa.me/${adminNumber}?text=${waText}" target="_blank" class="mt-6 inline-block bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-full transition duration-300">
-          Konfirmasi ke Admin
-        </a>
-        <button onclick="closeModal()" class="mt-4 block w-full text-gray-500 hover:text-gray-700">Tutup</button>
-      </div>
-    </div>
-  `;
-  document.body.insertAdjacentHTML('beforeend', modalHTML);
-}
-
-// Fungsi untuk menutup modal
-function closeModal() {
-  const modal = document.getElementById('successModal');
-  if (modal) {
-    modal.remove();
-  }
+  window.open(`https://wa.me/${adminNumber}?text=${waText}`, '_blank');
+  closeModal();
 }
 
 form.addEventListener('submit', async (e) => {
@@ -220,32 +208,24 @@ form.addEventListener('submit', async (e) => {
   showLoadingSpinner();
   
   const namaKTP = form.querySelector('input[name="nama_ktp"]').value.trim();
-  const formData = new FormData();
-  
-  // Ambil data form selain file
-  const formElements = form.querySelectorAll('input:not([type="file"]), select, textarea');
-  formElements.forEach(element => {
-    if (element.name && element.value) {
-      formData.append(element.name, element.value);
-    }
-  });
+  const formData = new FormData(form);
 
-  // Ambil hasil crop dari hidden input
+  // Perbaiki pengiriman data foto agar sesuai
   const croppedKTP = document.getElementById('ktpCroppedImageData').value;
   const croppedFoto = document.getElementById('fotoCroppedImageData').value;
 
   if (croppedKTP) {
-    formData.append('ktp_file', croppedKTP.split(',')[1]);
+    formData.set('ktp_file', croppedKTP.split(',')[1]);
     formData.append('ktp_file_name', `${namaKTP}_KTP.jpg`);
     formData.append('ktp_file_type', 'image/jpeg');
   }
 
   if (croppedFoto) {
-    formData.append('foto_file', croppedFoto.split(',')[1]);
+    formData.set('foto_file', croppedFoto.split(',')[1]);
     formData.append('foto_file_name', `${namaKTP}_FOTO.jpg`);
     formData.append('foto_file_type', 'image/jpeg');
   }
-
+  
   try {
     const response = await fetch("https://script.google.com/macros/s/AKfycbz0TnKIPKOhp-cgutt2LH3MlxTKQcnzVWOPP12iLSM4RrbMerqMXhjdcjI_DVdkFNyO/exec", {
       method: "POST",
@@ -258,7 +238,7 @@ form.addEventListener('submit', async (e) => {
     
     if (result === "Success") {
       form.reset();
-      showSuccessModal(namaKTP);
+      showSuccessModal();
     } else {
       statusText.classList.remove('text-green-600');
       statusText.classList.add('text-red-600');

@@ -270,7 +270,7 @@ document.addEventListener('DOMContentLoaded', () => {
     'ktpFileInput', 'ktpUploadSection', 'ktpCropSection', 'ktpImagePreview',
     'ktpResultSection', 'ktpCroppedResult', 'ktpCroppedImageData',
     'ktpRotateLeft', 'ktpRotateRight', 'ktpResetCrop', 'ktpCancelCrop',
-    'ktpSaveCrop', 'ktpChangePhoto', 16 / 9
+    'ktpSaveCrop', 'ktpChangePhoto', 3 / 2
   );
 
   // Inisialisasi cropper untuk Foto Profil (aspek rasio 1:1)

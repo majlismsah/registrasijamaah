@@ -172,13 +172,19 @@ function showLoadingSpinner() {
   `;
   document.body.insertAdjacentHTML('beforeend', spinnerHTML);
 }
-
-// Fungsi untuk menyembunyikan loading spinner
-function hideLoadingSpinner() {
-  const overlay = document.getElementById('loadingOverlay');
-  if (overlay) {
-    overlay.remove();
-  }
+// Fungsi untuk menampilkan loading dengan teks
+function showLoadingSpinner() {
+  const spinnerHTML = `
+    <div id="loadingOverlay" class="fixed inset-0 z-50 flex items-center justify-center bg-gray-900 bg-opacity-50">
+      <div class="text-center">
+        <p class="text-white text-xl font-semibold mb-2 animate-fade-in-out">
+          Sedang memproses...
+        </p>
+        <p class="text-white text-sm">Mohon tunggu sebentar.</p>
+      </div>
+    </div>
+  `;
+  document.body.insertAdjacentHTML('beforeend', spinnerHTML);
 }
 
 // Fungsi untuk menampilkan popup sukses
@@ -278,7 +284,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Menambahkan event listener ke elemen-elemen form
   document.getElementById('status_nikah').addEventListener('change', toggleStatusNikah);
   document.getElementById('jenis_kelamin').addEventListener('change', toggleStatusNikah);
-  document.getElementById('pekerjaan').addEventListener('change', () => toggleOtherJobInput('pekerjaan', 'pekerjaan_lainnya'));
+  document.getElementById('pekerjaan').addEvetListener('change', () => toggleOtherJobInput('pekerjaan', 'pekerjaan_lainnya'));
   document.getElementById('pekerjaan_suami').addEventListener('change', () => toggleOtherJobInput('pekerjaan_suami', 'pekerjaan_suami_lainnya'));
   document.getElementById('no_wa').addEventListener('input', (e) => formatPhoneNumber(e.target));
   document.getElementById('no_kontak_darurat').addEventListener('input', (e) => formatPhoneNumber(e.target));

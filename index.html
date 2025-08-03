@@ -8,6 +8,30 @@
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
   <link href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.css" rel="stylesheet" />
+https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css
+
+  <style>
+    /* Styling tambahan untuk cropper agar tampil rapi */
+    .cropper-container {
+        max-width: 100%;
+        max-height: 400px;
+    }
+    .cropped-preview img {
+        max-width: 100%;
+        height: auto;
+    }
+    
+    /* ===== KODE ANIMASI BARU UNTUK LOADING ===== */
+    @keyframes fade-in-out {
+        0%, 100% { opacity: 0.5; }
+        50% { opacity: 1; }
+    }
+
+    .animate-fade-in-out {
+        animation: fade-in-out 2s ease-in-out infinite;
+    }
+    /* =========================================== */
+  </style>
   <style>
     /* Styling tambahan untuk cropper agar tampil rapi */
     .cropper-container {

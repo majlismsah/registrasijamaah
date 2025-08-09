@@ -273,7 +273,7 @@ form.addEventListener('submit', async (e) => {
   // Ambil nilai dengan pengecekan untuk menghindari error
   const namaKtpElement = form.querySelector('input[name="nama_ktp"]');
   const ismuSulthonElement = form.querySelector('input[name="ismu_sulthon"]');
-  const majlisPilihanElement = form.querySelector('select[name="majlis_pilihan"]');
+  const majlisPilihanElement = form.querySelector('select[name="majlis_wilayah"]'); // <-- INI YANG SAYA UBAH
 
   storedNamaKtp = namaKtpElement ? namaKtpElement.value.trim() : '';
   storedIsmuSulthon = ismuSulthonElement ? ismuSulthonElement.value.trim() : '';

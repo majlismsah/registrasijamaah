@@ -270,10 +270,14 @@ form.addEventListener('submit', async (e) => {
 
   showLoadingSpinner();
   
-  // Ambil nilai nama dan ismu sulthon SEBELUM form di-reset
-  storedNamaKtp = form.querySelector('input[name="nama_ktp"]').value.trim();
-  storedIsmuSulthon = form.querySelector('input[name="ismu_sulthon"]').value.trim();
-  storedMajlisPilihan = form.querySelector('select[name="majlis_pilihan"]').value.trim(); // <-- AMBIL NILAI MAJLIS DI SINI
+  // Ambil nilai dengan pengecekan untuk menghindari error
+  const namaKtpElement = form.querySelector('input[name="nama_ktp"]');
+  const ismuSulthonElement = form.querySelector('input[name="ismu_sulthon"]');
+  const majlisPilihanElement = form.querySelector('select[name="majlis_pilihan"]');
+
+  storedNamaKtp = namaKtpElement ? namaKtpElement.value.trim() : '';
+  storedIsmuSulthon = ismuSulthonElement ? ismuSulthonElement.value.trim() : '';
+  storedMajlisPilihan = majlisPilihanElement ? majlisPilihanElement.value.trim() : '';
 
   const formData = new FormData(form);
 
@@ -319,7 +323,6 @@ form.addEventListener('submit', async (e) => {
     statusText.innerText = "❌ Gagal mengirim data. Silakan periksa koneksi Anda.";
   }
 });
-
 
 // ====================================================================
 // ==================== INISIALISASI PADA AWAL LOAD ===================

@@ -220,18 +220,17 @@ let storedNamaKtp, storedIsmuSulthon, storedMajlisPilihan;
 
 // Fungsi untuk menampilkan loading spinner
 function showLoadingSpinner() {
-  const spinnerHTML = `
-    <div id="loadingOverlay" class="fixed inset-0 z-50 flex items-center justify-center bg-gray-900 bg-opacity-50">
-      <div class="text-center">
-        <div class="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-blue-500 mb-4"></div>
-        <p class="text-white text-xl font-semibold mb-2">Sedang memproses...</p>
-        <p class="text-white text-sm">Mohon tunggu sebentar.</p>
-      </div>
-    </div>
-  `;
-  document.body.insertAdjacentHTML('beforeend', spinnerHTML);
+    const spinnerHTML = `
+        <div id="loadingOverlay" class="fixed inset-0 z-50 flex items-center justify-center bg-gray-900 bg-opacity-75 backdrop-blur-sm">
+            <div class="bg-white p-8 rounded-xl shadow-2xl text-center max-w-sm w-full animate-fade-in">
+                <div class="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-blue-500 mx-auto mb-4"></div>
+                <p class="text-gray-800 text-lg font-bold mb-2">Data sedang di proses</p>
+                <p class="text-gray-600 text-sm">Silahkan tunggu...</p>
+            </div>
+        </div>
+    `;
+    document.body.insertAdjacentHTML('beforeend', spinnerHTML);
 }
-
 // Fungsi untuk menyembunyikan loading spinner
 function hideLoadingSpinner() {
   const loadingOverlay = document.getElementById('loadingOverlay');

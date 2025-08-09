@@ -1,375 +1,374 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Form Registrasi Jamaah MSAH 2025M 1447H</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Form Registrasi Jamaah MSAH 2025M 1447H</title>
 
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css" />
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.css" rel="stylesheet" />
 
-  <style>
-    /* Styling tambahan untuk cropper agar tampil rapi */
-    .cropper-container {
-        max-width: 100%;
-        max-height: 400px;
-    }
-    .cropped-preview img {
-        max-width: 100%;
-        height: auto;
-    }
-    
-    /* ===== KODE ANIMASI BARU UNTUK LOADING ===== */
-    @keyframes fade-in-out {
-        0%, 100% { opacity: 0.5; }
-        50% { opacity: 1; }
-    }
+    <style>
+        .hidden {
+            display: none;
+        }
 
-    .animate-fade-in-out {
-        animation: fade-in-out 2s ease-in-out infinite;
-    }
-    /* =========================================== */
-  </style>
+        .form-step {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Styling tambahan untuk cropper */
+        .cropper-container {
+            max-width: 100%;
+            max-height: 400px;
+        }
+    </style>
 </head>
 
 <body class="bg-gray-100 font-sans text-gray-800">
-  <div class="max-w-2xl mx-auto p-6 bg-white shadow-xl rounded-3xl mt-6 mb-10">
-    <img src="https://github.com/majlismsah/registrasijamaah/blob/main/logomajlis.png?raw=true"
-         alt="Logo MSAH"
-         class="mx-auto h-20 w-20 rounded-full shadow-lg ring-2 ring-blue-300 mb-4" />
+    <div class="max-w-3xl mx-auto p-6 bg-white shadow-xl rounded-3xl mt-6 mb-10">
+        <img src="https://github.com/majlismsah/registrasijamaah/blob/main/logomajlis.png?raw=true"
+             alt="Logo MSAH"
+             class="mx-auto h-20 w-20 rounded-full shadow-lg ring-2 ring-yellow-500 mb-4" />
 
-    <h1 class="text-2xl font-bold text-center mb-4">
-      Form Registrasi Ulang Jamaah MSAH 2025
-    </h1>
-
-    <form id="regForm" enctype="multipart/form-data" class="space-y-6">
-      
-      <div>
-        <h2 class="text-lg font-semibold border-b pb-1 mb-3">👤 Identitas Pribadi</h2>
-        <input name="nama_ktp" class="w-full p-2 border rounded uppercase" placeholder="Nama Sesuai KTP" required />
-        <input name="ismu_sulthon" class="w-full p-2 border rounded uppercase mt-2" placeholder="Ismu Sulthon" required />
-        <select name="jenis_kelamin" id="jenis_kelamin" required class="w-full p-2 border rounded mt-2">
-          <option value="">Jenis Kelamin</option>
-          <option>Laki-laki</option>
-          <option>Perempuan</option>
-        </select>
-        <select name="golongan_darah" required class="w-full p-2 border rounded">
-          <option value="">Pilih Golongan Darah</option>
-          <option value="A">A</option>
-          <option value="B">B</option>
-          <option value="AB">AB</option>
-          <option value="O">O</option>
-          <option value="Tidak Tahu">Tidak Tahu</option>
-        </select>
-        <input name="tempat_lahir" class="w-full p-2 border rounded mt-2" placeholder="Tempat Lahir" required />
-        <label class="mt-2 block">Tanggal Lahir</label>
-        <input name="tanggal_lahir" type="date" placeholder="DD/MM/YYYY" required class="w-full p-2 border rounded mt-2" />
-        <p class="text-xs text-gray-500 mt-1">Format: DD/MM/YYYY – Untuk memilih tahun, arahkan di kiri atas dan klik tahun-nya</p>
-        <select name="pendidikan" required class="w-full p-2 border rounded mt-4">
-          <option value="">Pendidikan Terakhir</option>
-          <option>SD</option><option>SMP</option><option>SMA</option>
-          <option>D1</option><option>D2</option><option>D3</option>
-          <option>S1</option><option>S2</option><option>S3</option>
-        </select>
-        <textarea name="alamat" placeholder="Alamat Lengkap Sesuai Domisili" required rows="3" class="w-full p-2 border rounded mt-2"></textarea>
-        <input name="no_wa" id="no_wa" class="w-full p-2 border rounded mt-2" placeholder="Nomor Whatsapp (62xxx)" required />
-      </div>
-
-      <div>
-        <h2 class="text-lg font-semibold border-b pb-1 mb-3">👪 Kondisi Keluarga & Sosial</h2>
-        <select name="status_nikah" id="status_nikah" onchange="toggleStatusNikah()" required class="w-full p-2 border rounded">
-          <option value="">Status Pernikahan</option>
-          <option>Belum Menikah</option>
-          <option>Menikah</option>
-          <option>Cerai Hidup</option>
-          <option>Cerai Mati</option>
-        </select>
-        <select name="status_tinggal" required class="w-full p-2 border rounded mt-2">
-          <option value="">Status Tinggal</option>
-          <option>Tinggal dengan Orang Tua</option>
-          <option>Tinggal dengan Suami/Istri</option>
-          <option>Tinggal dengan Keluarga Besar</option>
-          <option>Rumah Milik Sendiri</option>
-          <option>Rumah Kontrak</option>
-          <option>Indekos</option>
-          <option>Tinggal di Majlis</option>
-          <option>Lainnya</option>
-        </select>
-        <div id="nama_pasangan_field" class="hidden">
-          <input name="nama_pasangan" placeholder="Nama Suami/Istri" class="w-full p-2 border rounded mt-2 uppercase" />
-        </div>
-        <div id="pasangan-fields" class="hidden">
-          <input name="jumlah_anak" type="number" placeholder="Jumlah Anak" min="0" class="w-full p-2 border rounded mt-2" />
-          <input name="jumlah_keluarga" type="number" placeholder="Total Jumlah Keluarga yg Tinggal Serumah" min="1" class="w-full p-2 border rounded mt-2" />
-          <p class="text-xs text-gray-500 mt-1">Contoh: Suami, Istri, 2 orang anak, Ibu = 5 orang</p>
-        </div>
-        <div id="izin_suami_field" class="hidden mt-2">
-          <label class="block text-sm">
-            <input type="checkbox" name="izin_suami" class="mr-2">
-            Saya telah mendapatkan persetujuan dari Suami untuk mengikuti kegiatan di MSAH.
-          </label>
-        </div>
-        <select name="pekerjaan" id="pekerjaan" class="w-full p-2 border rounded">
-          <option value="">Pilih Pekerjaan</option>
-          <option value="ASN">ASN</option>
-          <option value="Pelajar/Mahasiswa">Pelajar/Mahasiswa</option>
-          <option value="TNI">TNI</option>
-          <option value="POLRI">POLRI</option>
-          <option value="Karyawan Swasta">Karyawan Swasta</option>
-          <option value="Pedagang">Pedagang</option>
-          <option value="Guru">Guru</option>
-          <option value="Wiraswasta">Wiraswasta</option>
-          <option value="Petani">Petani</option>
-          <option value="Peternak">Peternak</option>
-          <option value="Driver">Driver</option>
-          <option value="Ojol">Ojol</option>
-          <option value="Tenaga Kesehatan">Tenaga Kesehatan</option>
-          <option value="Freelancer">Freelancer</option>
-          <option value="Buruh/Pekerja Harian">Buruh/Pekerja Harian</option>
-          <option value="Pensiunan">Pensiunan</option>
-          <option value="Tidak Bekerja">Tidak Bekerja</option>
-          <option value="lainnya">Lainnya</option>
-        </select>
-        <input type="text" name="pekerjaan_lainnya" id="pekerjaan_lainnya"
-          class="w-full p-2 border rounded mt-2 hidden" placeholder="Tulis Pekerjaan Anda" />
-        <input name="keahlian" placeholder="Keahlian / Skill (Opsional)" class="w-full p-2 border rounded mt-2" />
-        <label class="block mt-4 font-medium">Penghasilan Pribadi per bulan</label>
-        <div class="relative">
-          <span class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-600">Rp</span>
-          <input type="text" id="penghasilan" name="penghasilan" placeholder="Jumlah Penghasilan" class="w-full p-2 pl-10 border rounded" required />
-        </div>
-        <p class="text-xs text-gray-500 mt-1">Mohon diisi jujur sesuai kondisi sebenarnya. Data hanya untuk keperluan internal Majlis dan dijaga kerahasiaannya. Jika tidak berpenghasilan, tulis 0</p>
-        <div id="pekerjaan_suami_field" class="hidden">  
-          <select name="pekerjaan_suami" id="pekerjaan_suami" class="w-full p-2 border rounded mt-2">
-            <option value="">Pilih Pekerjaan Suami</option>
-            <option value="ASN">ASN</option>
-            <option value="TNI">TNI</option>
-            <option value="POLRI">POLRI</option>
-            <option value="Karyawan Swasta">Karyawan Swasta</option>
-            <option value="Pedagang">Pedagang</option>
-            <option value="Guru">Guru</option>
-            <option value="Wiraswasta">Wiraswasta</option>
-            <option value="Petani">Petani</option>
-            <option value="Peternak">Peternak</option>
-            <option value="Driver">Driver</option>
-            <option value="Ojol">Ojol</option>
-            <option value="Tenaga Kesehatan">Tenaga Kesehatan</option>
-            <option value="Freelancer">Freelancer</option>
-            <option value="Buruh">Buruh</option>
-            <option value="Pensiunan">Pensiunan</option>
-            <option value="Tidak Bekerja">Tidak Bekerja</option>
-            <option value="lainnya">Lainnya</option>
-          </select>
-        </div> 
-        <input type="text" name="pekerjaan_suami_lainnya" id="pekerjaan_suami_lainnya"
-          class="w-full p-2 border rounded mt-2 hidden" placeholder="Sebutkan Pekerjaan Suami" />    
-        <div id="penghasilan_suami_field" class="hidden mt-4">
-          <label class="block font-medium">Penghasilan Suami per bulan</label>
-          <div class="relative">
-            <span class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-600">Rp</span>
-            <input type="text" id="penghasilan_suami" name="penghasilan_suami" placeholder="Jumlah Penghasilan Suami per bulan" class="w-full p-2 pl-10 border rounded" />
-          </div>
-          <p class="text-xs text-gray-500 mt-1">Mohon diisi jujur sesuai kondisi sebenarnya. Data hanya untuk keperluan internal Majlis dan dijaga kerahasiaannya. Jika tidak berpenghasilan, tulis 0</p>
-        </div>   
-      
-      <div class="mt-8">
-        <h2 class="text-lg font-semibold border-b pb-1 mb-3">🤝 Komitmen Jamaah</h2>
-        <select name="majlis_wilayah" required class="w-full p-2 border rounded mt-2">
-          <option value="">Pilih Majlis Wilayah / Kabilah</option>
-          <option>Ar-Rahman</option>
-          <option>Ar-Rohim</option>
-          <option>Al-Qudus</option>
-          <option>Al-Malik</option>
-          <option>Nurul Salikin</option>
-          <option>Nurul Kamilah</option>
-          <option>Nurul Hakim</option>
-          <option>Nurul Hikmah</option>
-          <option>Barakotaul Anbiya</option>
-        </select>
-        <input name="tahun_gabung" type="number" min="2000" placeholder="Tahun Kapan Anda Bergabung di MSAH" required class="w-full p-2 border rounded" />
-
-        <label class="block mt-3 font-medium">Infaq Wajib MSAH (Pusat)</label>
-        <select name="infaq_msah" required class="w-full p-2 border rounded">
-          <option value="">Pilih</option>
-          <option>Bersedia</option>
-          <option>Tidak Bersedia</option>
-        </select>
-        <p class="text-xs text-gray-500 mt-1">
-          * Infaq wajib bulanan sebesar <strong>Rp100.000</strong> sesuai ketentuan Majlis Pusat MSAH.
-          <br>* Disetorkan setiap tanggal <strong>28</strong> setiap bulannya.
+        <h1 class="text-2xl md:text-3xl font-bold text-center mb-1 leading-tight">
+          Form Registrasi Ulang Jamaah
+        </h1>
+        <p class="text-sm md:text-base text-center text-gray-600 font-semibold mb-6">
+          Majlis Silaturrahim Al-Asmaul Husna (MSAH)<br/>Periode Tahun 2025 / 1447H
         </p>
-
-        <label class="block mt-3 font-medium">Infaq Wilayah / Kabilah</label>
-        <select name="infaq_wilayah" required class="w-full p-2 border rounded">
-          <option value="">Pilih</option>
-          <option>Bersedia</option>
-          <option>Tidak Bersedia</option>
-        </select>
-        <p class="text-xs text-gray-500 mt-1">
-          * Besaran infaq wilayah mengikuti keputusan Majlis Wilayah / Kabilah masing-masing.
-        </p>
-
-        <div class="mt-4">
-          <p class="text-sm">
-            Kesediaan Menunaikan <strong>ZISWNH</strong> (Zakat, Infak, Shodaqoh, Wakaf, Nafaqoh, Hibah/Hadiah)
-            <br><span class="text-xs text-gray-500">
-              Jumlah nominal sesuai nishab, kemampuan, atau kesepakatan struktural MSAH.
-            </span>
-          </p>
-          <label class="block text-sm mt-2">
-            <input type="checkbox" name="komitmen_ziswnh" required class="mr-2">
-            Saya bersedia menunaikan kewajiban tersebut di MSAH.
-          </label>
-        </div>
-
-        <label class="inline-flex items-start mt-4">
-          <input type="checkbox" name="konfirmasi_ikrar" required class="mt-1" />
-          <span class="ml-2 text-sm leading-snug">
-            Dengan ini saya menyatakan bersedia menjadi jamaah dan mengikuti LIQO maupun kegiatan lainnya di MSAH baik pusat maupun Wilayah dan Kabilah, serta mengikuti aturan dan kewajiban yang berlaku.
-          </span>
-        </label>
-      </div>
-
-      <div class="mt-8">
-        <h2 class="text-lg font-semibold border-b pb-1 mb-3">☎️ Kontak Darurat <span class="text-sm text-gray-500">(Opsional)</span></h2>
-        <input name="nama_kontak_darurat" class="w-full p-2 border rounded" placeholder="Nama Kontak Darurat" />
-        <input name="hubungan_kontak_darurat" class="w-full p-2 border rounded mt-2" placeholder="Hubungan (Ayah/Ibu/Saudara)" />
-        <input name="no_kontak_darurat" id="no_kontak_darurat" class="w-full p-2 border rounded mt-2" placeholder="No. HP Kontak Darurat" />
-      </div>
-
-      <div class="mt-8">
-        <h2 class="text-lg font-semibold border-b pb-1 mb-3">📎 Unggah Dokumen</h2>
         
-        <label class="block mb-2 font-semibold">Upload Foto KTP:</label>
-        <div id="ktpUploadSection">
-            <label class="flex flex-col items-center px-4 py-6 bg-gray-50 rounded-md border-2 border-dashed border-gray-300 cursor-pointer hover:border-blue-500 mb-4">
-                <svg class="w-12 h-12 text-gray-400 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/>
-                </svg>
-                <p class="text-sm text-gray-500">
-                    <span class="font-semibold text-blue-400">Klik untuk upload</span> atau drag & drop
-                </p>
-                <input type="file" id="ktpFileInput" accept="image/*" class="hidden" required>
-            </label>
-        </div>
-        <div id="ktpCropSection" class="hidden">
-            <div class="mb-4">
-                <div class="cropper-container">
-                    <img id="ktpImagePreview" class="block max-w-full">
-                </div>
+        <div class="flex items-center justify-between mb-8">
+            <div id="progress-bar" class="w-full h-2 bg-gray-200 rounded-full overflow-hidden">
+                <div class="h-full bg-blue-500 transition-all duration-500 ease-in-out" style="width: 0%;"></div>
             </div>
-            <div class="flex space-x-2 mb-4">
-                <button id="ktpRotateLeft" type="button" class="px-3 py-1 bg-gray-200 text-gray-800 rounded">
-                    ↺ Rotasi Kiri
-                </button>
-                <button id="ktpRotateRight" type="button" class="px-3 py-1 bg-gray-200 text-gray-800 rounded">
-                    ↻ Rotasi Kanan
-                </button>
-                <button id="ktpResetCrop" type="button" class="px-3 py-1 bg-gray-200 text-gray-800 rounded">
-                    ⟲ Reset
-                </button>
-            </div>
-            <div class="flex justify-between">
-                <button id="ktpCancelCrop" type="button" class="px-4 py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300">
-                    Batal
-                </button>
-                <button id="ktpSaveCrop" type="button" class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600">
-                    Simpan Foto
-                </button>
-            </div>
-        </div>
-        <div id="ktpResultSection" class="hidden mt-4">
-            <p class="font-semibold">Foto KTP berhasil diunggah:</p>
-            <div id="ktpCroppedResult" class="cropped-preview mb-2"></div>
-            <input type="hidden" id="ktpCroppedImageData" name="ktp_file">
-            <button id="ktpChangePhoto" type="button" class="text-sm text-blue-500 hover:underline">
-                Ganti Foto
-            </button>
         </div>
         
-        <label class="block mb-2 font-semibold mt-8">Upload Foto Profil:</label>
-        <div id="fotoUploadSection">
-            <label class="flex flex-col items-center px-4 py-6 bg-gray-50 rounded-md border-2 border-dashed border-gray-300 cursor-pointer hover:border-blue-500 mb-4">
-                <svg class="w-12 h-12 text-gray-400 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/>
-                </svg>
-                <p class="text-sm text-gray-500">
-                    <span class="font-semibold text-blue-400">Klik untuk upload</span> atau drag & drop
-                </p>
-                <input type="file" id="fotoFileInput" accept="image/*" class="hidden" required>
-            </label>
-        </div>
-        <div id="fotoCropSection" class="hidden">
-            <div class="mb-4">
-                <div class="cropper-container">
-                    <img id="fotoImagePreview" class="block max-w-full">
+        <form id="regForm" enctype="multipart/form-data" class="space-y-6">
+            <div id="step-1" class="form-step">
+                <h2 class="text-xl font-bold text-blue-600 mb-4">👤 Identitas Pribadi</h2>
+                <div class="space-y-4">
+                    <input name="nama_ktp" class="w-full p-3 border rounded-lg uppercase focus:ring-2 focus:ring-blue-500" placeholder="Nama Sesuai KTP" required />
+                    <input name="ismu_sulthon" class="w-full p-3 border rounded-lg uppercase focus:ring-2 focus:ring-blue-500" placeholder="Ismu Sulthon" required />
+                    <select name="jenis_kelamin" id="jenis_kelamin" required class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500">
+                        <option value="">Jenis Kelamin</option>
+                        <option>Laki-laki</option>
+                        <option>Perempuan</option>
+                    </select>
+                    <select name="golongan_darah" required class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500">
+                        <option value="">Pilih Golongan Darah</option>
+                        <option value="A">A</option>
+                        <option value="B">B</option>
+                        <option value="AB">AB</option>
+                        <option value="O">O</option>
+                        <option value="Tidak Tahu">Tidak Tahu</option>
+                    </select>
+                    <input name="tempat_lahir" class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500" placeholder="Tempat Lahir" required />
+                    <div class="bg-gray-50 p-3 rounded-lg">
+                        <label class="block text-sm font-medium text-gray-700">Tanggal Lahir</label>
+                        <input name="tanggal_lahir" type="date" placeholder="DD/MM/YYYY" required class="w-full p-2 border-none rounded-lg mt-1" />
+                        <p class="text-xs text-gray-500 mt-1">Untuk mengganti Tahun, Klik kiri paling atas </p>
+                    </div>
+                    <select name="pendidikan" required class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500">
+                        <option value="">Pendidikan Terakhir</option>
+                        <option>SD</option><option>SMP</option><option>SMA</option>
+                        <option>D1</option><option>D2</option><option>D3</option>
+                        <option>S1</option><option>S2</option><option>S3</option>
+                    </select>
+                    <input name="no_wa" id="no_wa" class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500" placeholder="Nomor Whatsapp Aktif" required />
+                    <textarea name="alamat" placeholder="Mohon isi alamat secara lengkap (Jalan, Nomor Rumah, RT/RW, Kelurahan, Kecamatan, Kota/Kabupaten)" required rows="3" class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500"></textarea>
+                </div>
+                <div class="flex justify-end mt-6">
+                    <button type="button" onclick="nextStep(1)" class="px-6 py-3 bg-blue-600 text-white rounded-full font-semibold hover:bg-blue-700 transition">Lanjut</button>
                 </div>
             </div>
-            <div class="flex space-x-2 mb-4">
-                <button id="fotoRotateLeft" type="button" class="px-3 py-1 bg-gray-200 text-gray-800 rounded">
-                    ↺ Rotasi Kiri
-                </button>
-                <button id="fotoRotateRight" type="button" class="px-3 py-1 bg-gray-200 text-gray-800 rounded">
-                    ↻ Rotasi Kanan
-                </button>
-                <button id="fotoResetCrop" type="button" class="px-3 py-1 bg-gray-200 text-gray-800 rounded">
-                    ⟲ Reset
-                </button>
+
+            <div id="step-2" class="form-step hidden">
+                <h2 class="text-xl font-bold text-blue-600 mb-4">>👪 Keluarga & Pekerjaan</h2>
+                <div class="space-y-4">
+                    <select name="status_nikah" id="status_nikah" required class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500">
+                        <option value="">Status Pernikahan</option>
+                        <option>Belum Menikah</option>
+                        <option>Menikah</option>
+                        <option>Cerai Hidup</option>
+                        <option>Cerai Mati</option>
+                    </select>
+                    <select name="status_tinggal" required class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500">
+                        <option value="">Status Tinggal</option>
+                        <option>Tinggal dengan Orang Tua</option>
+                        <option>Tinggal dengan Suami/Istri</option>
+                        <option>Tinggal dengan Keluarga Besar</option>
+                        <option>Rumah Milik Sendiri</option>
+                        <option>Rumah Kontrak</option>
+                        <option>Indekos</option>
+                        <option>Tinggal di Majlis</option>
+                        <option>Lainnya</option>
+                    </select>
+                    <div id="nama_pasangan_field" class="hidden">
+                        <input name="nama_pasangan" placeholder="Nama Suami/Istri" class="w-full p-3 border rounded-lg uppercase focus:ring-2 focus:ring-blue-500" />
+                    </div>
+                    <div id="pasangan-fields" class="hidden space-y-4">
+                        <input name="jumlah_anak" type="number" placeholder="Jumlah Anak" min="0" class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500" />
+                        <input name="jumlah_keluarga" type="number" placeholder="Total Jumlah Keluarga yg Tinggal Serumah" min="1" class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500" />
+                        <p class="text-xs text-gray-500 mt-1">Contoh: Suami, Istri, 2 orang anak, Ibu = 5 orang</p>
+                    </div>
+                    <div id="izin_suami_field" class="hidden mt-2 p-3 bg-yellow-50 rounded-lg border border-yellow-200">
+                        <label class="block text-sm text-yellow-800 font-medium">
+                            <input type="checkbox" name="izin_suami" class="mr-2">
+                            Saya telah mendapatkan persetujuan dari Suami untuk mengikuti kegiatan di MSAH.
+                        </label>
+                    </div>
+                    <select name="pekerjaan" id="pekerjaan" class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500">
+                        <option value="">Pilih Pekerjaan</option>
+                        <option value="ASN">ASN</option>
+                        <option value="Pelajar/Mahasiswa">Pelajar/Mahasiswa</option>
+                        <option value="TNI">TNI</option>
+                        <option value="POLRI">POLRI</option>
+                        <option value="Karyawan Swasta">Karyawan Swasta</option>
+                        <option value="Pedagang">Pedagang</option>
+                        <option value="Guru">Guru</option>
+                        <option value="Wiraswasta">Wiraswasta</option>
+                        <option value="Petani">Petani</option>
+                        <option value="Peternak">Peternak</option>
+                        <option value="Driver">Driver</option>
+                        <option value="Ojol">Ojol</option>
+                        <option value="Tenaga Kesehatan">Tenaga Kesehatan</option>
+                        <option value="Freelancer">Freelancer</option>
+                        <option value="Buruh/Pekerja Harian">Buruh/Pekerja Harian</option>
+                        <option value="Pensiunan">Pensiunan</option>
+                        <option value="Tidak Bekerja">Tidak Bekerja</option>
+                        <option value="lainnya">Lainnya</option>
+                    </select>
+                    <input type="text" name="pekerjaan_lainnya" id="pekerjaan_lainnya" class="w-full p-3 border rounded-lg mt-2 hidden focus:ring-2 focus:ring-blue-500" placeholder="Tulis Pekerjaan Anda" />
+                    <input name="keahlian" placeholder="Keahlian / Skill (Opsional)" class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500" />
+                    <div class="bg-gray-50 p-3 rounded-lg">
+                        <label class="block text-sm font-medium text-gray-700">Penghasilan Pribadi per bulan</label>
+                        <div class="relative mt-1">
+                            <span class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-600">Rp</span>
+                            <input type="text" id="penghasilan" name="penghasilan" placeholder="Jumlah Penghasilan" class="w-full p-2 pl-10 border-none rounded-lg" required />
+                        </div>
+                        <p class="text-xs text-gray-500 mt-1">Mohon diisi jujur, jika tidak berpenghasilan, tulis 0</p>
+                    </div>
+                    <div id="pekerjaan_suami_field" class="hidden">
+                        <select name="pekerjaan_suami" id="pekerjaan_suami" class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500">
+                            <option value="">Pilih Pekerjaan Suami</option>
+                            <option value="ASN">ASN</option>
+                            <option value="TNI">TNI</option>
+                            <option value="POLRI">POLRI</option>
+                            <option value="Karyawan Swasta">Karyawan Swasta</option>
+                            <option value="Pedagang">Pedagang</option>
+                            <option value="Guru">Guru</option>
+                            <option value="Wiraswasta">Wiraswasta</option>
+                            <option value="Petani">Petani</option>
+                            <option value="Peternak">Peternak</option>
+                            <option value="Driver">Driver</option>
+                            <option value="Ojol">Ojol</option>
+                            <option value="Tenaga Kesehatan">Tenaga Kesehatan</option>
+                            <option value="Freelancer">Freelancer</option>
+                            <option value="Buruh">Buruh</option>
+                            <option value="Pensiunan">Pensiunan</option>
+                            <option value="Tidak Bekerja">Tidak Bekerja</option>
+                            <option value="lainnya">Lainnya</option>
+                        </select>
+                        <input type="text" name="pekerjaan_suami_lainnya" id="pekerjaan_suami_lainnya" class="w-full p-3 border rounded-lg mt-2 hidden focus:ring-2 focus:ring-blue-500" placeholder="Sebutkan Pekerjaan Suami" />
+                    </div>
+                    <div id="penghasilan_suami_field" class="hidden">
+                        <div class="bg-gray-50 p-3 rounded-lg">
+                            <label class="block text-sm font-medium text-gray-700">Penghasilan Suami per bulan</label>
+                            <div class="relative mt-1">
+                                <span class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-600">Rp</span>
+                                <input type="text" id="penghasilan_suami" name="penghasilan_suami" placeholder="Jumlah Penghasilan Suami" class="w-full p-2 pl-10 border-none rounded-lg" />
+                            </div>
+                            <p class="text-xs text-gray-500 mt-1">Mohon diisi jujur, jika tidak berpenghasilan, tulis 0</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex justify-between mt-6">
+                    <button type="button" onclick="prevStep(2)" class="px-6 py-3 text-blue-600 rounded-full font-semibold transition">Kembali</button>
+                    <button type="button" onclick="nextStep(2)" class="px-6 py-3 bg-blue-600 text-white rounded-full font-semibold hover:bg-blue-700 transition">Lanjut</button>
+                </div>
             </div>
-            <div class="flex justify-between">
-                <button id="fotoCancelCrop" type="button" class="px-4 py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300">
-                    Batal
+
+            <div id="step-3" class="form-step hidden">
+                <h2 class="text-xl font-bold text-blue-600 mb-4">🤝 Komitmen & Kontak Darurat</h2>
+                <div class="space-y-4">
+                    <select name="majlis_wilayah" required class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500">
+                        <option value="">Pilih Majlis Wilayah / Kabilah</option>
+                        <option>Ar-Rahman</option>
+                        <option>Ar-Rohim</option>
+                        <option>Al-Qudus</option>
+                        <option>Al-Malik</option>
+                        <option>Nurul Salikin</option>
+                        <option>Nurul Kamilah</option>
+                        <option>Nurul Hakim</option>
+                        <option>Nurul Hikmah</option>
+                        <option>Barakotaul Anbiya</option>
+                    </select>
+                    <input name="tahun_gabung" type="number" min="2000" placeholder="Tahun Kapan Anda Bergabung di MSAH" required class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500" />
+                    <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
+                        <label class="block text-sm font-medium text-gray-700">Infaq Wajib MSAH (Pusat)</label>
+                        <select name="infaq_msah" required class="w-full p-2 border rounded-lg mt-2 focus:ring-2 focus:ring-blue-500">
+                            <option value="">Pilih</option>
+                            <option>Bersedia</option>
+                            <option>Tidak Bersedia</option>
+                        </select>
+                        <p class="text-xs text-gray-500 mt-1">
+                          * Infaq wajib bulanan sebesar <strong>Rp100.000</strong> sesuai ketentuan Majlis Pusat MSAH.
+                          <br>* Disetorkan setiap tanggal <strong>28</strong> setiap bulannya.
+                        </p>
+                    </div>
+                    <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
+                        <label class="block text-sm font-medium text-gray-700">Infaq Wilayah / Kabilah</label>
+                        <select name="infaq_wilayah" required class="w-full p-2 border rounded-lg mt-2 focus:ring-2 focus:ring-blue-500">
+                            <option value="">Pilih</option>
+                            <option>Bersedia</option>
+                            <option>Tidak Bersedia</option>
+                        </select>
+                        <p class="text-xs text-gray-500 mt-1">* Besaran infaq mengikuti keputusan Wilayah/Kabilah</p>
+                    </div>
+                    <div class="mt-4 p-4 bg-gray-50 rounded-lg border border-gray-200">
+                        <p class="text-sm font-medium mb-2">Kesediaan Menunaikan ZISWNH</p>
+                        <label class="block text-sm">
+                            <input type="checkbox" name="komitmen_ziswnh" required class="mr-2">
+                            Saya bersedia menunaikan kewajiban tersebut di MSAH.
+                        </label>
+                    </div>
+                    <div class="mt-4">
+                        <h3 class="text-lg font-semibold border-b pb-1 mb-3">☎️ Kontak Darurat</h3>
+                        <input name="nama_kontak_darurat" class="w-full p-3 border rounded-lg uppercase focus:ring-2 focus:ring-blue-500" placeholder="Nama Kontak Darurat" required />
+                        <input name="hubungan_kontak_darurat" class="w-full p-3 border rounded-lg uppercase focus:ring-2 focus:ring-blue-500" placeholder="Hubungan (Ayah/Ibu/Saudara)" required />                        
+                        <input name="no_kontak_darurat" id="no_kontak_darurat" class="w-full p-3 border rounded-lg mt-2" placeholder="No. HP Kontak Darurat" />
+                    </div>
+                </div>
+                <div class="flex justify-between mt-6">
+                    <button type="button" onclick="prevStep(3)" class="px-6 py-3 text-blue-600 rounded-full font-semibold transition">Kembali</button>
+                    <button type="button" onclick="nextStep(3)" class="px-6 py-3 bg-blue-600 text-white rounded-full font-semibold hover:bg-blue-700 transition">Lanjut</button>
+                </div>
+            </div>
+
+            <div id="step-4" class="form-step hidden">
+                <h2 class="text-xl font-bold text-blue-600 mb-4">Langkah 4: Unggah Dokumen</h2>
+                
+                <div class="mb-6 p-4 bg-gray-50 rounded-lg border border-gray-200">
+                    <label class="block mb-2 font-semibold">Upload Foto KTP (Rasio 3:2)</label>
+                    <div id="ktpUploadSection">
+                        <label class="flex flex-col items-center px-4 py-6 bg-white rounded-md border-2 border-dashed border-gray-300 cursor-pointer hover:border-blue-500">
+                            <svg class="w-12 h-12 text-gray-400 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/>
+                            </svg>
+                            <p class="text-sm text-gray-500">
+                                <span class="font-semibold text-blue-400">Klik untuk upload</span> atau drag & drop
+                            </p>
+                            <input type="file" id="ktpFileInput" accept="image/*" class="hidden" required>
+                        </label>
+                    </div>
+                    <div id="ktpCropSection" class="hidden">
+                        <div class="mb-4">
+                            <div class="cropper-container">
+                                <img id="ktpImagePreview" class="block max-w-full">
+                            </div>
+                        </div>
+                        <div class="flex flex-wrap gap-2 justify-center mb-4">
+                            <button id="ktpRotateLeft" type="button" class="px-3 py-1 bg-gray-200 text-gray-800 rounded-lg text-sm">↺ Rotasi Kiri</button>
+                            <button id="ktpRotateRight" type="button" class="px-3 py-1 bg-gray-200 text-gray-800 rounded-lg text-sm">↻ Rotasi Kanan</button>
+                            <button id="ktpResetCrop" type="button" class="px-3 py-1 bg-gray-200 text-gray-800 rounded-lg text-sm">⟲ Reset</button>
+                        </div>
+                        <div class="flex justify-between">
+                            <button id="ktpCancelCrop" type="button" class="px-4 py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300">Batal</button>
+                            <button id="ktpSaveCrop" type="button" class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600">Simpan Foto</button>
+                        </div>
+                    </div>
+                    <div id="ktpResultSection" class="hidden mt-4">
+                        <p class="font-semibold mb-2">Foto KTP berhasil diunggah:</p>
+                        <div id="ktpCroppedResult" class="cropped-preview mb-2"></div>
+                        <input type="hidden" id="ktpCroppedImageData" name="ktp_file">
+                        <button id="ktpChangePhoto" type="button" class="text-sm text-blue-500 hover:underline">Ganti Foto</button>
+                    </div>
+                </div>
+
+                <div class="mb-6 p-4 bg-gray-50 rounded-lg border border-gray-200">
+                    <label class="block mb-2 font-semibold">Upload Foto Profil (Pas Foto 4x6)</label>
+                    <div id="fotoUploadSection">
+                        <label class="flex flex-col items-center px-4 py-6 bg-white rounded-md border-2 border-dashed border-gray-300 cursor-pointer hover:border-blue-500">
+                            <svg class="w-12 h-12 text-gray-400 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/>
+                            </svg>
+                            <p class="text-sm text-gray-500">
+                                <span class="font-semibold text-blue-400">Klik untuk upload</span> atau drag & drop
+                            </p>
+                            <input type="file" id="fotoFileInput" accept="image/*" class="hidden" required>
+                        </label>
+                    </div>
+                    <div id="fotoCropSection" class="hidden">
+                        <div class="mb-4">
+                            <div class="cropper-container">
+                                <img id="fotoImagePreview" class="block max-w-full">
+                            </div>
+                        </div>
+                        <div class="flex flex-wrap gap-2 justify-center mb-4">
+                            <button id="fotoRotateLeft" type="button" class="px-3 py-1 bg-gray-200 text-gray-800 rounded-lg text-sm">↺ Rotasi Kiri</button>
+                            <button id="fotoRotateRight" type="button" class="px-3 py-1 bg-gray-200 text-gray-800 rounded-lg text-sm">↻ Rotasi Kanan</button>
+                            <button id="fotoResetCrop" type="button" class="px-3 py-1 bg-gray-200 text-gray-800 rounded-lg text-sm">⟲ Reset</button>
+                        </div>
+                        <div class="flex justify-between">
+                            <button id="fotoCancelCrop" type="button" class="px-4 py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300">Batal</button>
+                            <button id="fotoSaveCrop" type="button" class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600">Simpan Foto</button>
+                        </div>
+                    </div>
+                    <div id="fotoResultSection" class="hidden mt-4">
+                        <p class="font-semibold mb-2">Foto Profil berhasil diunggah:</p>
+                        <div id="fotoCroppedResult" class="cropped-preview mb-2"></div>
+                        <input type="hidden" id="fotoCroppedImageData" name="foto_file">
+                        <button id="fotoChangePhoto" type="button" class="text-sm text-blue-500 hover:underline">Ganti Foto</button>
+                    </div>
+                </div>
+
+                <div class="mt-8 p-4 bg-green-50 rounded-lg border border-green-200">
+                    <label class="block text-sm text-green-700 font-medium mb-1">✅ Konfirmasi Data</label>
+                    <label class="inline-flex items-start">
+                        <input type="checkbox" name="final_konfirmasi" required class="mt-1" />
+                        <span class="ml-2 text-sm leading-snug text-green-800">
+                            Saya menyatakan bahwa semua data yang saya isi adalah benar dan dapat dipertanggungjawabkan.
+                        </span>
+                    </label>
+                </div>
+                
+                <div class="flex justify-between mt-6">
+                    <button type="button" onclick="prevStep(4)" class="px-6 py-3 text-blue-600 rounded-full font-semibold transition">Kembali</button>
+                    <button type="submit" class="px-6 py-3 bg-green-600 text-white rounded-full font-semibold hover:bg-green-700 transition">Kirim Formulir</button>
+                </div>
+            </div>
+            
+            <p id="status" class="text-center text-sm text-red-600 mt-4"></p>
+        </form>
+
+        <div id="successModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+            <div class="bg-white p-6 rounded-2xl shadow-2xl text-center animate-bounce-in-down max-w-sm w-full">
+                <div class="text-green-600 text-4xl mb-3">🤲</div>
+                <h3 class="text-xl font-bold mb-2 text-green-700">Alhamdulillah, Registrasi Berhasil!</h3>
+                <p class="text-sm text-gray-700 mb-4 leading-relaxed">
+                    Data antum/anti telah kami terima.<br />
+                    Silakan konfirmasi ke Admin Majlis melalui WhatsApp.
+                </p>
+                <button onclick="chatAdminWA()" class="bg-green-600 text-white px-4 py-2 rounded-full hover:bg-green-700 transition mb-2">
+                    Klik Disini untuk Konfirmasi ke Admin
                 </button>
-                <button id="fotoSaveCrop" type="button" class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600">
-                    Simpan Foto
-                </button>
+                <button onclick="closeModal()" class="text-sm text-gray-500 hover:underline">Tutup</button>
             </div>
         </div>
-        <div id="fotoResultSection" class="hidden mt-4">
-            <p class="font-semibold">Foto Profil berhasil diunggah:</p>
-            <div id="fotoCroppedResult" class="cropped-preview mb-2"></div>
-            <input type="hidden" id="fotoCroppedImageData" name="foto_file">
-            <button id="fotoChangePhoto" type="button" class="text-sm text-blue-500 hover:underline">
-                Ganti Foto
-            </button>
-        </div>
-      </div>
 
-      <div class="mt-4">
-        <label class="block text-sm text-gray-700 font-medium mb-1">✅ Konfirmasi Data</label>
-        <label class="inline-flex items-start">
-          <input type="checkbox" name="final_konfirmasi" required class="mt-1" />
-          <span class="ml-2 text-sm leading-snug">
-            Saya menyatakan bahwa semua data yang saya isi adalah benar dan dapat dipertanggungjawabkan.
-          </span>
-        </label>
-      </div>
-
-      <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 mt-6">Kirim Formulir</button>
-      <p id="status" class="text-center text-sm text-green-600 mt-4"></p>
-    </form>
-
-    <div id="successModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-      <div class="bg-white p-6 rounded-2xl shadow-2xl text-center animate-bounce-in-down max-w-sm w-full">
-        <div class="text-green-600 text-4xl mb-3">🤲</div>
-        <h3 class="text-xl font-bold mb-2 text-green-700">Alhamdulillah, Registrasi Berhasil!</h3>
-        <p class="text-sm text-gray-700 mb-4 leading-relaxed">
-          Data antum/anti telah kami terima.<br />
-          Silakan konfirmasi ke Admin Majlis melalui WhatsApp.
-        </p>
-        <button onclick="chatAdminWA()" class="bg-green-600 text-white px-4 py-2 rounded-full hover:bg-green-700 transition mb-2">
-          Klik Disini untuk Konfirmasi ke Admin
-        </button>
-        <button onclick="closeModal()" class="text-sm text-gray-500 hover:underline">Tutup</button>
-      </div>
     </div>
 
+    <p class="text-center text-xs text-gray-500 mt-8">
+        © 2025 Majlis Silaturrahim Al-Asmaul Husna | Developed by Munadil.
+    </p>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.js"></script>
-  <script src="script.js"></script>
-  <p class="text-center text-xs text-gray-500 mt-8">
-    © 2025 Majlis Silaturrahim Al-Asmaul Husna | Developed by Munadil.
-  </p>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>

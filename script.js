@@ -2,6 +2,59 @@
 // =================== LOGIKA FORM REGISTRASI MSAH ====================
 // ====================================================================
 
+// --- LOGIKA MULTI-STEP FORM ---
+let currentStep = 1;
+const totalSteps = 4;
+
+function updateProgress() {
+  const progressBar = document.getElementById('progress-bar').querySelector('div');
+  const progress = (currentStep - 1) / (totalSteps - 1) * 100;
+  progressBar.style.width = `${progress}%`;
+}
+
+function showStep(step) {
+  document.querySelectorAll('.form-step').forEach(s => s.classList.add('hidden'));
+  document.getElementById(`step-${step}`).classList.remove('hidden');
+  currentStep = step;
+  updateProgress();
+}
+
+function validateStep(step) {
+  const currentStepElement = document.getElementById(`step-${step}`);
+  const requiredInputs = currentStepElement.querySelectorAll('[required]');
+  
+  for (const input of requiredInputs) {
+    if (!input.value.trim() || (input.type === 'checkbox' && !input.checked)) {
+      alert(`Mohon lengkapi semua data di Langkah ${step}.`);
+      input.focus();
+      return false;
+    }
+  }
+
+  // Khusus untuk langkah 4, validasi foto
+  if (step === 4) {
+    const ktpData = document.getElementById('ktpCroppedImageData').value;
+    const fotoData = document.getElementById('fotoCroppedImageData').value;
+    if (!ktpData || !fotoData) {
+      alert('Mohon unggah dan simpan foto KTP dan Foto Profil terlebih dahulu.');
+      return false;
+    }
+  }
+  
+  return true;
+}
+
+function nextStep(step) {
+  if (validateStep(step)) {
+    showStep(step + 1);
+  }
+}
+
+function prevStep(step) {
+  showStep(step - 1);
+}
+
+
 // --- TOGGLE TAMPILAN BERDASARKAN STATUS PERNIKAHAN DAN GENDER ---
 function toggleStatusNikah() {
   const status = document.getElementById('status_nikah').value;
@@ -153,7 +206,6 @@ function initializeCropper(fileInputId, uploadSectionId, cropSectionId, imagePre
   });
   changePhotoBtn.addEventListener('click', () => { showUpload(); });
   
-  // Panggil showUpload() di awal
   showUpload();
 }
 
@@ -163,23 +215,16 @@ const form = document.getElementById('regForm');
 const statusText = document.getElementById('status');
 const successModal = document.getElementById('successModal');
 
+// Variabel untuk menyimpan data nama sebelum form di-reset
+let storedNamaKtp, storedIsmuSulthon, storedMajlisPilihan;
+
 // Fungsi untuk menampilkan loading spinner
 function showLoadingSpinner() {
   const spinnerHTML = `
     <div id="loadingOverlay" class="fixed inset-0 z-50 flex items-center justify-center bg-gray-900 bg-opacity-50">
-      <div class="animate-spin rounded-full h-32 w-32 border-t-4 border-b-4 border-blue-500"></div>
-    </div>
-  `;
-  document.body.insertAdjacentHTML('beforeend', spinnerHTML);
-}
-// Fungsi untuk menampilkan loading dengan teks
-function showLoadingSpinner() {
-  const spinnerHTML = `
-    <div id="loadingOverlay" class="fixed inset-0 z-50 flex items-center justify-center bg-gray-900 bg-opacity-50">
       <div class="text-center">
-        <p class="text-white text-xl font-semibold mb-2 animate-fade-in-out">
-          Sedang memproses...
-        </p>
+        <div class="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-blue-500 mb-4"></div>
+        <p class="text-white text-xl font-semibold mb-2">Sedang memproses...</p>
         <p class="text-white text-sm">Mohon tunggu sebentar.</p>
       </div>
     </div>
@@ -187,48 +232,63 @@ function showLoadingSpinner() {
   document.body.insertAdjacentHTML('beforeend', spinnerHTML);
 }
 
+// Fungsi untuk menyembunyikan loading spinner
+function hideLoadingSpinner() {
+  const loadingOverlay = document.getElementById('loadingOverlay');
+  if (loadingOverlay) {
+    loadingOverlay.remove();
+  }
+}
+
 // Fungsi untuk menampilkan popup sukses
 function showSuccessModal() {
   successModal.classList.remove('hidden');
 }
 
-// Fungsi untuk menutup modal (terhubung ke tombol di HTML)
+// Fungsi untuk menutup modal
 function closeModal() {
   successModal.classList.add('hidden');
 }
 
 // Fungsi untuk tombol konfirmasi ke WhatsApp (terhubung ke tombol di HTML)
 function chatAdminWA() {
-  const namaJamaah = form.querySelector('input[name="nama_ktp"]').value.trim();
-  const adminNumber = "62816787977";
-  const waText = encodeURIComponent(
-    `Assalamualaikum, Kang Admin, saya ${namaJamaah} sudah mengisi form registrasi jamaah MSAH periode 1447H.`
-  );
-  window.open(`https://wa.me/${adminNumber}?text=${waText}`, '_blank');
-  closeModal();
+    const adminNumber = "62816787977";
+    const waText = encodeURIComponent(
+        `Assalamualaikum, Kang Admin, saya telah selesai mengisi formulir registrasi ulang jamaah Majlis Silaturrahim Al-Asmaul Husna.\n\nNama KTP: ${storedNamaKtp}\nNama Sulthon: ${storedIsmuSulthon}\nMajlis: ${storedMajlisPilihan}`
+    );
+    window.open(`https://wa.me/${adminNumber}?text=${waText}`, '_blank');
+    closeModal();
+    form.reset(); // Form di-reset setelah konfirmasi WhatsApp
 }
 
 form.addEventListener('submit', async (e) => {
   e.preventDefault();
   
+  if (!validateStep(totalSteps)) {
+      return;
+  }
+
   showLoadingSpinner();
   
-  const namaKTP = form.querySelector('input[name="nama_ktp"]').value.trim();
+  // Ambil nilai nama dan ismu sulthon SEBELUM form di-reset
+  storedNamaKtp = form.querySelector('input[name="nama_ktp"]').value.trim();
+  storedIsmuSulthon = form.querySelector('input[name="ismu_sulthon"]').value.trim();
+  storedMajlisPilihan = form.querySelector('select[name="majlis_pilihan"]').value.trim(); // <-- AMBIL NILAI MAJLIS DI SINI
+
   const formData = new FormData(form);
 
-  // Perbaiki pengiriman data foto agar sesuai
   const croppedKTP = document.getElementById('ktpCroppedImageData').value;
   const croppedFoto = document.getElementById('fotoCroppedImageData').value;
 
   if (croppedKTP) {
     formData.set('ktp_file', croppedKTP.split(',')[1]);
-    formData.append('ktp_file_name', `${namaKTP}_KTP.jpg`);
+    formData.append('ktp_file_name', `${storedNamaKtp}_KTP.jpg`);
     formData.append('ktp_file_type', 'image/jpeg');
   }
 
   if (croppedFoto) {
     formData.set('foto_file', croppedFoto.split(',')[1]);
-    formData.append('foto_file_name', `${namaKTP}_FOTO.jpg`);
+    formData.append('foto_file_name', `${storedNamaKtp}_FOTO.jpg`);
     formData.append('foto_file_type', 'image/jpeg');
   }
   
@@ -240,11 +300,11 @@ form.addEventListener('submit', async (e) => {
 
     const result = await response.text();
 
-    hideLoadingSpinner(); // Sembunyikan spinner setelah respons
+    hideLoadingSpinner();
     
     if (result === "Success") {
-      form.reset();
-      showSuccessModal();
+      showSuccessModal(); // Tampilkan modal
+      showStep(1); // Kembali ke langkah pertama setelah sukses
     } else {
       statusText.classList.remove('text-green-600');
       statusText.classList.add('text-red-600');
@@ -253,7 +313,7 @@ form.addEventListener('submit', async (e) => {
 
   } catch (error) {
     console.error(error);
-    hideLoadingSpinner(); // Sembunyikan spinner jika terjadi error
+    hideLoadingSpinner();
     statusText.classList.remove('text-green-600');
     statusText.classList.add('text-red-600');
     statusText.innerText = "❌ Gagal mengirim data. Silakan periksa koneksi Anda.";
@@ -265,26 +325,26 @@ form.addEventListener('submit', async (e) => {
 // ==================== INISIALISASI PADA AWAL LOAD ===================
 // ====================================================================
 document.addEventListener('DOMContentLoaded', () => {
-  // Inisialisasi cropper untuk KTP (aspek rasio 16:9)
+  // Inisialisasi cropper untuk KTP (aspek rasio 3:2)
   initializeCropper(
     'ktpFileInput', 'ktpUploadSection', 'ktpCropSection', 'ktpImagePreview',
     'ktpResultSection', 'ktpCroppedResult', 'ktpCroppedImageData',
     'ktpRotateLeft', 'ktpRotateRight', 'ktpResetCrop', 'ktpCancelCrop',
-    'ktpSaveCrop', 'ktpChangePhoto', 3 / 2
+    'ktpSaveCrop', 'ktpChangePhoto', 1.586 
   );
 
-  // Inisialisasi cropper untuk Foto Profil (aspek rasio 1:1)
+  // Inisialisasi cropper untuk Foto Profil (aspek rasio 2:3 untuk pas foto)
   initializeCropper(
     'fotoFileInput', 'fotoUploadSection', 'fotoCropSection', 'fotoImagePreview',
     'fotoResultSection', 'fotoCroppedResult', 'fotoCroppedImageData',
     'fotoRotateLeft', 'fotoRotateRight', 'fotoResetCrop', 'fotoCancelCrop',
-    'fotoSaveCrop', 'fotoChangePhoto', 1
+    'fotoSaveCrop', 'fotoChangePhoto', 3 / 4
   );
 
   // Menambahkan event listener ke elemen-elemen form
   document.getElementById('status_nikah').addEventListener('change', toggleStatusNikah);
   document.getElementById('jenis_kelamin').addEventListener('change', toggleStatusNikah);
-  document.getElementById('pekerjaan').addEvetListener('change', () => toggleOtherJobInput('pekerjaan', 'pekerjaan_lainnya'));
+  document.getElementById('pekerjaan').addEventListener('change', () => toggleOtherJobInput('pekerjaan', 'pekerjaan_lainnya'));
   document.getElementById('pekerjaan_suami').addEventListener('change', () => toggleOtherJobInput('pekerjaan_suami', 'pekerjaan_suami_lainnya'));
   document.getElementById('no_wa').addEventListener('input', (e) => formatPhoneNumber(e.target));
   document.getElementById('no_kontak_darurat').addEventListener('input', (e) => formatPhoneNumber(e.target));
@@ -292,5 +352,6 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('penghasilan_suami').addEventListener('input', (e) => formatCurrency(e.target));
 
   // Panggil fungsi inisialisasi untuk memastikan tampilan awal sudah benar
+  showStep(1);
   toggleStatusNikah();
 });

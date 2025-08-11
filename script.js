@@ -279,6 +279,12 @@ form.addEventListener('submit', async (e) => {
   storedMajlisPilihan = majlisPilihanElement ? majlisPilihanElement.value.trim() : '';
 
   const formData = new FormData(form);
+   const ikrarCheckbox = document.querySelector('input[name="ikrar_jamaah"]');
+  if (ikrarCheckbox && ikrarCheckbox.checked) {
+      formData.set('ikrar_jamaah', 'Ya, Saya bersedia');
+  } else {
+      formData.set('ikrar_jamaah', 'TIDAK');
+  }
 
   const croppedKTP = document.getElementById('ktpCroppedImageData').value;
   const croppedFoto = document.getElementById('fotoCroppedImageData').value;

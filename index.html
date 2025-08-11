@@ -209,33 +209,46 @@
                         <option>Nurul Hikmah</option>
                         <option>Barakotaul Anbiya</option>
                     </select>
-                    <input name="tahun_gabung" type="number" min="2000" placeholder="Tahun Kapan Anda Bergabung di MSAH" required class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500" />
-                    <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
-                        <label class="block text-sm font-medium text-gray-700">Infaq Wajib MSAH (Pusat)</label>
-                        <select name="infaq_msah" required class="w-full p-2 border rounded-lg mt-2 focus:ring-2 focus:ring-blue-500">
-                            <option value="">Pilih</option>
-                            <option>Bersedia</option>
-                            <option>Tidak Bersedia</option>
-                        </select>
-                        <p class="text-xs text-gray-500 mt-1">
-                          * Infaq wajib bulanan sebesar <strong>Rp100.000</strong> sesuai ketentuan Majlis Pusat MSAH.
-                          <br>* Disetorkan setiap tanggal <strong>28</strong> setiap bulannya.
+                    <input name="tahun_gabung" type="number" min="1990" placeholder="Tahun Kapan Anda Bergabung di MSAH" required class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500" />
+                       <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Infaq Wajib MSAH (Pusat)</label>
+                        <p class="text-xs text-gray-500 mb-2">
+                            Infaq wajib bulanan sebesar <strong>Rp100.000</strong> sesuai ketentuan Majlis Pusat MSAH. Disetorkan setiap tanggal <strong>28</strong> setiap bulannya.
                         </p>
+                        <label class="inline-flex items-center">
+                            <input type="checkbox" name="infaq_msah" class="form-checkbox text-blue-600 rounded" value="Bersedia" />
+                            <span class="ml-2 text-sm text-gray-700">Saya Bersedia</span>
+                        </label>
                     </div>
-                    <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
-                        <label class="block text-sm font-medium text-gray-700">Infaq Wilayah / Kabilah</label>
-                        <select name="infaq_wilayah" required class="w-full p-2 border rounded-lg mt-2 focus:ring-2 focus:ring-blue-500">
-                            <option value="">Pilih</option>
-                            <option>Bersedia</option>
-                            <option>Tidak Bersedia</option>
-                        </select>
-                        <p class="text-xs text-gray-500 mt-1">* Besaran infaq mengikuti keputusan Wilayah/Kabilah</p>
+
+                    <div class="bg-gray-50 p-4 rounded-lg border border-gray-200 mt-4">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Infaq Wilayah / Kabilah</label>
+                        <p class="text-xs text-gray-500 mb-2">
+                            Besaran infaq mengikuti keputusan Wilayah/Kabilah.
+                        </p>
+                        <label class="inline-flex items-center">
+                            <input type="checkbox" name="infaq_wilayah" class="form-checkbox text-blue-600 rounded" value="Bersedia" />
+                            <span class="ml-2 text-sm text-gray-700">Saya Bersedia</span>
+                        </label>
                     </div>
                     <div class="mt-4 p-4 bg-gray-50 rounded-lg border border-gray-200">
-                        <p class="text-sm font-medium mb-2">Kesediaan Menunaikan ZISWNH</p>
+                        <p class="text-sm font-medium mb-2">Kesediaan Menunaikan ZISWNH (Zakat, Infak, Shodaqoh, Wakaf, Nafaqoh, Hibah)</p>
+                        <p class="text-xs text-gray-500 mb-2">
+                            Jumlah nominal sesuai dengan nishab, kemampuan, atau kesepakatan struktural Majlis Pusat MSAH.
+                        </p>
                         <label class="block text-sm">
                             <input type="checkbox" name="komitmen_ziswnh" required class="mr-2">
                             Saya bersedia menunaikan kewajiban tersebut di MSAH.
+                        </label>
+                    </div>
+                    <div class="mt-4 p-4 bg-blue-50 rounded-lg border border-blue-200">
+                        <p class="text-sm font-medium text-blue-800 mb-2">Ikrar Jamaah</p>
+                        <p class="text-sm text-blue-700 leading-snug mb-3">
+                            Dengan ini saya menyatakan bersedia menjadi jamaah MSAH dan mengikuti LIQO kegiatan HAROKAH & THORIQOH maupun kegiatan kemajlisan lainnya, baik di tingkat pusat maupun wilayah/kabilah, serta bersedia mematuhi semua aturan dan kewajiban yang berlaku.
+                        </p>
+                        <label class="inline-flex items-center text-sm">
+                            <input type="checkbox" name="ikrar_jamaah" required class="mt-1">
+                            <span class="ml-2 text-blue-800">Saya bersedia</span>
                         </label>
                     </div>
                     <div class="mt-4">
